@@ -25,7 +25,7 @@ services:
        WORDPRESS_DB_PASSWORD: wordpress
      working_dir: /var/www/html
      volumes:
-       - /Users/christofferohman/desktop/projects/WORDPRESS/quiz_app/wp-content:/var/www/html/wp-content
-       - /Users/christofferohman/desktop/projects/WORDPRESS/quiz_app/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+       - /Users/christofferohman/desktop/projects/WORDPRESS/wordpress-starter/wp-content:/var/www/html/wp-content
+       - /Users/christofferohman/desktop/projects/WORDPRESS/wordpress-starter/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
 volumes:
     db_data:
