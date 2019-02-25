@@ -2,7 +2,8 @@ const dotenv = require('dotenv').config({path: __dirname + '/.env'}),
 			path = require('path'),
 			webpack = require('webpack'),
 			UglifyJsPlugin = require('uglifyjs-webpack-plugin'),
-			MiniCssExtractPlugin = require('mini-css-extract-plugin');
+			MiniCssExtractPlugin = require('mini-css-extract-plugin'),
+			OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = env => {
 	return {
@@ -13,7 +14,12 @@ module.exports = env => {
 		},
 		optimization: {
 			minimize: true,
-			minimizer: [ new UglifyJsPlugin() ]
+			minimizer: [ new UglifyJsPlugin({
+				cache: true,
+				parallel: true,
+				sourceMap: true
+			}),
+			new OptimizeCSSAssetsPlugin({}) ]
 		},
 		devtool: 'inline-source-map',
 		module: {

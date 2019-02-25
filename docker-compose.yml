@@ -1,4 +1,4 @@
-wordpress:
+wordpress-starter:
   image: wordpress
   links:
     - wordpress_db:mysql
