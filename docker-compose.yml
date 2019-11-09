@@ -3,7 +3,8 @@ wordpress-starter:
   links:
     - wordpress_db:mysql
   volumes:
-    - ~/desktop/projects/WORDPRESS/wordpress-starter/wp-content/:/var/www/html/wp-content
+    - ~/desktop/projects/WORDPRESS/wordpress/wp/wp-content/plugins/:/var/www/html/wp-content/plugins/
+    - ~/desktop/projects/WORDPRESS/wordpress/wp/wp-content/themes/:/var/www/html/wp-content/themes/
   ports:
     - 80:80
 wordpress_db:
@@ -18,4 +19,4 @@ phpmyadmin:
     - 81:80
   environment:
     MYSQL_USERNAME: root
-    MYSQL_ROOT_PASSWORD: examplepass  
+    MYSQL_ROOT_PASSWORD: examplepass
