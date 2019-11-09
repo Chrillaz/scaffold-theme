@@ -1,15 +1,14 @@
 const path = require('path'),
-			UglifyJsPlugin = require('uglifyjs-webpack-plugin'),
-			OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'),
-			MiniCssExtractPlugin = require('mini-css-extract-plugin'),
-			StyleLintPlugin = require('stylelint-webpack-plugin'),
-			BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
-			SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+	UglifyJsPlugin = require('uglifyjs-webpack-plugin'),
+	OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'),
+	MiniCssExtractPlugin = require('mini-css-extract-plugin'),
+	StyleLintPlugin = require('stylelint-webpack-plugin'),
+	BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
+	SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 module.exports = (env, argv) => {
 	const { mode } = argv,
 		projectName = process.env.PWD.split('/').pop();
-	console.log(projectName);
 
 	return {
 		context: __dirname,
