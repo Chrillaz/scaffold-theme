@@ -1,0 +1,29 @@
+{
+  "name": "chrillaz/wordpress-starter",
+  "description": "wordpress starter",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Christoffer Öhman",
+      "email": "totalchriz@gmail.com"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "require": {
+    "wpackagist-plugin/advanced-custom-fields":"5.8.8",
+    "wpackagist-plugin/wordpress-seo":"13.2"
+  },
+  "extra": {
+    "installer-paths": {
+      "plugins/{$name}": [
+        "wpackagist-plugin/advanced-custom-fields",
+        "wpackagist-plugin/wordpress-seo"
+      ]
+    }
+  }
+}

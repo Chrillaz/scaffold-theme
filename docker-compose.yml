@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
+      MYSQL_USER: ${WORDPRESS_DB_NAME}
+      MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:  
+      - ./config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./app/:/var/www/html/wp-content/themes/"WORDPRESS_THEME_NAME"/
+      - ./uploads:/var/www/html/wp-content/uploads
+      - ./plugins:/var/www/html/wp-content/plugins
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_NAME}  
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "3001:80"
+    environment:
+      PMA_HOST: db
+
+volumes:
+  db_data:
