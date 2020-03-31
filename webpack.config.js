@@ -3,8 +3,7 @@ const path = require('path'),
 			MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env, argv) => {
-	const { mode } = argv,
-				projectName = process.env.PWD.split('/').pop();
+	const { mode } = argv;
 
 	return {
 		context: __dirname,
@@ -12,7 +11,7 @@ module.exports = (env, argv) => {
 		entry: {
 			main: [
       	'./resources/scripts/main.ts',
-      	'./resources/styles/scss/bootstrap.scss'
+      	'./resources/styles/main.scss'
 			]
 		},
 		module: {
