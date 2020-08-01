@@ -6,17 +6,51 @@
  * @package
  */
 
-define('THEME_VERSION', '1.0.0');
-define('THEME_NAME', 'THEME NAME');
+var_dump('<pre>', ABSPATH . 'wp-content/themes/My-THEME', '</pre>');
+/**
+ * Class autoloader
+ */
+require get_theme_file_path( 'includes/class-autoloader.php' );
+
+new Autoloader( 'Theme', get_theme_file_path( DIRECTORY_SEPARATOR ) );
 
 /**
- * Enqueue scripts and styles.
+ * Theme globals and settings
  */
-add_action('wp_enqueue_scripts', function () {
+require_once get_theme_file_path( 'settings/settings.php' );
 
-  wp_enqueue_style('style', get_stylesheet_uri());
+/**
+ * Define them template root
+ * 
+ * Enqueue theme assets
+ * 
+ * Register theme feature support
+ */
+require_once get_theme_file_path( 'setup.php' );
 
-  wp_enqueue_style( 'dashicons' );
+/**
+ * Theme helper functions
+ */
+require_once get_theme_file_path( 'resources/helpers.php' );
 
-  wp_enqueue_script('main', get_template_directory_uri() . '/assets/js/main.min.js', null, THEME_VERSION, true);
-}, 100);
+/**
+ * Theme template hooks
+ */
+require_once get_theme_file_path( 'resources/hooks.php' );
+
+/**
+ * Theme Filters
+ */
+require get_theme_file_path( 'resources/filters.php' );
+
+/**
+ * Theme Actions
+ */
+require get_theme_file_path( 'resources/actions.php' );
+
+/**
+ * Image Lazy loading
+ * 
+ * Intercepts images and sets lazy data attributes
+ */
+// LazyLoader::init();

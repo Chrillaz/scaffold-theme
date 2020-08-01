@@ -19,17 +19,22 @@ services:
     image: wordpress:latest
     restart: always
     ports:
-      - "8080:80"
+      - "8888:80"
     volumes:  
       - ./config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-      - ./app/:/var/www/html/wp-content/themes/"WORDPRESS_THEME_NAME"/
+      - ./app/:/var/www/html/wp-content/themes/My-THEME/
       - ./uploads:/var/www/html/wp-content/uploads
       - ./plugins:/var/www/html/wp-content/plugins
+      - ./mu-plugins:/var/www/html/wp-content/mu-plugins
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: ${WORDPRESS_DB_NAME}  
       WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_DEBUG: ${WORDPRESS_DEBUG}
+      WORDPRESS_ADDITIONAL_CONFIG: |
+        
+        define( 'TEMPLATEPATH', ABSPATH . 'wp-content/themes/My-THEME/views' );
 
   phpmyadmin:
     depends_on:
@@ -37,7 +42,7 @@ services:
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
-      - "3001:80"
+      - "3005:80"
     environment:
       PMA_HOST: db
 

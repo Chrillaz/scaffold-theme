@@ -10,8 +10,8 @@ module.exports = (env, argv) => {
 		devtool: mode ? 'source-map' : false,
 		entry: {
 			main: [
-      	'./resources/scripts/main.ts',
-      	'./resources/styles/main.scss'
+      	'./src/scripts/main.ts',
+      	'./src/styles/main.scss'
 			]
 		},
 		module: {
