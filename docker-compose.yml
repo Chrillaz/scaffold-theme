@@ -3,15 +3,13 @@ version: '3.7'
 services:
 
   db:
-    image: mysql:5.7
-    restart: always
+    build:
+      context: .
     environment:
       MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
       MYSQL_USER: ${WORDPRESS_DB_NAME}
       MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${WORDPRESS_DB_PASSWORD}
-    volumes:
-      - db_data:/var/lib/mysql
 
   wordpress:
     depends_on:
@@ -21,8 +19,8 @@ services:
     ports:
       - "8888:80"
     volumes:  
-      - ./config/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-      - ./app/:/var/www/html/wp-content/themes/My-THEME/
+      - ./config/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./app/:/var/www/html/wp-content/themes/${THEME_NAME}/
       - ./uploads:/var/www/html/wp-content/uploads
       - ./plugins:/var/www/html/wp-content/plugins
       - ./mu-plugins:/var/www/html/wp-content/mu-plugins
@@ -32,9 +30,7 @@ services:
       WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
       WORDPRESS_DEBUG: ${WORDPRESS_DEBUG}
-      WORDPRESS_ADDITIONAL_CONFIG: |
-        
-        define( 'TEMPLATEPATH', ABSPATH . 'wp-content/themes/My-THEME/views' );
+      WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX}
 
   phpmyadmin:
     depends_on:
@@ -45,6 +41,3 @@ services:
       - "3005:80"
     environment:
       PMA_HOST: db
-
-volumes:
-  db_data:

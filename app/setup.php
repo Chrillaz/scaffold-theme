@@ -5,16 +5,17 @@ use \Theme\includes\{ Scripts_Loader, Route };
 /**
  * Define template root to views folder
  */
-add_filter( 'template_directory', function ( $template_dir, $template, $template_root ) {
+// add_filter( 'template_directory', function ( $template_dir, $template, $template_root ) {
+//   var_dump('<pre>', 'HEJ', '</pre>');
   
-  if ( defined( 'TEMPLATEPATH' ) && ! strpos( TEMPLATEPATH, THEME_TEMPLATE_DIR ) ) {
+//   if ( defined( 'TEMPLATEPATH' ) && ! strpos( TEMPLATEPATH, 'wdwd' ) ) {
 
-    wp_die( 'TEMPLATEPATH must be defined in wp-config.php, to point to ' . THEME_TEMPLATE_DIR . ' dir' );
-  }
+//     wp_die( 'TEMPLATEPATH must be defined in wp-config.php, to point to ' . THEME_TEMPLATE_DIR . ' dir' );
+//   }
+// var_dump('<pre>', TEMPLATEPATH, '</pre>');
+//   return TEMPLATEPATH;
 
-  return TEMPLATEPATH;
-
-}, 10, 3);
+// }, 10, 3);
 
 // add_action( 'init', function () {
 
