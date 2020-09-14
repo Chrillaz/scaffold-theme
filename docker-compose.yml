@@ -3,30 +3,29 @@ version: '3.7'
 services:
 
   db:
-    build:
-      context: .
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - db_volume:/var/lib/mysql
     environment:
       MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
-      MYSQL_USER: ${WORDPRESS_DB_NAME}
+      MYSQL_USER: ${WORDPRESS_DB_USER}
       MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${WORDPRESS_DB_PASSWORD}
 
   wordpress:
     depends_on:
       - db
-    image: wordpress:latest
+    image: wordpress:${WORDPRESS_CORE_VERSION}
     restart: always
     ports:
-      - "8888:80"
+      - "3000:80"
     volumes:  
       - ./config/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-      - ./app/:/var/www/html/wp-content/themes/${THEME_NAME}/
-      - ./uploads:/var/www/html/wp-content/uploads
-      - ./plugins:/var/www/html/wp-content/plugins
-      - ./mu-plugins:/var/www/html/wp-content/mu-plugins
+      - ./:/var/www/html/wp-content/
     environment:
       WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: ${WORDPRESS_DB_NAME}  
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}  
       WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
       WORDPRESS_DEBUG: ${WORDPRESS_DEBUG}
@@ -38,6 +37,10 @@ services:
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
-      - "3005:80"
+      - "3001:80"
     environment:
       PMA_HOST: db
+      UPLOAD_LIMIT: ${PMA_UPLOAD_LIMIT}
+
+  volumes:
+    db_volume:
