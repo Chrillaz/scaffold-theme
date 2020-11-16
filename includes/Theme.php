@@ -14,7 +14,7 @@ class Theme {
 
   public function __construct () {
   
-    $this->settings = apply_filters( 'chrillaz/default_settings', asset( '/settings.json', false, true )->contents );
+    $this->settings = apply_filters( 'chrillaz/default_settings', asset( '/../settings.json', false, true )->contents );
 
     $this->loader = new Loader();
 
@@ -111,24 +111,5 @@ class Theme {
   public function getAssets(): AssetLoader {
 
     return $this->assets;
-  }
-
-  /**
-   * addScripts
-   * 
-   * @param Closure $callback
-   * 
-   * @return Closure
-   */
-  public function addScripts ( $callback ) {
-
-    $assetPath = $this->assets->assetPath();
-
-    $themeVersion = $this->getTheme( 'Version' );
-
-    if ( is_object( $callback) && is_callable( $callback ) ) {
-
-      return call_user_func_array( $callback, [ $assetPath, $themeVersion ] );
-    }
   }
 }

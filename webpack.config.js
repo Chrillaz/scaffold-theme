@@ -47,10 +47,10 @@ module.exports = (env, argv) => {
     context,
     devtool: development ? 'cheap-module-source-map' : 'source-map',
     entry: { 
-      main: './js/src/index.ts',
+      main: './js/src/main.ts',
       // editor: './js/src/editor.js',
-      // 'style': './scss/main.scss',
-      // 'style-editor': './scss/editor.scss',
+      'style': './scss/style.scss',
+      'style-editor': './scss/styleEditor.scss',
       // 'font': './scss/fontface.scss'
     },
     output: {

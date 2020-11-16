@@ -1,5 +1,7 @@
 <?php
 
+use function Chrillaz\asset;
+
 if ( ! file_exists( $autoload = __DIR__ . '/vendor/autoload.php' ) ) {
 
   wp_die( __( '', wp_get_theme()->get( 'TextDomain' ) ) );
@@ -11,20 +13,12 @@ $theme = new Chrillaz\Bootstrap();
 
 /**
  * Add scripts and styles
- * 
- * Receives get_template_directory_uri() . '/assets
- * 
- * @param string $path
- * 
- * @param strinng $version
- * 
- * @return void
  */
-$theme->addScripts( function ( $path, $version ) {
-  
-  // wp_register_script( $handle:string, $path . '/js/...', $deps:array, filemtime( $path . '/js/...' ), $in_footer:boolean );
-  // wp_script_add_data( $handle:string, $script_execution:string|script_execution, $attr:string|async|defer );
-  // wp_enqueue_script( $handle:string );
+add_action( 'wp_enqueue_scripts', function () use ( $theme ) {
+
+  wp_register_script( 'theme', asset( '/js/main.min.js' )->uri, [], filemtime( asset( '/js/main.min.js' )->abspath ), true );
+  wp_script_add_data( 'theme', 'script_execution', 'defer' );
+  wp_enqueue_script( 'theme' );
 
   // wp_enqueue_style( $handle:string, $path . '/css/...', $deps:array, filemtime( $path . '/css/...' ), $media:string );
 });

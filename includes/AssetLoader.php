@@ -49,9 +49,9 @@ class AssetLoader {
       }
     }
 
-    if ( ! preg_match( ":\s$script_execution(=|>|\s):", $tag ) ) {
+    if ( ! preg_match( ":\s$script_exec(=|>|\s):", $tag ) ) {
 
-      $tag = preg_replace( ':(?=></script>):', " $script_execution", $tag, 1 );
+      $tag = preg_replace( ':(?=></script>):', " $script_exec", $tag, 1 );
     }
 
     return $tag;

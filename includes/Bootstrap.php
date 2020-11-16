@@ -18,13 +18,9 @@ class Bootstrap extends Theme {
 
     $loader->addAction( 'after_setup_theme', $this, 'themeSupports' );
 
-    $loader->addAction( 'wp_enqueue_scripts', $this, 'addScripts' );
-
     $loader->addAction( 'script_loader_tag', $this->getAssets(), 'scriptLoaderTag', 10, 2 );
 
     $loader->run();
-
-    return $this;
   }
 
   /**
