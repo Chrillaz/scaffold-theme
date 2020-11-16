@@ -2,9 +2,6 @@
 node_modules
 vendor
 .env
-/dist
-/plugins
-/uploads
 
 # Log files
 npm-debug.log*

@@ -1,7 +1,9 @@
 {
-  "name": "chrillaz/wordpress-starter",
-  "description": "wordpress starter",
+  "name": "chrillaz/wordpress-theme-scaffold",
+  "description": "wordpress starter theme",
   "type": "project",
+  "license": "MIT",
+  "homepage": "https://github.com/Chrillaz/wordpress-theme-scaffold",
   "authors": [
     {
       "name": "Christoffer Öhman",
@@ -15,14 +17,13 @@
     }
   ],
   "require": {
-    "wpackagist-plugin/advanced-custom-fields":"5.8.8",
-    "wpackagist-plugin/wordpress-seo":"13.2"
   },
-  "extra": {
-    "installer-paths": {
-      "mu-plugins/{$name}/": ["type:wordpress-muplugin"],
-      "plugins/{$name}/": ["type:wordpress-plugin"],
-      "themes/{$name}/": ["type:wordpress-theme"]
-    }
+  "autoload": {
+    "psr-4": {
+      "Chrillaz\\": "includes/"
+    },
+    "files": [
+      "includes/utilities.php"
+    ]
   }
 }

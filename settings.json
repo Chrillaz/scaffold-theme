@@ -1,0 +1,36 @@
+{
+  "details": {
+    "name": "My Theme",
+    "uri": "https://github.com/Chrillaz/wordpress-theme-scaffold",
+    "author": "Christoffer Öhman",
+    "authoruri": "https://github.com/Chrillaz/wordpress-theme-scaffold",
+    "description": "Wordpress theme",
+    "version": "1.0.0",
+    "license": "",
+    "licenseuri": "",
+    "textdomain": "mytheme",
+    "domainpath": ""
+  },
+  "options": {
+    "supports": {
+      "block-styles": true,
+      "editor-styles": true,
+      "align-wide": true,
+      "responsive-embeds": true,
+      "disable-custom-colors": true,
+      "disable-custom-gradients": true,
+      "disable-custom-font-sizes": true,
+      "content-width": 1200
+    },
+    "colors": {
+      "dark": "#232323",
+      "primary-dark": "#31505E",
+      "primary": "#446B7E",
+      "primary-light": "#D2DCE0",
+      "secondary-dark": "#ECE0D1",
+      "secondary": "#F5EFE8",
+      "secondary-light": "#EEEEEE",
+      "light": "#FFFFFF"
+    }
+  }
+}
