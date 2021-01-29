@@ -84,7 +84,7 @@ class Customizer {
   /**
    * setup
    * 
-   * Generates settinngs for custom customizer options
+   * Generates settings for custom customizer options
    * 
    * @return void
    */

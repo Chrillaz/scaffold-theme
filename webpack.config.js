@@ -35,7 +35,10 @@ const banner = [
   ' */\n',
 ].join( '\n' );
 
-fs.writeFile( 'style.css', banner, err => console.log( err ? err : 'Theme style.css generated! \n' ) );
+if ( ! fs.existsSync( './style.scss' ) ) {
+
+  fs.writeFile( 'style.css', banner, err => console.log( err ? err : 'Theme style.css generated! \n' ) );
+}
 
 module.exports = (env, argv) => {
   
@@ -48,10 +51,7 @@ module.exports = (env, argv) => {
     devtool: development ? 'cheap-module-source-map' : 'source-map',
     entry: { 
       main: './js/src/main.ts',
-      // editor: './js/src/editor.js',
-      'style': './scss/style.scss',
-      'style-editor': './scss/styleEditor.scss',
-      // 'font': './scss/fontface.scss'
+      style: './scss/main.scss',
     },
     output: {
       path: context,
