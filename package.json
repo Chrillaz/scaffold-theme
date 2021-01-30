@@ -1,18 +1,23 @@
 {
-  "name": "wordpress-theme-scaffold",
+  "name": "wp-scaffold-theme",
+  "title": "WP Scaffold Theme",
   "version": "1.0.0",
-  "description": "wordpress starter",
-  "main": "assets/src/index.ts",
+  "description": "wordpress theme",
+  "main": "assets/js/src/main.ts",
   "scripts": {
-    "start": "webpack --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "start": "webpack --mode development"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Chrillaz/wordpress-theme-scaffold.git"
   },
   "author": "Christoffer Öhman",
+  "authorUri": "https://github.com/Chrillaz",
   "license": "ISC",
+  "licenseUri": "",
+  "textDomain": "wpscaffold",
+  "domainPath": "",
   "bugs": {
     "url": "https://github.com/Chrillaz/wordpress-theme-scaffold/issues"
   },
@@ -41,9 +46,7 @@
     "webpack-cli": "^3.3.12",
     "webpack-fix-style-only-entries": "^0.6.0"
   },
-  "dependencies": {
-    "dotenv": "^8.2.0"
-  },
+  "dependencies": {},
   "browserslist": [
     "extends @wordpress/browserslist-config"
   ]
