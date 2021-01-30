@@ -25,7 +25,7 @@ Name theme.
    - RUN ```npm install```
    - RUN ```npm start``` to generate theme stylesheet
 
-3. Install composer for psr-4 autoload. ```composer install```
+Then Install composer for psr-4 autoload. ```composer install```
 
 ### Local development with @wordpress-env
 
