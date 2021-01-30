@@ -1,7 +1,7 @@
 {
   "name": "chrillaz/wordpress-theme-scaffold",
   "description": "wordpress starter theme",
-  "type": "project",
+  "type": "wordpress-theme",
   "license": "MIT",
   "homepage": "https://github.com/Chrillaz/wordpress-theme-scaffold",
   "authors": [
@@ -20,10 +20,10 @@
   },
   "autoload": {
     "psr-4": {
-      "Chrillaz\\": "includes/"
+      "Chrillaz\\WPScaffold\\": "src/"
     },
     "files": [
-      "includes/utilities.php"
+
     ]
   }
 }

@@ -15,17 +15,35 @@ require $autoload;
 /**
  * Bootstrap Theme
  */
-$theme = new Chrillaz\Bootstrap();
+$theme = new Chrillaz\WPScaffold\Includes\Bootstrap();
 
 /**
  * Add scripts and styles
  */
 $theme->assets()->enqueue( function ( $self ) {
+
+  $self->addStyle( 'main', [
+    'src'          => $self->src( '/assets/css/main.min.css' ),
+    'dependencies' => [],
+    'media'        => ''
+  ]);
   
   $self->addScript( 'main', [
-    'src' => $self->src( '/assets/js/main.min.js' ),
-    'infooter' => true,
+    'src'          => $self->src( '/assets/js/main.min.js' ),
+    'infooter'     => true,
     'dependencies' => [],
-    'scriptexec' => ''
+    'scriptexec'   => ''
   ]);
 });
+
+/**
+ * Add aditional support if needed
+ */
+$theme->loader()->addAction( 'chrillaz/theme_supports', function () {
+
+});
+
+/**
+ * Run theme
+ */
+$theme->run();

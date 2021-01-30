@@ -1,12 +1,14 @@
 <?php
 
-namespace Chrillaz\Interfaces;
+namespace Chrillaz\WPScaffold\Interfaces;
 
-use Chrillaz\Customizer;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-use Chrillaz\Loader;
+use Chrillaz\WPScaffold\Includes\Customizer;
 
-use Chrillaz\Assets;
+use Chrillaz\WPScaffold\Includes\Loader;
+
+use Chrillaz\WPScaffold\Includes\Assets;
 
 interface Facade {
 

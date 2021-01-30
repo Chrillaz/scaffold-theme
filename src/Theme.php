@@ -1,14 +1,16 @@
 <?php
 
-namespace Chrillaz;
+namespace Chrillaz\WPScaffold;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-use Chrillaz\Interfaces\Facade;
+use Chrillaz\WPScaffold\Interfaces\Facade;
 
-use Chrillaz\Loader;
+use Chrillaz\WPScaffold\Includes\Customizer;
 
-use Chrillaz\Assets;
+use Chrillaz\WPScaffold\Includes\Loader;
+
+use Chrillaz\WPScaffold\Includes\Assets;
 
 abstract class Theme implements Facade {
 

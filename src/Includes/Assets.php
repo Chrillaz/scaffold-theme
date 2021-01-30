@@ -1,6 +1,8 @@
 <?php
 
-namespace Chrillaz;
+namespace Chrillaz\WPScaffold\Includes;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Assets {
 
@@ -42,9 +44,22 @@ class Assets {
    */
   public function addScript ( string $handle, array $args ) {
 
+    if ( ! isset( $args['dependencies'] ) ) {
+
+      $args['dependencies'] = [];
+    }
+
+    if ( ! isset( $args['infooter'] ) ) {
+      
+      $args['infooter'] = true;
+    }
+
     wp_register_script( $handle, $args['src']->uri, $args['dependencies'], filemtime( $args['src']->path ), $args['infooter'] );
 
-    wp_script_add_data( $handle, 'script_execution', $args['scriptexec'] );
+    if ( isset( $args['scriptexec'] ) && ( $args['scriptexec'] === 'defer' || $args['scriptexec'] === 'async' ) ) {
+
+      wp_script_add_data( $handle, 'script_execution', $args['scriptexec'] );
+    }
 
     return wp_enqueue_script( $handle );
   }
@@ -61,6 +76,16 @@ class Assets {
    * @return mixed
    */
   public function addStyle ( string $handle, array $args ) {
+
+    if ( ! isset( $args['dependencies'] ) ) {
+      
+      $args['dependencies'] = [];
+    }
+
+    if ( ! isset( $args['media'] ) ) {
+      
+      $args['media'] = '';
+    }
 
     wp_register_style( $handle, $args['src']->uri, $args['dependencies'], filemtime( $args['src']->path ), $args['media'] );
 

@@ -1,8 +1,10 @@
 <?php
 
-namespace Chrillaz;
+namespace Chrillaz\WPScaffold\Includes;
 
-use Chrillaz\Theme;
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+use Chrillaz\WPScaffold\Theme;
 
 class Bootstrap extends Theme {
 
@@ -19,8 +21,6 @@ class Bootstrap extends Theme {
     $this->loader()->addAction( 'wp_enqueue_scripts', 'loadAssets', $this->assets() );
 
     $this->loader()->addAction( 'script_loader_tag', 'scriptLoaderTag', $this->assets(), 10, 2 );
-
-    $this->loader()->run();
   }
 
   /**
@@ -125,5 +125,10 @@ class Bootstrap extends Theme {
     // add_theme_support( 'editor-font-sizes', $custom_typography );
 
     do_action( 'chrillaz/theme_supports' );
+  }
+
+  public function run () {
+
+    $this->loader()->run();
   }
 }

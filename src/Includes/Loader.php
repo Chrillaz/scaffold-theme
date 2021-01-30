@@ -1,6 +1,6 @@
 <?php
 
-namespace Chrillaz;
+namespace Chrillaz\WPScaffold\Includes;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 

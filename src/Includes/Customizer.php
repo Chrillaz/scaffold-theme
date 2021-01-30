@@ -1,6 +1,8 @@
 <?php
 
-namespace Chrillaz;
+namespace Chrillaz\WPScaffold\Includes;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Customizer {
 
@@ -48,7 +50,7 @@ class Customizer {
       return 'color';
     }
 
-    if ( is_bool( $value) ) {
+    if ( is_bool( $value ) ) {
 
       return 'checkbox';
     }
