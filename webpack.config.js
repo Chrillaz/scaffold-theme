@@ -1,7 +1,7 @@
 const fs = require( 'fs' ),
       path = require( 'path' ),
       webpack = require('webpack'),
-      settings = require( './settings.json' ),
+      package = require( './package.json' ),
       TerserPlugin = require( 'terser-webpack-plugin' ),
       { CleanWebpackPlugin } = require( 'clean-webpack-plugin' ),
       MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' ),
@@ -22,16 +22,16 @@ const cleanExcludes = [
 
 const banner = [
   '/*',
-  ' * Theme Name: ' + settings.details.name,
-  ' * Theme URI: ' + settings.details.uri,
-  ' * Author: ' + settings.details.author,
-  ' * Author URI: ' + settings.details.authoruri,
-  ' * Description: ' + settings.details.description,
-  ' * Version: ' + settings.details.version,
-  ' * License: ' + settings.details.license,
-  ' * Licence URI: ' + settings.details.licenseuri,
-  ' * Text Domain: ' + settings.details.textdomain,
-  ' * Domain Path: ' + settings.details.domainpath,
+  ' * Theme Name: ' + package.title,
+  ' * Theme URI: ' + package.homepage,
+  ' * Author: ' + package.author,
+  ' * Author URI: ' + package.authorUri,
+  ' * Description: ' + package.description,
+  ' * Version: ' + package.version,
+  ' * License: ' + package.license,
+  ' * Licence URI: ' + package.licenseUri,
+  ' * Text Domain: ' + package.textDomain,
+  ' * Domain Path: ' + package.domainPath,
   ' */\n',
 ].join( '\n' );
 
@@ -94,7 +94,16 @@ module.exports = (env, argv) => {
           use: [
             MiniCSSExtractPlugin.loader, 
             'css-loader',
-            'postcss-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                postcssOptions: {
+                  plugins: [
+                    require( 'autoprefixer' )()
+                  ]
+                }
+              }
+            },
             'sass-loader'
           ]
         },

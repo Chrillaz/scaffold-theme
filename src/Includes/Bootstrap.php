@@ -113,7 +113,7 @@ class Bootstrap extends Theme {
       add_theme_support( 'disable-custom-gradients' );
     }
     
-    add_theme_support( 'editor-color-palette', $this->getSchema( 'color', array_keys( $this->getSetting( 'color-palette' ) ) ) );
+    add_theme_support( 'editor-color-palette', $this->getSchema( 'color', $this->getSetting( 'color-palette' ) ) );
             
     if ( true === $this->getThemeMod( 'disable-custom-font-sizes' ) ) {
         

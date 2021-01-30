@@ -150,9 +150,9 @@ abstract class Theme implements Facade {
    * 
    * @return mixed
    */
-  public static function getThemeMod ( string $mod, $default = false ) {
-
-    if ( ! $default ) {
+  public function getThemeMod ( string $mod, $default = false ) {
+    
+    if ( $default ) {
 
       return get_theme_mod( $mod, $default );
     }
@@ -168,14 +168,14 @@ abstract class Theme implements Facade {
    * @return array
    */
   public function getSchema ( string $key, array $scheme ): array {
-
-    return array_map( function ( $name ) use ( $key ) {
-
+    
+    return array_map( function ( $name ) use ( $key, $scheme ) {
+      
       return [
-        'name'  => __( ucfirst( str_replace( '-', ' ',  $name ) ), self::getTheme( 'TextDomain' ) ),
-        'slug'  => $name,
-        $key => esc_html( self::getThemeMod( $name ) )
+        'name' => __( ucfirst( str_replace( '-', ' ',  $name ) ), $this->getTheme( 'TextDomain' ) ),
+        'slug' => $name,
+        $key   => $this->getThemeMod( $name )
       ];
-    }, $scheme );
+    }, array_keys( $scheme ) );
   }
 }
