@@ -42,13 +42,12 @@ class Customizer {
    * @return mixed
    */
   private function getFieldType ( $value ) {
-
+    
     switch ( $value ) {
-      case 1 === preg_match( '/#([a-f0-9]{3}){1,2}\b/i', $value )
-       :
+      case 1 === preg_match( '/#([a-f0-9]{3}){1,2}\b/i', $value ) :
         $return = 'color';
         break;
-      case is_bool( $value ) :
+      case ( $value === false || $value === true ) :
         $return = 'checkbox';
         break;
       case is_numeric( $value ) :
@@ -149,7 +148,7 @@ class Customizer {
           'default'           => $value,
           'sanitize_callback' => $sanitizer,
         ]);
-          
+
         $controls = [
           'type' => $type,
           'label' => __( str_replace( '-', ' ', $key ) ),

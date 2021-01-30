@@ -23,7 +23,7 @@ $theme = new Chrillaz\Bootstrap();
 $theme->assets()->enqueue( function ( $self ) {
   
   $self->addScript( 'main', [
-    'src' => $self->path( '/assets/js/main.min.js' ),
+    'src' => $self->src( '/assets/js/main.min.js' ),
     'infooter' => true,
     'dependencies' => [],
     'scriptexec' => ''

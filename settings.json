@@ -3,13 +3,13 @@
     
   },
   "default-mods": {
-    "block-styles": true,
+    "block-styles": false,
     "editor-styles": true,
     "align-wide": true,
     "responsive-embeds": true,
     "disable-custom-colors": true,
     "disable-custom-gradients": true,
-    "disable-custom-font-sizes": true,
+    "disable-custom-font-sizes": false,
     "content-width": 1200
   },
   "color-palette": {

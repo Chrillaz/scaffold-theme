@@ -18,15 +18,15 @@ class Assets {
    * 
    * @return string
    */
-  public function path ( string $relpath ): object {
+  public function src ( string $relpath ): object {
 
-    $path = new \stdClass();
+    $src = new \stdClass();
 
-    $path->path = get_template_directory() . $relpath;
+    $src->path = get_template_directory() . $relpath;
 
-    $path->uri = get_template_directory_uri() . $relpath;
+    $src->uri = get_template_directory_uri() . $relpath;
 
-    return $path;
+    return $src;
   }
 
   /**

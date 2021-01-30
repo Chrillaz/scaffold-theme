@@ -22,21 +22,10 @@ abstract class Theme {
 
   protected static $optionsName = '';
 
-  // public function __construct () {
-  
-  //   $this->settings = apply_filters( 'chrillaz/default_settings', asset( '/../settings.json', false, true )->contents );
-
-  //   $this->loader = new Loader();
-
-  //   $this->customizer = new Customizer( $this->settings['options'] );
-
-  //   $this->assets = new AssetLoader();
-  // }
-
   /**
    * getSetting
    * 
-   * reads the settings json and returns the chuck of json the path is targeting
+   * reads the settings json and returns the chunk of json the path is targeting
    * 
    * @param string $param
    * 
@@ -48,7 +37,7 @@ abstract class Theme {
 
       $settings = \apply_filters( 
         'chrillaz/default_settings', 
-        json_decode( file_get_contents( $this->assets()->path( '/settings.json' )->path ), true ) 
+        json_decode( file_get_contents( $this->assets()->src( '/settings.json' )->path ), true ) 
       );
 
       $this->settings = $settings;
@@ -63,13 +52,13 @@ abstract class Theme {
    * returns an instance of Customizer
    * this class handles the setup of themes options panel in the customizer
    * 
-   * @param array $settings
+   * @param array $defaults
    * 
    * @return Customizer
    */
-  protected function customizer ( array $settings ) {
+  protected function customizer ( ?array $defaults = [] ) {
 
-    if ( $this->customizer === null ) $this->customizer = new Customizer( $settings );
+    if ( $this->customizer === null ) $this->customizer = new Customizer( $defaults );
 
     return $this->customizer;
   }
@@ -164,7 +153,7 @@ abstract class Theme {
       return get_theme_mod( $mod, $default );
     }
 
-    return get_theme_mod( $mod, $this->getCustomizer()->getDefault( $mod ) );
+    return get_theme_mod( $mod, self::customizer()->getDefault( $mod ) );
   }
 
   /**
@@ -174,15 +163,15 @@ abstract class Theme {
    * 
    * @return array
    */
-  public static function getColorScheme (): array {
+  public function getColorScheme (): array {
 
     return array_map( function ( $name ) {
 
       return [
-        'name'  => __( ucfirst( str_replace( '-', ' ',  $name ) ), $this->getTheme( 'TextDomain' ) ),
+        'name'  => __( ucfirst( str_replace( '-', ' ',  $name ) ), self::getTheme( 'TextDomain' ) ),
         'slug'  => $name,
-        'color' => esc_html( get_theme_mod( $name, $this->customizer->getDefault( $name ) ) )
+        'color' => esc_html( get_theme_mod( $name, self::customizer()->getDefault( $name ) ) )
       ];
-    }, array_keys( $this->settings['options']['colors'] ) );
+    }, array_keys( $this->getSetting( 'color-palette' ) ) );
   }
 }
