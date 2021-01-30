@@ -23,7 +23,7 @@ $theme = new Chrillaz\WPScaffold\Includes\Bootstrap();
 $theme->assets()->enqueue( function ( $self ) {
 
   $self->addStyle( 'main', [
-    'src'          => $self->src( '/assets/css/main.min.css' ),
+    'src'          => $self->src( '/assets/css/style.css' ),
     'dependencies' => [],
     'media'        => ''
   ]);
@@ -40,7 +40,11 @@ $theme->assets()->enqueue( function ( $self ) {
  * Add aditional support if needed
  */
 $theme->loader()->addAction( 'chrillaz/theme_supports', function () {
-
+  /**
+   * inspect theme supports within src/Includes/Bootstrap.php. 
+   * 
+   * Here we can define extra support if not included on Bootstrap themeSetup.
+   */
 });
 
 /**

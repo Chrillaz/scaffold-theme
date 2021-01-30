@@ -6,6 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 use Chrillaz\WPScaffold\Theme;
 
+use Chrillaz\WPScaffold\Integrations\Integrations;
+
 class Bootstrap extends Theme {
 
   public function __construct () {
@@ -21,6 +23,20 @@ class Bootstrap extends Theme {
     $this->loader()->addAction( 'wp_enqueue_scripts', 'loadAssets', $this->assets() );
 
     $this->loader()->addAction( 'script_loader_tag', 'scriptLoaderTag', $this->assets(), 10, 2 );
+
+    $this->integrations();
+  }
+
+  /**
+   * integrations
+   * 
+   * Instanciate theme integrations
+   */
+  private function integrations (): void {
+
+    Integrations::create( $this, [
+      'Chrillaz\WPScaffold\Integrations\ExampleIntegration'
+    ]);
   }
 
   /**
