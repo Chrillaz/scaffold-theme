@@ -76,7 +76,7 @@ class Bootstrap extends Theme {
       add_editor_style( './assets/css/style-editor' );
     }
     
-    $navmenu_locations = apply_filters( 'noor/navmenu_locations', [
+    $navmenu_locations = apply_filters( 'chrillaz/navmenu_locations', [
       'primary' => __( 'Primary', wp_get_theme()->get( 'TextDomain' ) ),
       'social'  => __( 'Social Links Menu', wp_get_theme()->get( 'TextDomain' ) )
     ]);
@@ -93,7 +93,7 @@ class Bootstrap extends Theme {
 			'navigation-widgets',
     ]);
     
-    $post_thumbnail_size = apply_filters( 'noor/set_post_thumbnail_size', [] );
+    $post_thumbnail_size = apply_filters( 'chrillaz/set_post_thumbnail_size', [] );
     
     if ( ! empty( $post_thumbnail_size ) ) {
     
@@ -106,10 +106,10 @@ class Bootstrap extends Theme {
         
     add_theme_support( 
       'custom-logo', 
-      apply_filters( 'noor/custom_logo', [] )
+      apply_filters( 'chrillaz/custom_logo', [] )
     );
     
-    $custom_image_sizes = apply_filters( 'noor/custom_image_sizes', [] );
+    $custom_image_sizes = apply_filters( 'chrillaz/custom_image_sizes', [] );
     
     if ( is_array( $custom_image_sizes ) && ! empty( $custom_image_sizes ) ) {
     
@@ -136,7 +136,7 @@ class Bootstrap extends Theme {
       add_theme_support( 'disable-custom-font-sizes' );
     }
         
-    // $custom_typography = apply_filters( 'noor/custom_font_sizes', $this->settings->get( 'typography/fontSize' ) );
+    // $custom_typography = apply_filters( 'chrillaz/custom_font_sizes', $this->settings->get( 'typography/fontSize' ) );
         
     // add_theme_support( 'editor-font-sizes', $custom_typography );
 
