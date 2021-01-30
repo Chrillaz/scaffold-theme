@@ -43,21 +43,22 @@ class Customizer {
    */
   private function getFieldType ( $value ) {
     
-    switch ( $value ) {
-      case 1 === preg_match( '/#([a-f0-9]{3}){1,2}\b/i', $value ) :
-        $return = 'color';
-        break;
-      case ( $value === false || $value === true ) :
-        $return = 'checkbox';
-        break;
-      case is_numeric( $value ) :
-        $return = 'number';
-        break;
-      default :
-        $return = 'text';
+    if ( preg_match( '/#([a-f0-9]{3}){1,2}\b/i', $value, $matches ) && strlen( $matches[0] ) === 7 ) {
+
+      return 'color';
     }
 
-    return $return;
+    if ( is_bool( $value) ) {
+
+      return 'checkbox';
+    }
+
+    if ( is_numeric( $value ) ) {
+
+      return 'number';
+    }
+
+    return 'text';
   }
 
   /**

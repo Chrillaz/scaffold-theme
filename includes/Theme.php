@@ -4,11 +4,13 @@ namespace Chrillaz;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+use Chrillaz\Interfaces\Facade;
+
 use Chrillaz\Loader;
 
 use Chrillaz\Assets;
 
-abstract class Theme {
+abstract class Theme implements Facade {
 
   // private $assets;
 
@@ -56,7 +58,7 @@ abstract class Theme {
    * 
    * @return Customizer
    */
-  protected function customizer ( ?array $defaults = [] ) {
+  public function customizer ( ?array $defaults = [] ): Customizer {
 
     if ( $this->customizer === null ) $this->customizer = new Customizer( $defaults );
 
@@ -71,7 +73,7 @@ abstract class Theme {
    * 
    * @return Loader
    */
-  public function loader () {
+  public function loader (): Loader {
 
     if ( $this->loader === null ) $this->loader = new Loader();
 
@@ -86,7 +88,7 @@ abstract class Theme {
    * 
    * @return Assets
    */
-  public function assets () {
+  public function assets (): Assets {
 
     if ( $this->assets === null ) $this->assets = new Assets();
 
@@ -157,21 +159,21 @@ abstract class Theme {
   }
 
   /**
-   * getColorScheme
+   * getSchema
    * 
-   * Returns gutenber compatible color array
+   * Returns gutenberg scheme of specifyed setting
    * 
    * @return array
    */
-  public function getColorScheme (): array {
+  public function getSchema ( string $key, array $scheme ): array {
 
-    return array_map( function ( $name ) {
+    return array_map( function ( $name ) use ( $key ) {
 
       return [
         'name'  => __( ucfirst( str_replace( '-', ' ',  $name ) ), self::getTheme( 'TextDomain' ) ),
         'slug'  => $name,
-        'color' => esc_html( get_theme_mod( $name, self::customizer()->getDefault( $name ) ) )
+        $key => esc_html( self::getThemeMod( $name ) )
       ];
-    }, array_keys( $this->getSetting( 'color-palette' ) ) );
+    }, $scheme );
   }
 }

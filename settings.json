@@ -4,7 +4,7 @@
   },
   "default-mods": {
     "block-styles": false,
-    "editor-styles": true,
+    "editor-styles": false,
     "align-wide": true,
     "responsive-embeds": true,
     "disable-custom-colors": true,

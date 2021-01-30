@@ -9,8 +9,8 @@ class Bootstrap extends Theme {
   public function __construct () {
 
     $this->loader()->addAction( 'customize_register', 'register', $this->customizer([
-        $this->getSetting( 'default-mods' ),
-        $this->getSetting( 'color-palette' )
+        'settings' => $this->getSetting( 'default-mods' ),
+        'color-scheme' => $this->getSetting( 'color-palette' )
       ])
     );
 
@@ -38,27 +38,27 @@ class Bootstrap extends Theme {
     
     add_theme_support( 'post-thumbnails' );
     
-    // if ( true === $this->getThemeMod( 'block-styles' ) ) {
+    if ( true === $this->getThemeMod( 'block-styles' ) ) {
     
-    //   add_theme_support( 'wp-block-styles' );
-    // }
+      add_theme_support( 'wp-block-styles' );
+    }
     
-    // if ( true === $this->getThemeMod( 'align-wide' ) ) {
+    if ( true === $this->getThemeMod( 'align-wide' ) ) {
     
-    //   add_theme_support( 'align-wide' );
-    // }
+      add_theme_support( 'align-wide' );
+    }
     
-    // if ( true === $this->getThemeMod( 'responsive-embeds' ) ) {
+    if ( true === $this->getThemeMod( 'responsive-embeds' ) ) {
           
-    //   add_theme_support( 'responsive-embeds' );
-    // }
+      add_theme_support( 'responsive-embeds' );
+    }
     
-    // if ( true === $this->getThemeMod( 'editor-styles' ) ) {
+    if ( true === $this->getThemeMod( 'editor-styles' ) ) {
         
-    //   add_theme_support( 'editor-styles' );
+      add_theme_support( 'editor-styles' );
           
-    //   add_editor_style( './assets/css/style-editor' );
-    // }
+      add_editor_style( './assets/css/style-editor' );
+    }
     
     $navmenu_locations = apply_filters( 'noor/navmenu_locations', [
       'primary' => __( 'Primary', wp_get_theme()->get( 'TextDomain' ) ),
@@ -113,7 +113,7 @@ class Bootstrap extends Theme {
       add_theme_support( 'disable-custom-gradients' );
     }
     
-    add_theme_support( 'editor-color-palette', $this->getColorScheme() );
+    add_theme_support( 'editor-color-palette', $this->getSchema( 'color', array_keys( $this->getSetting( 'color-palette' ) ) ) );
             
     if ( true === $this->getThemeMod( 'disable-custom-font-sizes' ) ) {
         
