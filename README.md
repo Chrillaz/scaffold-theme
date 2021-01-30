@@ -33,8 +33,9 @@ edit .wp-env.json to fit the environment. reference: [@wordpress-env docs.](http
 
 ### Webpack
 
-To chunk .scss or .ts files specify each by name => src in entry of the config object in webpack.config.js
+To chunk .scss or .ts files specify each by name => src in entry of the config object. 
 
+webpack.config.js
 ```
 entry: { 
     main: './js/src/main.ts',
