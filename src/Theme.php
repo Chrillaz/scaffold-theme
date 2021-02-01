@@ -8,7 +8,7 @@ use Chrillaz\WPScaffold\Interfaces\Facade;
 
 use Chrillaz\WPScaffold\Includes\Customizer;
 
-use Chrillaz\WPScaffold\Includes\Loader;
+use Chrillaz\WPScaffold\Includes\Hooks;
 
 use Chrillaz\WPScaffold\Includes\Assets;
 
@@ -16,7 +16,7 @@ abstract class Theme implements Facade {
 
   // private $assets;
 
-  private $loader;
+  private $hooks;
 
   private $assets;
 
@@ -41,13 +41,31 @@ abstract class Theme implements Facade {
 
       $settings = \apply_filters( 
         'chrillaz/default_settings', 
-        json_decode( file_get_contents( $this->assets()->src( '/settings.json' )->path ), true ) 
+        json_decode( file_get_contents( $this->src( '/settings.json' )->path ), true ) 
       );
 
       $this->settings = $settings;
     }
 
     return ( isset( $this->settings[$part] ) ? $this->settings[$part] : [] );
+  }
+
+  /**
+   * assetPath
+   * 
+   * Returns path to assets
+   * 
+   * @return string
+   */
+  public function src ( string $relpath ): object {
+
+    $src = new \stdClass;
+
+    $src->path = get_template_directory() . $relpath;
+
+    $src->uri = get_template_directory_uri() . $relpath;
+
+    return $src;
   }
 
   /**
@@ -73,13 +91,13 @@ abstract class Theme implements Facade {
    * returns an instance of Loader
    * this class queues action and filter hooks
    * 
-   * @return Loader
+   * @return Hooks
    */
-  public function loader (): Loader {
+  public function hooks (): Hooks {
 
-    if ( $this->loader === null ) $this->loader = new Loader();
+    if ( $this->hooks === null ) $this->hooks = new Hooks();
 
-    return $this->loader;
+    return $this->hooks;
   }
 
   /**
@@ -92,7 +110,13 @@ abstract class Theme implements Facade {
    */
   public function assets (): Assets {
 
-    if ( $this->assets === null ) $this->assets = new Assets();
+    if ( $this->assets === null ) {
+
+      $this->assets = new Assets([
+        'color' => $this->getSchema( 'color', $this->getSetting( 'color-palette' ) ),
+        'font-size' => $this->getSchema( 'font-size', $this->getSetting( 'font-sizes' ) )
+      ]);
+    }
 
     return $this->assets;
   }
@@ -170,11 +194,11 @@ abstract class Theme implements Facade {
   public function getSchema ( string $key, array $scheme ): array {
     
     return array_map( function ( $name ) use ( $key, $scheme ) {
-      
+      // var_dump('<pre>', $this->getThemeMod( $name ), '</pre>');
       return [
         'name' => __( ucfirst( str_replace( '-', ' ',  $name ) ), $this->getTheme( 'TextDomain' ) ),
         'slug' => $name,
-        $key   => $this->getThemeMod( $name )
+        $key   => ($key === 'font-size' ? $this->getThemeMod( $name ) . 'px' : $this->getThemeMod( $name ) )
       ];
     }, array_keys( $scheme ) );
   }

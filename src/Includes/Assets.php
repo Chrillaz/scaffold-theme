@@ -4,31 +4,29 @@ namespace Chrillaz\WPScaffold\Includes;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Assets {
+use Chrillaz\WPScaffold\Includes\Loader;
 
-  private $queue;
+class Assets extends Loader {
 
-  public function __construct () {
+  private $customProperties;
 
-    $this->queue = [];
+  public function __construct ( $customProperties ) {
+
+    $properties = array_map( function ( $key ) use ( $customProperties ) {
+
+      return array_reduce( $customProperties[$key], function ( $acc, $curr ) use ( $key ) {
+        
+        $acc .= "--theme-" . $curr['slug'] . "-" . $key . ": " . $curr[$key] . "; \n";
+        return $acc;
+      }, '');
+    }, array_keys( $customProperties ) );
+    
+    $this->customProperties = sprintf( ':root{%s}', implode( ';', $properties ) );
   }
 
-  /**
-   * assetPath
-   * 
-   * Returns path to assets
-   * 
-   * @return string
-   */
-  public function src ( string $relpath ): object {
+  public function getCustomProperties () {
 
-    $src = new \stdClass();
-
-    $src->path = get_template_directory() . $relpath;
-
-    $src->uri = get_template_directory_uri() . $relpath;
-
-    return $src;
+    return $this->customProperties;
   }
 
   /**
@@ -38,7 +36,7 @@ class Assets {
    * 
    * @param string $handle
    * 
-   * @param array $args
+   * @param object $args
    * 
    * @return mixed
    */
@@ -93,21 +91,49 @@ class Assets {
   }
 
   /**
+   * editorAssets
+   */
+  public function editorAssets () {
+
+    $scriptpath = $this->src( '/assets/js/editor-scripts.min.js' );
+    wp_enqueue_script(
+      'theme-editor-scripts',
+      $scriptpath->uri,
+      ['wp-blocks', 'wp-hooks'],
+      filemtime( $scriptpath->path ),
+      true
+    );
+
+    if ( true === $this->getThemeMod( 'editor-styles' ) ) {
+
+      $stylepath = $this->src( '/assets/css/editor-styles.css' );
+      wp_enqueue_style( 
+        'theme-editor-styles', 
+        $stylepath->uri, 
+        [], 
+        filemtime( $stylepath->path )
+      );
+
+      wp_add_inline_style( 'theme-editor-styles', $this->getCustomProperties() );
+    }
+  }
+
+  /**
    * loadAssets
    * 
    * Itterates assets queue and runs all callbacks
    * 
    * @return void
    */
-  public function loadAssets (): void {
+  public function load (): void {
 
     array_map( function ( $callback ) {
 
-      if ( is_object( $callback ) && is_callable( $callback) ) {
+      if ( is_object( $callback ) && is_callable( $callback ) ) {
   
         call_user_func_array( $callback, [ $this ] );
       }
-    }, $this->queue );
+    }, $this->assets );
   }
 
   /**
@@ -119,13 +145,15 @@ class Assets {
    * 
    * @return void
    */
-  public function enqueue ( \closure $callback ): void {
+  public function queue ( ...$args ) {
 
-    array_push( $this->queue, $callback );
+    list( $callback ) = $args;
+
+    return array_push( $this->assets, $callback );
   }
  
   /**
-   * scriptLoaderTag
+   * scriptExec
    * 
    * Sets script_execution defer/async
    * 
@@ -135,7 +163,7 @@ class Assets {
    * 
    * @return string
    */
-  public function scriptLoaderTag ( $tag, $handle ): string {
+  public function scriptExec ( $tag, $handle ): string {
 
     $script_exec = wp_scripts()->get_data( $handle, 'script_execution' );
 

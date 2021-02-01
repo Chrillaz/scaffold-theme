@@ -18,28 +18,30 @@ require $autoload;
 $theme = new Chrillaz\WPScaffold\Includes\Bootstrap();
 
 /**
- * Add scripts and styles
+ * Add public scripts and styles
  */
-$theme->assets()->enqueue( function ( $self ) {
+$theme->assets()->queue( function ( $asset ) {
 
-  $self->addStyle( 'main', [
-    'src'          => $self->src( '/assets/css/style.css' ),
+  $asset->addStyle( 'main', [
+    'src'          => $asset->src( '/assets/css/style.css' ),
     'dependencies' => [],
     'media'        => ''
   ]);
+
+  wp_add_inline_style( 'main', $asset->getCustomProperties() );
   
-  $self->addScript( 'main', [
-    'src'          => $self->src( '/assets/js/main.min.js' ),
+  $asset->addScript( 'main', [
+    'src'          => $asset->src( '/assets/js/main.min.js' ),
     'infooter'     => true,
     'dependencies' => [],
-    'scriptexec'   => ''
+    'scriptexec'   => 'defer'
   ]);
 });
 
 /**
  * Add aditional support if needed
  */
-$theme->loader()->addAction( 'chrillaz/theme_supports', function () {
+$theme->hooks()->addAction( 'chrillaz/theme_supports', function () {
   /**
    * inspect theme supports within src/Includes/Bootstrap.php. 
    * 

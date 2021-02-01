@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 use Chrillaz\WPScaffold\Includes\Customizer;
 
-use Chrillaz\WPScaffold\Includes\Loader;
+use Chrillaz\WPScaffold\Includes\Hooks;
 
 use Chrillaz\WPScaffold\Includes\Assets;
 
@@ -22,16 +22,16 @@ interface Facade {
   public function customizer ( ?array $defaults = [] ): Customizer;
 
   /**
-   * loader
+   * hooks
    * 
-   * @return Loader
+   * @return Hooks
    */
-  public function loader (): Loader;
+  public function hooks (): Hooks;
 
   /**
-   * loader
+   * assets
    * 
-   * @return Loader
+   * @return Assets
    */
   public function assets (): Assets;
 }

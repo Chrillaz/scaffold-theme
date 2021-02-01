@@ -1,8 +1,7 @@
 {
   "name": "wp-scaffold-theme",
-  "title": "WP Scaffold Theme",
   "version": "1.0.0",
-  "description": "wordpress theme",
+  "description": "wordpress starter theme",
   "main": "assets/js/src/main.ts",
   "scripts": {
     "build": "webpack --mode production",
@@ -15,9 +14,6 @@
   "author": "Christoffer Öhman",
   "authorUri": "https://github.com/Chrillaz",
   "license": "ISC",
-  "licenseUri": "",
-  "textDomain": "wpscaffold",
-  "domainPath": "",
   "bugs": {
     "url": "https://github.com/Chrillaz/wordpress-theme-scaffold/issues"
   },

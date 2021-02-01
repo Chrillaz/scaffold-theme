@@ -1,4 +1,27 @@
 {
+  "theme": {
+    "name": "Wp Scaffold",
+    "homepage": "https://github.com/Chrillaz/wordpress-theme-scaffold/",
+    "author": "Christoffer Öhman",
+    "authoruri": "https://github.com/Chrillaz/",
+    "description": "Wordpress base theme to extend on",
+    "version": "1.0.0",
+    "license": "",
+    "licenseuri": "",
+    "textdomain": "noor",
+    "domainpath": "",
+    "template": ""
+  },
+  "webpack-assets": {
+    "scripts": {
+      "main": "./js/src/main.ts",
+      "editor-scripts": "./js/src/editor.ts"
+    },
+    "styles": {
+      "style": "./scss/main.scss",
+      "editor-styles": "./scss/editor.scss"
+    }
+  },
   "default-options": {
     
   },
@@ -23,11 +46,17 @@
     "light": "#FFFFFF"
   },
   "font-sizes": {
-    "xs": "",
-    "sm": "",
-    "md": "",
-    "lg": "",
-    "xl": "",
-    "xxl": ""
-  }
+    "xs": 12,
+    "sm": 16,
+    "md": 20,
+    "lg": 24,
+    "xl": 28,
+    "xxl": 38
+  },
+  "block-types-exclude": [
+
+  ],
+  "theme-integrations": [
+
+  ]
 }

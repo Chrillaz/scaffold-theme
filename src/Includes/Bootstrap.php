@@ -12,19 +12,22 @@ class Bootstrap extends Theme {
 
   public function __construct () {
 
-    $this->loader()->addAction( 'customize_register', 'register', $this->customizer([
-        'settings' => $this->getSetting( 'default-mods' ),
-        'color-scheme' => $this->getSetting( 'color-palette' )
+    $this->hooks()->addAction( 'customize_register', 'register', $this->customizer([
+        'settings'     => $this->getSetting( 'default-mods' ),
+        'color-scheme' => $this->getSetting( 'color-palette' ),
+        'font-sizes'   => $this->getSetting( 'font-sizes' )
       ])
     );
 
-    $this->loader()->addAction( 'after_setup_theme', 'themeSetup', $this );
+    $this->hooks()->addAction( 'after_setup_theme', 'themeSetup', $this );
 
-    $this->loader()->addAction( 'wp_enqueue_scripts', 'loadAssets', $this->assets() );
+    $this->hooks()->addAction( 'wp_enqueue_scripts', 'load', $this->assets() );
 
-    $this->loader()->addAction( 'script_loader_tag', 'scriptLoaderTag', $this->assets(), 10, 2 );
+    $this->hooks()->addAction( 'enqueue_block_editor_assets', 'editorAssets', $this->assets() );
 
-    $this->integrations();
+    $this->hooks()->addAction( 'script_loader_tag', 'scriptExec', $this->assets(), 10, 2 );
+
+    $this->integrations( $this->getSetting( 'theme-integrations' ) );
   }
 
   /**
@@ -32,11 +35,12 @@ class Bootstrap extends Theme {
    * 
    * Instanciate theme integrations
    */
-  private function integrations (): void {
+  private function integrations ( array $integrations ): void {
 
-    Integrations::create( $this, [
-      'Chrillaz\WPScaffold\Integrations\ExampleIntegration'
-    ]);
+    if ( ! empty( $integrations ) ) {
+
+      Integrations::create( $this, $integrations );
+    }
   }
 
   /**
@@ -72,8 +76,6 @@ class Bootstrap extends Theme {
     if ( true === $this->getThemeMod( 'editor-styles' ) ) {
         
       add_theme_support( 'editor-styles' );
-          
-      add_editor_style( './assets/css/style-editor' );
     }
     
     $navmenu_locations = apply_filters( 'chrillaz/navmenu_locations', [
@@ -145,6 +147,6 @@ class Bootstrap extends Theme {
 
   public function run () {
 
-    $this->loader()->run();
+    $this->hooks()->load();
   }
 }

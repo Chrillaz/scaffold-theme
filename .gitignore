@@ -3,6 +3,12 @@ node_modules
 vendor
 .env
 style.css
+package-lock.json
+composer.lock
+
+/assets/css
+/assets/js/*
+!/assets/js/src
 
 # Log files
 npm-debug.log*

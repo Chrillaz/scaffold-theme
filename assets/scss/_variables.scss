@@ -1,0 +1,39 @@
+$gutenberg-colors: () !default;
+$gutenberg-colors: map-merge(
+  (
+    "dark":            var(--theme-dark-color),
+    "primary-dark":    var(--theme-primary-dark-color),
+    "primary":         var(--theme-primary-color),
+    "primary-light":   var(--theme-primary-light-color),
+    "secondary-dark":  var(--theme-secondary-dark-color),
+    "secondary":       var(--theme-secondary-color),
+    "secondary-light": var(--theme-secondary-light-color),
+    "light":           var(--theme-light-color),
+  ),
+  $gutenberg-colors
+);
+
+$gutenberg-font-sizes: () !default;
+$gutenberg-font-sizes: map-merge(
+  (
+    "default": var(--theme-sm-font-size),
+    "small": var(--theme-xs-font-size),
+    "normal": var(--theme-md-font-size),
+    "medium": var(--theme-lg-font-size),
+    "large": var(--theme-xl-font-size),
+    "huge": var(--theme-xxl-font-size)
+  ),
+  $gutenberg-font-sizes
+);
+
+$breakpoints: () !default;
+$breakpoints: map-merge(
+  (
+    "xs": 0,
+    "sm": 576px,
+    "md": 768px,
+    "lg": 992px,
+    "xl": 1200px
+  ),
+  $breakpoints
+);
