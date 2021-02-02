@@ -34,60 +34,32 @@ class Assets extends Loader {
    * 
    * wrapper for register, add data and enqueue scripts
    * 
-   * @param string $handle
-   * 
-   * @param object $args
+   * @param object $asset
    * 
    * @return mixed
    */
-  public function addScript ( string $handle, array $args ) {
+  public function add ( object $asset ) {
 
-    if ( ! isset( $args['dependencies'] ) ) {
+    if ( $asset instanceof Style ) {
 
-      $args['dependencies'] = [];
+      wp_register_style( $asset->handle, $asset->uri, $asset->dependencies, $asset->version, $asset->media );
+
+      wp_enqueue_style( $asset->handle );
     }
-
-    if ( ! isset( $args['infooter'] ) ) {
+    
+    if ( $asset instanceof Script ) {
       
-      $args['infooter'] = true;
+      wp_register_script( $asset->handle, $asset->uri, $asset->dependencies, $asset->version, $asset->infooter );
+
+      if ( isset( $asset->execution ) ) {
+
+        wp_script_add_data( $asset->handle, 'script_execution', $asset->execution );
+      }
+
+      wp_enqueue_script( $asset->handle );
     }
 
-    wp_register_script( $handle, $args['src']->uri, $args['dependencies'], filemtime( $args['src']->path ), $args['infooter'] );
-
-    if ( isset( $args['scriptexec'] ) && ( $args['scriptexec'] === 'defer' || $args['scriptexec'] === 'async' ) ) {
-
-      wp_script_add_data( $handle, 'script_execution', $args['scriptexec'] );
-    }
-
-    return wp_enqueue_script( $handle );
-  }
-
-  /**
-   * addStyle
-   * 
-   * wrapper for register and enqueue styles
-   * 
-   * @param string $handle
-   * 
-   * @param array $args
-   * 
-   * @return mixed
-   */
-  public function addStyle ( string $handle, array $args ) {
-
-    if ( ! isset( $args['dependencies'] ) ) {
-      
-      $args['dependencies'] = [];
-    }
-
-    if ( ! isset( $args['media'] ) ) {
-      
-      $args['media'] = '';
-    }
-
-    wp_register_style( $handle, $args['src']->uri, $args['dependencies'], filemtime( $args['src']->path ), $args['media'] );
-
-    return wp_enqueue_style( $handle );
+    unset( $asset );
   }
 
   /**
@@ -96,23 +68,12 @@ class Assets extends Loader {
   public function editorAssets () {
 
     $scriptpath = $this->src( '/assets/js/editor-scripts.min.js' );
-    wp_enqueue_script(
-      'theme-editor-scripts',
-      $scriptpath->uri,
-      ['wp-blocks', 'wp-hooks'],
-      filemtime( $scriptpath->path ),
-      true
-    );
+    wp_enqueue_script( 'theme-editor-scripts', $scriptpath->uri, ['wp-blocks', 'wp-hooks'], filemtime( $scriptpath->path ), true );
 
     if ( true === $this->getThemeMod( 'editor-styles' ) ) {
 
       $stylepath = $this->src( '/assets/css/editor-styles.css' );
-      wp_enqueue_style( 
-        'theme-editor-styles', 
-        $stylepath->uri, 
-        [], 
-        filemtime( $stylepath->path )
-      );
+      wp_enqueue_style( 'theme-editor-styles', $stylepath->uri, [], filemtime( $stylepath->path ) );
 
       wp_add_inline_style( 'theme-editor-styles', $this->getCustomProperties() );
     }
@@ -126,30 +87,16 @@ class Assets extends Loader {
    * @return void
    */
   public function load (): void {
-
+  
     array_map( function ( $callback ) {
 
       if ( is_object( $callback ) && is_callable( $callback ) ) {
+
+        $fn = \Closure::bind( $callback, $this );
   
-        call_user_func_array( $callback, [ $this ] );
+        $fn( $this );
       }
     }, $this->assets );
-  }
-
-  /**
-   * enqueue
-   * 
-   * adds callback to queue
-   * 
-   * @param closure
-   * 
-   * @return void
-   */
-  public function queue ( ...$args ) {
-
-    list( $callback ) = $args;
-
-    return array_push( $this->assets, $callback );
   }
  
   /**
@@ -172,11 +119,6 @@ class Assets extends Loader {
       return $tag;
     }
 
-    if ( 'async' !== $script_exec && 'defer' !== $script_exec ) {
-
-      return $tag;
-    }
-
     foreach ( wp_scripts()->registered as $script ) {
 
       if ( in_array( $handle, $script->deps, true ) ) {
@@ -184,7 +126,7 @@ class Assets extends Loader {
         return $tag;
       }
     }
-
+    
     if ( ! preg_match( ":\s$script_exec(=|>|\s):", $tag ) ) {
 
       $tag = preg_replace( ':(?=></script>):', " $script_exec", $tag, 1 );

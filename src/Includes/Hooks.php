@@ -6,44 +6,69 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 use Chrillaz\WPScaffold\Includes\Loader;
 
+use Chrillaz\WPScaffold\Includes\Hook;
+
 class Hooks extends Loader {
 
-  public function addAction( $hook, $callback, $component = null, $priority = 10, $accepted_args = 1 ) {
+  /**
+   * addAction
+   * 
+   * @param string $hook wp hook to execute on
+   * 
+   * @param string $callback to execute
+   * 
+   * @param object|null $component
+   * 
+   * @param int|null $priority
+   * 
+   * @param int|null $acceptedArgs
+   * 
+   * @return void
+   */
+  public function addAction( ...$args ): void {
 
-    $this->actions = $this->queue( $this->actions, $hook, $component, $callback, $priority, $accepted_args );
+    $this->queue( 'actions', new Hook( $args ) );
   }
 
-  public function addFilter( $hook, $callback, $component = null, $priority = 10, $accepted_args = 1 ) {
+  /**
+   * addAction
+   * 
+   * @param string $hook wp hook to execute on
+   * 
+   * @param string $callback to execute
+   * 
+   * @param object|null $component
+   * 
+   * @param int|null $priority
+   * 
+   * @param int|null $acceptedArgs
+   * 
+   * @return void
+   */
+  public function addFilter( ...$args ) {
 
-    $this->filters = $this->queue( $this->filters, $hook, $component, $callback, $priority, $accepted_args );
+    $this->queue( 'filters', new Hook( $args ) );
   }
 
-  public function queue( ...$args ) {
-    
-    list( $queue, $hook, $component, $callback, $priority, $acceptedArgs ) = $args;
-    
-    $args = new \stdClass;
-
-    $args->hook = $hook;
-    $args->callback = ( $component !== null ? [ $component, $callback ] : $callback );
-    $args->priority = $priority;
-    $args->accepted = $acceptedArgs;
-
-    $queue[] = $args;
-
-    return $queue;
-  }
-
+  /**
+   * load
+   * 
+   * @return void
+   */
   public function load(): void {
 
-    array_map( function ( $args ) {
+    array_map( function ( $hook ) {
+      
+      add_action( $hook->event, $hook->callback, $hook->priority, $hook->numargs );
 
-      add_action( $args->hook, $args->callback, $args->priority, $args->accepted );
+      unset( $hook );
     }, $this->actions );
     
-    array_map( function ( $args ) {
+    array_map( function ( $hook ) {
 
-      add_filter( $args->hook, $args->callback, $args->priority, $args->accepted  );
+      add_filter( $hook->event, $hook->callback, $hook->priority, $hook->numargs  );
+      
+      unset( $hook );
     }, $this->filters );
   }
 }

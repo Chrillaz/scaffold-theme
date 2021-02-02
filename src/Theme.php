@@ -105,6 +105,7 @@ abstract class Theme implements Facade {
    * 
    * returns an instance of Assets
    * this class handles script and style inclutions and script executions
+   * It generates custom properties on instanciation based on styles set in customizer
    * 
    * @return Assets
    */

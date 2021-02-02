@@ -44,14 +44,14 @@
 	@media ( max-width: map-get( $breakpoints, 'md' ) ) {
 		max-width: 100%;
 		width: 100%;
-		margin: 0 calc(50% - 50%);
+		margin: 0 calc(50% - 50%); 
 	}
 }
 
 //*** Buttons
 .wp-block-buttons {
 	
-	@media ( min-width: map-get( $breakpoints: 'md' ) ) {
+	@media ( min-width: map-get( $breakpoints, 'md' ) ) {
 		
 	}
 }

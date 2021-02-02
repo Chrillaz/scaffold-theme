@@ -1,4 +1,7 @@
 <?php
+
+use Chrillaz\WPScaffold\Includes\{Bootstrap, Script, Style };
+
 /**
  * Load composer autoload.php
  */
@@ -15,27 +18,24 @@ require $autoload;
 /**
  * Bootstrap Theme
  */
-$theme = new Chrillaz\WPScaffold\Includes\Bootstrap();
+$theme = new Bootstrap();
 
 /**
  * Add public scripts and styles
  */
-$theme->assets()->queue( function ( $asset ) {
+$theme->assets()->queue( 'public', function ( $asset ) {
 
-  $asset->addStyle( 'main', [
-    'src'          => $asset->src( '/assets/css/style.css' ),
-    'dependencies' => [],
-    'media'        => ''
-  ]);
+  $asset->add( new Style( 'main', [
+    'src' => '/assets/css/style.css'
+  ]));
 
   wp_add_inline_style( 'main', $asset->getCustomProperties() );
   
-  $asset->addScript( 'main', [
-    'src'          => $asset->src( '/assets/js/main.min.js' ),
-    'infooter'     => true,
-    'dependencies' => [],
-    'scriptexec'   => 'defer'
-  ]);
+  $asset->add( new Script( 'main', [
+    'src'       => '/assets/js/main.min.js',
+    'infooter'  => true,
+    'execution' => 'defer'
+  ]));
 });
 
 /**
