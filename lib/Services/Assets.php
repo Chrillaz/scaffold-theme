@@ -12,7 +12,7 @@ class Assets extends Queue {
 
   private $context;
 
-  public function with ( $value ) {
+  public function context ( string $value ) {
 
     $this->context = $value;
 
