@@ -18,6 +18,7 @@
   ],
   "autoload": {
     "psr-4": {
+<<<<<<< HEAD
       "WpTheme\\Scaffold\\": "src/"
     }
   },
@@ -30,5 +31,12 @@
   },
   "require": {
     "illuminate/container": "^8.37"
+=======
+      "Theme\\Scaffold\\": "lib/"
+    },
+    "files": [
+      
+    ]
+>>>>>>> new
   }
 }
