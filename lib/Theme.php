@@ -2,6 +2,8 @@
 
 namespace Theme\Scaffold;
 
+use Theme\Scaffold\Providers\Facade;
+
 class Theme extends Facade {
 
   public $theme;

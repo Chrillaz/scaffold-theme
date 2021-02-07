@@ -1,6 +1,6 @@
 <?php
 
-namespace Theme\Scaffold;
+namespace Theme\Scaffold\Includes;
 
 abstract class Queue {
 
