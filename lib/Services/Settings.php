@@ -23,7 +23,7 @@ class Settings implements ICollection {
     return false;
   }
 
-  public function collect ( ...$properties ): array {
+  public function collect ( array $properties ): array {
 
     $chunk = [];
 
