@@ -24,9 +24,18 @@ class Hook {
 
     $this->callback = ( is_object( $component ) ? [$component, $callback] : $callback );
 
-    $this->priority = ( $priority === null ? 10 : $priority );
+    if ( is_int( $component ) ) {
 
-    $this->numargs = ( $numargs === null ? 1 : $numargs );
+      $this->priority = $component;
+
+      $this->numargs = $priority;
+    } else {
+
+      $this->priority = ( $priority === null ? 10 : $priority );
+  
+      $this->numargs = ( $numargs === null ? 1 : $numargs );
+    }
+
 
     return $this;
   }
