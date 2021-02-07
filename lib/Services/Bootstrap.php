@@ -1,14 +1,14 @@
 <?php
 
-namespace Theme\Scaffold;
+namespace Theme\Scaffold\Services;
 
 use Theme\Scaffold\Theme;
 
-use Theme\Scaffold\Facade;
+use Theme\Scaffold\Providers\Facade;
 
 use Theme\Scaffold\Integrations\Integrations;
 
-class Bootstrap extends Facade {
+class Bootstrap {
 
   private $theme;
 
@@ -23,12 +23,12 @@ class Bootstrap extends Facade {
 
     $theme->hooks()->addAction( 'script_loader_tag', 'scriptExec', $theme->assets(), 10, 2 );
 
-    $this->integrations();
+    $this->integrations( $theme->settings()->get( 'integrations' ) );
   }
 
-  public function integrations () {
+  public function integrations ( array $integrations ) {
 
-    Integrations::load();
+    Integrations::create( $this->theme, $integrations );
   }
 
   public function setup () {

@@ -2,7 +2,7 @@
 
 namespace Theme\Scaffold\Integrations;
 
-class Integrations implements Factory {
+class Integrations {
 
   public static $integrations = [];
 

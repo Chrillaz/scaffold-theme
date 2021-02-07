@@ -1,8 +1,8 @@
 <?php
 
-namespace Theme\Scaffold;
+namespace Theme\Scaffold\Services;
 
-use THeme\Scaffold\Interfaces\ICollection;
+use Theme\Scaffold\Interfaces\ICollection;
 
 class Settings implements ICollection {
 
@@ -23,14 +23,22 @@ class Settings implements ICollection {
     return false;
   }
 
-  public function collect ( ...$properties ) {
+  public function collect ( ...$properties ): array {
+
+    $chunk = [];
 
     foreach ( $properties as $index => $property ) {
 
+      if ( isset( $this->settings[$property] ) ) {
+
+        $chunk[$property] = $this->settings[$property];
+      }
     }
+
+    return $chunk;
   }
 
-  public function all () {
+  public function all (): array {
 
     return $this->settings;
   }

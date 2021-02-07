@@ -4,9 +4,9 @@ namespace Theme\Scaffold\Interfaces;
 
 interface ICollection {
 
-  public function get();
+  public function get( string $property );
 
-  public function collect();
+  public function collect( ...$properies ): array;
 
-  public function all();
+  public function all(): array;
 }

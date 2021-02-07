@@ -1,20 +1,24 @@
 <?php
 
-namespace Theme\Scaffold;
+namespace Theme\Scaffold\Providers;
 
-use Theme\Scaffold\Hooks;
+use Theme\Scaffold\Theme;
 
-use Theme\Scaffold\Assets;
+use Theme\Scaffold\Services\Hooks;
 
-use Theme\Scaffold\Settings;
+use Theme\Scaffold\Services\Assets;
 
-use Theme\Scaffold\Bootstrap;
+use Theme\Scaffold\Services\Settings;
+
+use Theme\Scaffold\Services\Bootstrap;
 
 class Facade {
 
   private $hooks;
 
   private $assets;
+
+  private $settings;
 
   public function hooks (): Hooks {
 
@@ -34,7 +38,7 @@ class Facade {
 
     if ( $this->settings === null ) {
 
-      $settings = json_decode( file_get_contents( __DIR__ . '../../settings.json' ), true );
+      $settings = json_decode( file_get_contents( __DIR__ . '../../../settings.json' ), true );
 
       $this->settings = new Settings( $settings );
     }

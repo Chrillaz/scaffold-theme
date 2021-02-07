@@ -1,6 +1,8 @@
 <?php
 
-namespace Theme\Scaffold;
+namespace Theme\Scaffold\Services;
+
+use Theme\Scaffold\Includes\Queue;
 
 use Theme\Scaffold\Includes\Script;
 
