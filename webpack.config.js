@@ -22,20 +22,41 @@ const cleanExcludes = [
 
 const banner = [
   '/*',
-  ' * Theme Name: ' + settings.details.name,
-  ' * Theme URI: ' + settings.details.uri,
-  ' * Author: ' + settings.details.author,
-  ' * Author URI: ' + settings.details.authoruri,
-  ' * Description: ' + settings.details.description,
-  ' * Version: ' + settings.details.version,
-  ' * License: ' + settings.details.license,
-  ' * Licence URI: ' + settings.details.licenseuri,
-  ' * Text Domain: ' + settings.details.textdomain,
-  ' * Domain Path: ' + settings.details.domainpath,
+  ' * Theme Name: ' + settings.name,
+  ' * Theme URI: ' + settings.homepage,
+  ' * Author: ' + settings.author,
+  ' * Author URI: ' + settings.authoruri,
+  ' * Description: ' + settings.description,
+  ' * Version: ' + settings.version,
+  ' * License: ' + settings.license,
+  ' * Licence URI: ' + settings.licenseuri,
+  ' * Text Domain: ' + settings.textuomain,
+  ' * Domain Path: ' + settings.domainpath,
   ' */\n',
 ].join( '\n' );
 
-fs.writeFile( 'style.css', banner, err => console.log( err ? err : 'Theme style.css generated! \n' ) );
+const generateThemeStyles = development => {
+
+  if ( ! fs.existsSync( './style.scss' ) ) {
+  
+    fs.writeFile( 'style.css', banner, err => console.log( err ? err : 'Theme style.css generated! \n' ) ); 
+  }
+}
+
+const setAssets = () => {
+  
+  const entries = {};
+
+  for ( type in conf['assets-entries'] ) {
+    
+    for ( chunk in conf['assets-entries'][type] ) {
+
+      entries[chunk] = conf['assets-entries'][type][chunk];
+    }
+  }
+
+  return entries;
+}
 
 module.exports = (env, argv) => {
   
@@ -43,16 +64,12 @@ module.exports = (env, argv) => {
 
   const context = path.resolve(__dirname, 'assets');
 
+  generateThemeStyles( development );
+
   const config = {
     context,
     devtool: development ? 'cheap-module-source-map' : 'source-map',
-    entry: { 
-      main: './js/src/main.ts',
-      // editor: './js/src/editor.js',
-      'style': './scss/style.scss',
-      'style-editor': './scss/styleEditor.scss',
-      // 'font': './scss/fontface.scss'
-    },
+    entry: setAssets(),
     output: {
       path: context,
       filename: 'js/[name].min.js',
@@ -94,7 +111,16 @@ module.exports = (env, argv) => {
           use: [
             MiniCSSExtractPlugin.loader, 
             'css-loader',
-            'postcss-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                postcssOptions: {
+                  plugins: [
+                    require( 'autoprefixer' )()
+                  ]
+                }
+              }
+            },
             'sass-loader'
           ]
         },

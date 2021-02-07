@@ -20,10 +20,10 @@
   },
   "autoload": {
     "psr-4": {
-      "Chrillaz\\": "includes/"
+      "Theme\\Scaffold\\": "lib/"
     },
     "files": [
-      "includes/utilities.php"
+      
     ]
   }
 }
