@@ -6,7 +6,7 @@ interface ICollection {
 
   public function get( string $property );
 
-  public function collect( ...$properies ): array;
+  public function collect( array $properies ): array;
 
   public function all(): array;
 }

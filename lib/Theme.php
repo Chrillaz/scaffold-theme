@@ -23,6 +23,42 @@ class Theme extends Facade {
     $this->bootstrap( $this );
   }
 
+  public function src ( string $relpath = '' ) {
+
+    return (object) [
+      'path' => get_template_directory() . $path,
+      'uri'  => get_template_directory_uri() . $path
+    ];
+  }
+
+  public function get ( string $header ) {
+
+    return $this->theme->get( $header );
+  }
+
+  public function option () {
+
+  }
+
+  public function options () {
+
+  }
+
+  public function setting ( string $setting ) {
+
+    return $this->settings()->get( $setting );
+  }
+
+  public function settings ( ...$settings ) {
+
+    if ( ! empty( $settings = $this->settings()->collect( $settings ) ) ) {
+
+      return $settings;
+    }
+
+    return $this->settings()->all();
+  }
+
   public function run () {
 
     $this->hooks()->load();
