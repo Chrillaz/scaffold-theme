@@ -22,4 +22,9 @@ class Theme extends ServiceProvider {
 
 		$this->bootstrap( $this );
   }
+
+  public function get ( $header ) {
+
+    return $this->theme->get( $header );
+  }
 }

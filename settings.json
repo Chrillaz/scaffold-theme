@@ -1,17 +1,15 @@
 {
-  "theme": {
-    "name": "Wp Scaffold",
-    "homepage": "https://github.com/Chrillaz/wordpress-theme-scaffold/",
-    "author": "Christoffer Öhman",
-    "authoruri": "https://github.com/Chrillaz/",
-    "description": "Wordpress base theme to extend on",
-    "version": "1.0.0",
-    "license": "",
-    "licenseuri": "",
-    "textdomain": "noor",
-    "domainpath": "",
-    "template": ""
-  },
+  "name": "Wp Scaffold",
+  "homepage": "https://github.com/Chrillaz/wordpress-theme-scaffold/",
+  "author": "Christoffer Öhman",
+  "authoruri": "https://github.com/Chrillaz/",
+  "description": "Wordpress base theme to extend on",
+  "version": "1.0.0",
+  "license": "",
+  "licenseuri": "",
+  "textdomain": "noor",
+  "domainpath": "",
+  "template": "",
   "webpack-assets": {
     "scripts": {
       "main": "./js/src/main.ts",
@@ -22,41 +20,43 @@
       "editor-styles": "./scss/editor.scss"
     }
   },
-  "default-options": {
-    
-  },
-  "default-mods": {
+  "support": {
     "block-styles": false,
     "editor-styles": false,
     "align-wide": true,
     "responsive-embeds": true,
     "disable-custom-colors": true,
     "disable-custom-gradients": true,
-    "disable-custom-font-sizes": false,
-    "content-width": 1200
+    "disable-custom-font-sizes": false
+  },
+  "content-breakpoints": {
+    "media.sm": 414,
+    "media.md": 768,
+    "media.lg": 992,
+    "media.xl": 1200
   },
   "color-palette": {
-    "dark": "#232323",
-    "primary-dark": "#31505E",
-    "primary": "#446B7E",
-    "primary-light": "#D2DCE0",
-    "secondary-dark": "#ECE0D1",
-    "secondary": "#F5EFE8",
-    "secondary-light": "#EEEEEE",
-    "light": "#FFFFFF"
+    "color.dark": "#232323",
+    "color.primary-dark": "#31505E",
+    "color.primary": "#446B7E",
+    "color.primary-light": "#D2DCE0",
+    "color.secondary-dark": "#ECE0D1",
+    "color.secondary": "#F5EFE8",
+    "color.secondary-light": "#EEEEEE",
+    "color.light": "#FFFFFF"
   },
   "font-sizes": {
-    "xs": 12,
-    "sm": 16,
-    "md": 20,
-    "lg": 24,
-    "xl": 28,
-    "xxl": 38
+    "font.xs": 12,
+    "font.sm": 16,
+    "font.md": 20,
+    "font.lg": 24,
+    "font.xl": 28,
+    "font.xxl": 38
   },
   "block-types-exclude": [
 
   ],
-  "theme-integrations": [
-
+  "integrations": [
+    "WPTheme\\Scaffold\\Integrations\\BlockEditor"
   ]
 }

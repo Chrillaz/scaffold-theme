@@ -25,11 +25,6 @@ if ( ! function_exists( 'publicAssets' ) ) {
 
   function publicAssets ( $assets ) {
 
-    $assets->script( 'main', 'main.min.js' )->dependencies()->load( 'defer' )->enqueue();
+    $assets->script( 'main', 'main.min.js' )->load( 'defer' )->enqueue();
   }
 }
-
-/**
- * Run theme
- */
-// $theme->run();

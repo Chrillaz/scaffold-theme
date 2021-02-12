@@ -1,8 +1,6 @@
 <?php
 
-namespace Chrillaz\WPScaffold\Interfaces;
-
-if ( ! defined( 'ABSPATH' ) ) exit;
+namespace WPTheme\Scaffold\Interfaces;
 
 /**
  * @property Chrillaz\WPScaffols\Theme $theme

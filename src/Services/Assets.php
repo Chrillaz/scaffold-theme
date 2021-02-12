@@ -6,7 +6,7 @@ use WPTheme\Scaffold\Abstractions\Style;
 
 use WPTheme\Scaffold\Abstractions\Script;
 
-class Assets {
+class Assets{
 
   public function script ( $handle, $src ) {
 
@@ -29,7 +29,7 @@ class Assets {
    * 
    * @return string
    */
-  public function scriptExec ( $tag, $handle ): string {
+  public function scriptExec ( $tag, string $handle ): string {
 
     $script_exec = wp_scripts()->get_data( $handle, 'script_execution' );
 
