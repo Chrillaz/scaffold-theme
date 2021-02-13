@@ -22,8 +22,8 @@
   },
   "settings": {
     "support": {
-      "block-styles": false,
-      "editor-styles": false,
+      "block-styles": true,
+      "editor-styles": true,
       "align-wide": true,
       "responsive-embeds": true,
       "disable-custom-colors": true,

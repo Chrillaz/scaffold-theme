@@ -17,18 +17,18 @@ class BlockEditor implements Integration {
     add_action( 'enqueue_block_assets', [ $this, 'blockAssets' ] );
   }
 
-  private function doScheme ( $collection ) {
+  private function doScheme ( $schema ) {
 
-    array_map( function ( $item ) use ( $collection ) {
+    return array_map( function ( $item ) use ( $schema ) {
 
       $keys = explode( '.', $item, 2 );
 
       return [
-        'name' => __( \ucfirst( str_replace( '-', ' ', $keys[1] ) ), $this->theme->get( 'TextDomain' ) ),
-        'slug' => $keys[1],
-        $keys[0]   => $collection[$item]
+        'name'   => __( \ucfirst( str_replace( '-', ' ', $keys[1] ) ), $this->theme->get( 'TextDomain' ) ),
+        'slug'   => $keys[1],
+        $keys[0] => $schema[$item]
       ];
-    }, array_keys( $collection ) );
+    }, array_keys( $schema ) );
   }
 
   public function blockAssets () {
