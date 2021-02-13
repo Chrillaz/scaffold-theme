@@ -8,6 +8,8 @@ class Bootstrap {
 
   public function __construct ( $theme ) {
 
+    $theme->assets()->doCSSVars( $theme->settings()->collect( 'color-palette', 'font-sizes', 'media-breakpoints' ) );
+
     add_action( 'after_setup_theme', function () use ( $theme ) {
 
       $this->setup( $theme );
@@ -22,8 +24,8 @@ class Bootstrap {
     });
 
     add_filter( 'script_loader_tag', [ $theme->assets(), 'scriptExec' ], 10, 2 );
-
-    $this->integrations( $theme, $theme->settings()->collect( 'integrations' ) );
+    
+    $this->integrations( $theme, $theme->settings()->get( 'integrations' ) );
   }
 
   private function integrations ( $theme, $integrations ) {

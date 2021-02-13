@@ -21,7 +21,7 @@ class BlockEditor implements Integration {
 
     $this->theme->assets()->script( 'theme-editor-scripts', 'editor.min.js' )->dependencies( 'wp-block', 'wp-hooks' )->enqueue();
 
-    $this->theme->assets()->style( 'theme-editor-css', 'editor.css' )->inline( 'theme-editor-css', $this->theme->cssVars()->get() )->enqueue();
+    $this->theme->assets()->style( 'theme-editor-css', 'editor-styles.css' )->inline( 'theme-editor-css', $this->theme->assets()->getCSSVars() )->enqueue();
   }
 
   public function setup () {

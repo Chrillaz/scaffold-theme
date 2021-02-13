@@ -20,41 +20,44 @@
       "editor-styles": "./scss/editor.scss"
     }
   },
-  "support": {
-    "block-styles": false,
-    "editor-styles": false,
-    "align-wide": true,
-    "responsive-embeds": true,
-    "disable-custom-colors": true,
-    "disable-custom-gradients": true,
-    "disable-custom-font-sizes": false
-  },
-  "content-breakpoints": {
-    "media.sm": 414,
-    "media.md": 768,
-    "media.lg": 992,
-    "media.xl": 1200
-  },
-  "color-palette": {
-    "color.dark": "#232323",
-    "color.primary-dark": "#31505E",
-    "color.primary": "#446B7E",
-    "color.primary-light": "#D2DCE0",
-    "color.secondary-dark": "#ECE0D1",
-    "color.secondary": "#F5EFE8",
-    "color.secondary-light": "#EEEEEE",
-    "color.light": "#FFFFFF"
-  },
-  "font-sizes": {
-    "font.xs": 12,
-    "font.sm": 16,
-    "font.md": 20,
-    "font.lg": 24,
-    "font.xl": 28,
-    "font.xxl": 38
+  "settings": {
+    "support": {
+      "block-styles": false,
+      "editor-styles": false,
+      "align-wide": true,
+      "responsive-embeds": true,
+      "disable-custom-colors": true,
+      "disable-custom-gradients": true,
+      "disable-custom-font-sizes": false
+    },
+    "media-breakpoints": {
+      "media.sm": "414px",
+      "media.md": "768px",
+      "media.lg": "992px",
+      "media.xl": "1200px"
+    },
+    "color-palette": {
+      "color.dark": "#232323",
+      "color.primary-dark": "#31505E",
+      "color.primary": "#446B7E",
+      "color.primary-light": "#D2DCE0",
+      "color.secondary-dark": "#ECE0D1",
+      "color.secondary": "#F5EFE8",
+      "color.secondary-light": "#EEEEEE",
+      "color.light": "#FFFFFF"
+    },
+    "font-sizes": {
+      "font.xs": "12px",
+      "font.sm": "16px",
+      "font.md": "20px",
+      "font.lg": "24px",
+      "font.xl": "28px",
+      "font.xxl": "38px"
+    }
   },
   "block-types-exclude": [
-
+    "core/columns",
+    "core/column"
   ],
   "integrations": [
     "WPTheme\\Scaffold\\Integrations\\BlockEditor"
