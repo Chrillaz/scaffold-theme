@@ -25,6 +25,8 @@ if ( ! function_exists( 'publicAssets' ) ) {
 
   function publicAssets ( $assets ) {
 
+    $assets->style( 'main', 'style.css' )->inline( $assets->getCSSVars() )->enqueue();
+
     $assets->script( 'main', 'main.min.js' )->load( 'defer' )->enqueue();
   }
 }

@@ -17,11 +17,28 @@ class BlockEditor implements Integration {
     add_action( 'enqueue_block_assets', [ $this, 'blockAssets' ] );
   }
 
+  private function doScheme ( $collection ) {
+
+    array_map( function ( $item ) use ( $collection ) {
+
+      $keys = explode( '.', $item, 2 );
+
+      return [
+        'name' => __( \ucfirst( str_replace( '-', ' ', $keys[1] ) ), $this->theme->get( 'TextDomain' ) ),
+        'slug' => $keys[1],
+        $keys[0]   => $collection[$item]
+      ];
+    }, array_keys( $collection ) );
+  }
+
   public function blockAssets () {
 
     $this->theme->assets()->script( 'theme-editor-scripts', 'editor.min.js' )->dependencies( 'wp-block', 'wp-hooks' )->enqueue();
 
-    $this->theme->assets()->style( 'theme-editor-css', 'editor-styles.css' )->inline( 'theme-editor-css', $this->theme->assets()->getCSSVars() )->enqueue();
+    if ( true === $this->theme->settings()->get( 'editor-styles' ) ) {
+
+      $this->theme->assets()->style( 'theme-editor-css', 'editor-styles.css' )->inline( $this->theme->assets()->getCSSVars() )->enqueue();
+    }
   }
 
   public function setup () {
@@ -56,7 +73,7 @@ class BlockEditor implements Integration {
       add_theme_support( 'disable-custom-gradients' );
     }
     
-    // add_theme_support( 'editor-color-palette', $this->theme->getSchema( 'color', $this->theme->getSetting( 'color-palette' ) ) );
+    add_theme_support( 'editor-color-palette', $this->doScheme( $this->theme->settings()->collect( 'color-palette' ) ) );
             
     if ( true === $this->theme->settings()->get( 'disable-custom-font-sizes' ) ) {
         

@@ -32,10 +32,10 @@ class Style {
     return $this;
   }
 
-  public function inline ( $handle, $inline ) {
+  public function inline ( $inline, $handle = null ) {
 
     $this->inline = array(
-      'handle' => $handle,
+      'handle' => ( $handle === null ? $this->handle : $handle ),
       'inline' => $inline
     );
 

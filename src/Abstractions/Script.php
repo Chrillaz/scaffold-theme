@@ -48,20 +48,21 @@ class Script {
     return $this;
   }
 
-  public function localize ( $handle, $data ) {
+  public function localize ( $name, $data, $handle = null ) {
 
-    $this->localize = array(
-      'handle' => $handle,
+    $this->localized = array(
+      'handle' => ( $handle === null ? $this->handle : $handle ),
+      'name'   => $name,
       'data'   => $data
     );
 
     return $this;
   }
 
-  public function inline ( $handle, $inline ) {
+  public function inline ( $inline, $handle = null ) {
 
     $this->inline = array(
-      'handle' => $handle,
+      'handle' => ( $handle === null ? $this->handle : $handle ),
       'inline' => $inline
     );
 
@@ -108,9 +109,9 @@ class Script {
       $wp->add_inline_script( $this->inline['handle'], $this->inline['inline'] );
     }
 
-    if ( isset( $this->localized ) && is_array( $this->localized ) && $wp->registered[$this->localized['handle']] ) {
+    if ( isset( $this->localized ) && is_array( $this->localized ) ) {
 
-      $wp->localize( $this->localized['handle'], $this->localized['data'] );
+      $wp->localize( $this->localized['handle'], $this->localized['name'], $this->localized['data'] );
     }
 
     if ( isset( $this->execution ) && $wp->registered[$this->handle] ) {
