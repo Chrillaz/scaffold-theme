@@ -14,7 +14,7 @@ class BlockEditor implements Integration {
 
     add_action( 'after_setup_theme', [ $this, 'setup'] );
 
-    add_action( 'enqueue_block_assets', [ $this, 'blockAssets' ] );
+    add_action( 'enqueue_block_editor_assets', [ $this, 'blockAssets' ] );
   }
 
   private function doScheme ( $schema ) {
@@ -33,7 +33,7 @@ class BlockEditor implements Integration {
 
   public function blockAssets () {
 
-    $this->theme->assets()->script( 'theme-editor-scripts', 'editor.min.js' )->dependencies( 'wp-block', 'wp-hooks' )->enqueue();
+    $this->theme->assets()->script( 'theme-editor-scripts', 'editor-scripts.min.js' )->dependencies( 'wp-blocks', 'wp-hooks' )->enqueue();
 
     if ( true === $this->theme->settings()->get( 'editor-styles' ) ) {
 
