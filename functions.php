@@ -30,3 +30,4 @@ if ( ! function_exists( 'publicAssets' ) ) {
     $assets->script( 'main', 'main.min.js' )->load( 'defer' )->enqueue();
   }
 }
+

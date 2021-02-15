@@ -6,7 +6,11 @@ use WPTheme\Scaffold\Integrations\Integrations;
 
 class Bootstrap {
 
+  public $theme;
+
   public function __construct ( $theme ) {
+
+    $this->theme = $theme;
 
     $theme->assets()->doCSSVars( $theme->settings()->collect( 'color-palette', 'font-sizes', 'media-breakpoints' ) );
 
@@ -24,6 +28,8 @@ class Bootstrap {
     });
 
     add_filter( 'script_loader_tag', [ $theme->assets(), 'scriptExec' ], 10, 2 );
+
+    add_action( 'get_template_part', [ $this, 'templateArgs' ], 90, 4 );
     
     $this->integrations( $theme, $theme->settings()->get( 'integrations' ) );
   }
@@ -31,6 +37,20 @@ class Bootstrap {
   private function integrations ( $theme, $integrations ) {
 
     Integrations::create( $theme, $integrations );
+  }
+
+  public function templateArgs ( string $slug, string $name, array $templates, array $args ) {
+
+    $templateArgs = apply_filters( 'scaffold/template_args', wp_parse_args( 
+      $args,
+      array(  
+        'theme' => $this->theme 
+      )
+    ));
+
+    locate_template( $templates, true, false, (object) $templateArgs );
+
+    exit;
   }
 
   public function setup ( $theme ) {
