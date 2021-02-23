@@ -16,12 +16,12 @@ class Settings {
 
     $this->settings = $settings;
 
-    $this->defaults = $this->doDefaults();
+    $this->defaults = $this->doDefaults( 'settings' );
   }
 
-  private function doDefaults () {
+  private function doDefaults ( string $settings ) {
 
-    return array_reduce( $this->settings['settings'], function ( $acc, $curr ) {
+    return array_reduce( $this->get( $settings ), function ( $acc, $curr ) {
 
       if ( is_array( $curr ) ) {
 
@@ -32,7 +32,7 @@ class Settings {
     }, array() );
   }
 
-  public function get ( $option ) {
+  public function get ( string $option ) {
 
     if ( isset( $this->settings[$option] ) ) {
 
@@ -50,11 +50,11 @@ class Settings {
 
     return array_reduce( $groups, function ( $acc, $curr ) use ( $options ) {
       
-      if ( isset( $this->settings['settings'][$curr] ) ) {
+      if ( isset( $this->get('settings')[$curr] ) ) {
         
         $acc = array_merge( $acc, array_filter( $options, function ( $value ) use ( $curr ) {
           
-          return array_key_exists( $value, $this->settings['settings'][$curr] );
+          return array_key_exists( $value, $this->get('settings')[$curr] );
         }, ARRAY_FILTER_USE_KEY ) );
       }
 
@@ -62,7 +62,7 @@ class Settings {
     }, array() );
   }
 
-  public function set ( $option, $value ) {
+  public function set ( string $option, $value ) {
 
     $options = get_option( $this->optionname, $this->defaults );
 

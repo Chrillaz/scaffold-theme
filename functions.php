@@ -19,15 +19,24 @@ require $autoload;
 $theme = new WPTheme\Scaffold\Theme();
 
 /**
- * Add public scripts and styles
+ * publicAssets
+ * 
+ * enqueue public assets
+ * 
+ * @param Assets $assets
  */
-if ( ! function_exists( 'publicAssets' ) ) {
+add_action( 'scaffold/public_assets', function ( $assets ) {
 
-  function publicAssets ( $assets ) {
+  $assets->style( 'main', 'style.css' )->inline( $assets->getCSSVars() )->enqueue();
 
-    $assets->style( 'main', 'style.css' )->inline( $assets->getCSSVars() )->enqueue();
+  $assets->script( 'main', 'main.min.js' )->load( 'defer' )->enqueue();
+});
 
-    $assets->script( 'main', 'main.min.js' )->load( 'defer' )->enqueue();
-  }
-}
+/**
+ * Custom setup on after_setup_theme hook
+ * 
+ * @param Theme $theme
+ */
+// add_action( 'scaffold/setup', function ( $theme ) {
 
+// });

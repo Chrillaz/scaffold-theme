@@ -6,7 +6,7 @@ use WPTheme\Scaffold\Abstractions\Style;
 
 use WPTheme\Scaffold\Abstractions\Script;
 
-class Assets{
+class Assets {
 
   private $customProperties;
 

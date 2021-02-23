@@ -20,11 +20,11 @@ class Theme extends ServiceProvider {
 
 		$this->version = $this->theme->get( 'Version' );
 
-		$this->bootstrap( $this );
+		$this->bootstrap( $this )->init();
   }
 
-  public function get ( $header ) {
+  public static function get ( $header ) {
 
-    return $this->theme->get( $header );
+    return wp_get_theme()->get( $header );
   }
 }

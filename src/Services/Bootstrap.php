@@ -11,59 +11,43 @@ class Bootstrap {
   public function __construct ( $theme ) {
 
     $this->theme = $theme;
+  }
 
-    $theme->assets()->doCSSVars( $theme->settings()->collect( 'color-palette', 'font-sizes', 'media-breakpoints' ) );
+  private function integrations () {
 
-    add_action( 'after_setup_theme', function () use ( $theme ) {
+    Integrations::create( 
+      $this->theme, 
+      $this->theme->settings()->get( 'integrations' ) 
+    );
+  }
 
-      $this->setup( $theme );
-    });
+  public function init () {
 
-    add_action( 'wp_enqueue_scripts', function () use ( $theme ) {
-
-      if ( function_exists( $func = 'publicAssets' ) ) {
-
-        call_user_func_array( $func, [$theme->assets()] );
-      }
-    });
-
-    add_filter( 'script_loader_tag', [ $theme->assets(), 'scriptExec' ], 10, 2 );
-
-    add_action( 'get_template_part', [ $this, 'templateArgs' ], 90, 4 );
+    $this->integrations();
     
-    $this->integrations( $theme, $theme->settings()->get( 'integrations' ) );
+    $this->theme->assets()->doCSSVars( $this->theme->settings()->collect( 'color-palette', 'font-sizes', 'media-breakpoints' ) );
+
+    add_action( 'after_setup_theme', [ $this, 'setup' ] );
+
+    add_action( 'wp_enqueue_scripts', function () {
+
+      do_action( 'scaffold/public_assets', $this->theme->assets() );
+    });
+
+    add_filter( 'script_loader_tag', [ $this->theme->assets(), 'scriptExec' ], 10, 2 );
   }
 
-  private function integrations ( $theme, $integrations ) {
+  public function setup () {
 
-    Integrations::create( $theme, $integrations );
-  }
-
-  public function templateArgs ( string $slug, string $name, array $templates, array $args ) {
-
-    $templateArgs = apply_filters( 'scaffold/template_args', wp_parse_args( 
-      $args,
-      array(  
-        'theme' => $this->theme 
-      )
-    ));
-
-    locate_template( $templates, true, false, (object) $templateArgs );
-
-    exit;
-  }
-
-  public function setup ( $theme ) {
-
-    load_theme_textdomain( $theme->get( 'TextDomain' ) );
+    load_theme_textdomain( $this->theme->get( 'TextDomain' ) );
     
     add_theme_support( 'title-tag' );
     
     add_theme_support( 'post-thumbnails' );
 
     $navmenu_locations = apply_filters( 'scaffold/navmenu_locations', [
-      'primary' => __( 'Primary', $theme->get( 'TextDomain' ) ),
-      'social'  => __( 'Social Links Menu', $theme->get( 'TextDomain' ) )
+      'primary' => __( 'Primary', $this->theme->get( 'TextDomain' ) ),
+      'social'  => __( 'Social Links Menu', $this->theme->get( 'TextDomain' ) )
     ]);
     
     register_nav_menus( $navmenu_locations );
@@ -103,5 +87,7 @@ class Bootstrap {
         add_image_size( $name, $settings['width'], $settings['height'], $settings['crop'] );
       }
     }
+
+    do_action( 'scaffold/setup', $this->theme );
   }
 }

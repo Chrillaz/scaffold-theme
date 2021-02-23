@@ -2,38 +2,19 @@
 
 namespace WPTheme\Scaffold\Abstractions;
 
-class Script {
+use WPTheme\Scaffold\Interfaces\AbstractResource;
 
-  private $src;
+class Script extends AbstractResource {
 
-  private $handle;
-
-  private $version;
-
-  private $dependencies = [];
-
-  private $context = 'footer';
+  private $context = true;
 
   private $execution;
 
   private $localized;
 
-  private $dequeue = false;
-
   public function __construct ( $handle, $src ) {
 
-    $this->handle = $handle;
-
-    $this->src = get_stylesheet_directory_uri() . '/assets/js/' . trim( $src );
-
-    $this->version = filemtime( get_stylesheet_directory() . '/assets/js/' . trim( $src ) );
-  }
-
-  public function dependencies ( ...$dependencies ) {
-
-    $this->dependencies = $dependencies;
-
-    return $this;
+    $this->init( $handle, $src );
   }
 
   public function load ( $exec ) {
@@ -48,22 +29,11 @@ class Script {
     return $this;
   }
 
-  public function localize ( $name, $data, $handle = null ) {
+  public function localize ( $name, $data ) {
 
     $this->localized = array(
-      'handle' => ( $handle === null ? $this->handle : $handle ),
       'name'   => $name,
       'data'   => $data
-    );
-
-    return $this;
-  }
-
-  public function inline ( $inline, $handle = null ) {
-
-    $this->inline = array(
-      'handle' => ( $handle === null ? $this->handle : $handle ),
-      'inline' => $inline
     );
 
     return $this;
@@ -72,13 +42,6 @@ class Script {
   public function context ( $context ) {
 
     $this->context = trim( $context ) === 'footer';
-
-    return $this;
-  }
-
-  public function remove () {
-
-    $this->dequeue = true;
 
     return $this;
   }
@@ -98,27 +61,27 @@ class Script {
 
       $wp->add( $this->handle, $this->src, $this->dependencies, $this->version );
 
-      if ( $this->context === 'footer' ) {
+      if ( $this->context ) {
 
         $wp->add_data( $this->handle, 'group', 1 );
       }
     }
 
-    if ( isset( $this->inline ) && is_array( $this->inline ) && $wp->registered[$this->inline['handle']] ) {
+    if ( isset( $this->inline ) && $wp->registered[$this->handle] ) {
 
-      $wp->add_inline_script( $this->inline['handle'], $this->inline['inline'] );
+      $wp->add_inline_script( $this->handle, $this->inline );
     }
 
-    if ( isset( $this->localized ) && is_array( $this->localized ) ) {
+    if ( isset( $this->localized ) && ! empty( $this->localized ) ) {
 
-      $wp->localize( $this->localized['handle'], $this->localized['name'], $this->localized['data'] );
+      $wp->localize( $this->handle, $this->localized['name'], $this->localized['data'] );
     }
 
     if ( isset( $this->execution ) && $wp->registered[$this->handle] ) {
 
       $wp->add_data( $this->handle, 'script_execution', $this->execution );
     }
-
+    
     $wp->enqueue( $this->handle );
   }
 }
