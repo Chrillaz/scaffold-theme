@@ -10,17 +10,17 @@ git clone https://github.com/Chrillaz/wordpress-theme-scaffold && cd wordpress-t
 
 Name theme.
   
-  All theme headers for stylesheet are generated from below properties in package.json
-   * Theme Name   = package.json title
-   * Theme URI    = package.json homepage
-   * Author       = package.json author
-   * Author URI   = package.json authorUri
-   * Description  = package.json description
-   * Version      = package.json version
-   * License      = package.json license
-   * Licence URI  = package.json licenseUri
-   * Text Domain  = package.json textDomain
-   * Domain Path  = package.json domainPath
+  All theme headers for stylesheet are generated from below properties in settings.json
+   * Theme Name   = settings.json name
+   * Theme URI    = settings.json homepage
+   * Author       = settings.json author
+   * Author URI   = settings.json authoruri
+   * Description  = settings.json description
+   * Version      = settings.json version
+   * License      = settings.json license
+   * Licence URI  = settings.json licenseuri
+   * Text Domain  = settings.json textdomain
+   * Domain Path  = settings.json domainpath
 
    - RUN ```npm install```
    - RUN ```npm start``` to generate theme stylesheet
@@ -33,27 +33,29 @@ edit .wp-env.json to fit the environment. reference: [@wordpress-env docs.](http
 
 ### Webpack
 
-To chunk .scss or .ts files specify each by name => src in entry of the config object. 
+To chunk .scss or .ts files specify each by name => src in entry of the webpack-assets property in settings.json. 
 
-webpack.config.js
+settings.json
 ```
-entry: { 
-    main: './js/src/main.ts',
-    style: './scss/main.scss',
-    example: './js/src/example.ts
-}
+"webpack-assets": {
+    "scripts": {
+      "main": "./js/src/main.ts",
+      "editor-scripts": "./js/src/editor.ts"
+    },
+    "styles": {
+      "style": "./scss/main.scss",
+      "editor-styles": "./scss/editor.scss"
+    }
+  },
 ```
 
 then enqueue assets in functions.php using the asset loader. Example defined in functions.php.
 
 ```
-$theme->assets()->enqueue( function ( $self ) {
+add_action( 'scaffold/public_assets', function ( $assets ) {
 
-    $self->addScript( 'main', [
-      'src'          => $self->src( '/assets/js/main.min.js' ),
-      'scriptexec'   => 'defer',
-      'dependencies' => [],
-      'infooter'     => true
-    ]);
+  $assets->style( 'main', 'style.css' )->inline( $assets->getCSSVars() )->enqueue();
+
+  $assets->script( 'main', 'main.min.js' )->load( 'defer' )->enqueue();
 });
 ```
