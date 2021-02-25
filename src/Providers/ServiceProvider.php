@@ -6,6 +6,8 @@ use WPTheme\Scaffold\Services\Bootstrap;
 
 use WPTheme\Scaffold\Services\Assets;
 
+use WPTheme\Scaffold\Abstractions\Option;
+
 use WPTheme\Scaffold\Services\Settings;
 
 class ServiceProvider {
@@ -14,6 +16,8 @@ class ServiceProvider {
 
   private $settings;
 
+  private $themeMods;
+
   public function assets () {
 
     if ( $this->assets === null ) $this->assets = new Assets();
@@ -21,7 +25,7 @@ class ServiceProvider {
     return $this->assets;
   }
 
-  public function settings() {
+  public function settings () {
 
     if ( $this->settings === null ) {
 
@@ -31,6 +35,16 @@ class ServiceProvider {
     }
 
     return $this->settings;
+  }
+
+  public function mods () {
+
+    if ( $this->themeMods === null ) {
+      
+      $this->themeMods = new Option( 'theme_mods_' . get_template() . '[settings]', $this->settings()->defaults );
+    }
+
+    return $this->themeMods;
   }
 
   public function bootstrap ( $theme ) {

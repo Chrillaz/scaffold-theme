@@ -1,5 +1,7 @@
 <?php
 
+use WPTheme\Scaffold\Providers\Context;
+
 /**
  * Load composer autoload.php
  */
@@ -27,7 +29,7 @@ $theme = new WPTheme\Scaffold\Theme();
  */
 add_action( 'scaffold/public_assets', function ( $assets ) {
 
-  $assets->style( 'main', 'style.css' )->inline( $assets->getCSSVars() )->enqueue();
+  $assets->style( 'main', 'style.css' )->inline( Context::use( 'cssVars' ) )->enqueue();
 
   $assets->script( 'main', 'main.min.js' )->load( 'defer' )->enqueue();
 });

@@ -2,9 +2,9 @@
 
 namespace WPTheme\Scaffold\Providers;
 
-use WPTheme\Scaffold\Interfaces\Collection;
+use WPTheme\Scaffold\Interfaces\StaticCollection;
 
-class Context implements Collection {
+class Context implements StaticCollection {
 
   private static $collection = [];
 
@@ -23,7 +23,7 @@ class Context implements Collection {
     return self::$collection;
   }
 
-  public static function pick ( string $key ) {
+  public static function use ( string $key ) {
 
     if ( isset( self::$collection[$key] ) ) {
 
@@ -56,7 +56,7 @@ class Context implements Collection {
   public static function dump ( $key = null ) {
 
     $key !== null 
-      ? var_dump('<pre>', self::pick( $key ), '</pre>')
+      ? var_dump('<pre>', self::use( $key ), '</pre>')
       : var_dump('<pre>', self::get(), '</pre>');
   }
 

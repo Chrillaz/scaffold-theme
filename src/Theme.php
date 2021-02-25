@@ -8,11 +8,11 @@ use WPTheme\Scaffold\Providers\ServiceProvider;
 
 class Theme extends ServiceProvider {
 
-  public $theme;
+  private $theme;
 
-  public $name;
+  private $name;
 
-  public $version;
+  private $version;
 
   public function __construct () {
 

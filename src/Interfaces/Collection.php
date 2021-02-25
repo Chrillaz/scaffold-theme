@@ -4,15 +4,15 @@ namespace WPTheme\Scaffold\Interfaces;
 
 interface Collection {
 
-  public static function set ( string $key, $value );
+  public function set ( string $key, $value );
 
-  public static function get (): array;
+  public function get ();
 
-  public static function pick ( string $key );
+  public function use ( string $key );
 
-  public static function collect ( ...$keys ): array;
+  public function collect ( ...$keys ): array;
 
-  public static function remove ( string $key ): bool;
+  public function remove ( string $key ): bool;
 
-  public static function dump ( string $key = null );
+  public function dump ( string $key = null );
 }

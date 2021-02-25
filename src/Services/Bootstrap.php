@@ -2,7 +2,11 @@
 
 namespace WPTheme\Scaffold\Services;
 
+use WPTheme\Scaffold\Providers\Context;
+
 use WPTheme\Scaffold\Integrations\Integrations;
+
+use WPTheme\Scaffold\Services\CustomProperties;
 
 class Bootstrap {
 
@@ -24,8 +28,16 @@ class Bootstrap {
   public function init () {
 
     $this->integrations();
-    
-    $this->theme->assets()->doCSSVars( $this->theme->settings()->collect( 'color-palette', 'font-sizes', 'media-breakpoints' ) );
+
+    $styles = array_merge(
+      $this->theme->settings()->get( 'settings.color-palette' ),
+      $this->theme->settings()->get( 'settings.font-sizes' ),
+      $this->theme->settings()->get( 'settings.media-breakpoints' )
+    );
+
+    $cssVars = new CustomProperties( $styles, $this->theme->mods() );
+
+    Context::set( 'cssVars', $cssVars->get() );
 
     add_action( 'after_setup_theme', [ $this, 'setup' ] );
 

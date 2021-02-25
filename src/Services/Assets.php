@@ -8,8 +8,6 @@ use WPTheme\Scaffold\Abstractions\Script;
 
 class Assets {
 
-  private $customProperties;
-
   public function script ( $handle, $src ) {
 
     return new Script( $handle, $src );
@@ -18,25 +16,6 @@ class Assets {
   public function style ( $handle, $src ) {
 
     return new Style( $handle, $src );
-  }
-
-  public function doCSSVars ( $collection ) {
-
-    $properties = array_reduce( array_keys( $collection ), function ( $acc, $curr ) use ( $collection ) {
-
-      $selector = explode( '.', $curr, 2 );
-
-      $acc .= "--theme-" . $selector[0] . "-" . $selector[1] . ": " . $collection[$curr] . "; \n";
-
-      return $acc;
-    }, '' );
-
-    $this->customProperties = sprintf( ':root{%s}', $properties );
-  }
-
-  public function getCSSVars () {
-
-    return $this->customProperties;
   }
 
   /**
