@@ -18,7 +18,7 @@ require $autoload;
 /**
  * Bootstrap Theme
  */
-$theme = new WPTheme\Scaffold\Theme();
+new WPTheme\Scaffold\Bootstrap();
 
 /**
  * publicAssets
@@ -27,12 +27,12 @@ $theme = new WPTheme\Scaffold\Theme();
  * 
  * @param Assets $assets
  */
-add_action( 'scaffold/public_assets', function ( $assets ) {
+// add_action( 'scaffold/public_assets', function ( $assets ) {
 
-  $assets->style( 'main', 'style.css' )->inline( Context::use( 'cssVars' ) )->enqueue();
+//   $assets->style( 'main', 'style.css' )->inline( Context::use( 'cssVars' ) )->enqueue();
 
-  $assets->script( 'main', 'main.min.js' )->load( 'defer' )->enqueue();
-});
+//   $assets->script( 'main', 'main.min.js' )->load( 'defer' )->enqueue();
+// });
 
 /**
  * Custom setup on after_setup_theme hook

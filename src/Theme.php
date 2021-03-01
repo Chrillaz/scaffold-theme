@@ -2,11 +2,7 @@
 
 namespace WPTheme\Scaffold;
 
-use WPTheme\Scaffold\Providers\Context;
-
-use WPTheme\Scaffold\Providers\ServiceProvider;
-
-class Theme extends ServiceProvider {
+class Theme {
 
   private $theme;
 
@@ -21,10 +17,6 @@ class Theme extends ServiceProvider {
 		$this->name = $this->theme->get( 'Name' );
 
 		$this->version = $this->theme->get( 'Version' );
-
-		$this->bootstrap( $this )->init();
-
-    Context::set( 'theme', $this );
   }
 
   public function get ( $header ) {
