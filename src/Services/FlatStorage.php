@@ -1,16 +1,16 @@
 <?php
 
-namespace WPTheme\Scaffold\Services;
+namespace WpTheme\Scaffold\Services;
 
-use WPTheme\Scaffold\Contracts\Storage;
+use WpTheme\Scaffold\Contracts\Storage;
 
-final class FlatStorage implements Storage {
+class FlatStorage implements Storage {
 
   private $storage;
 
-  public function __construct () {
+  public function __construct ( $storage = array() ) {
 
-    $this->storage = array();
+    $this->storage = $this->flatten( $storage );
   }
 
   public function contains ( $keyOrValue ): bool {
@@ -65,7 +65,7 @@ final class FlatStorage implements Storage {
     return false;
   }
 
-  public function create ( $list ): void {
+  protected function flatten ( array $list ) {
 
     $flattened = array();
 
@@ -73,13 +73,13 @@ final class FlatStorage implements Storage {
 
       if ( is_array( $item ) && ! empty( $item ) ) {
 
-        $flattened = array_merge( $flattened, $this->create( $item ) );
+        $flattened = array_merge( $flattened, $this->flatten( $item ) );
       } else {
 
         $flattened[$key] = $item;
       }
     }
 
-    $this->storage = $flattened;
+    return $flattened;
   }
 }

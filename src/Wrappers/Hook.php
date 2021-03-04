@@ -1,6 +1,6 @@
 <?php
 
-namespace WPTheme\Scaffold\Wrappers;
+namespace WpTheme\Scaffold\Wrappers;
 
 class Hook {
 

@@ -1,8 +1,12 @@
 <?php
 
-namespace WPTheme\Scaffold\Contracts;
+namespace WpTheme\Scaffold\Contracts;
 
 interface Container {
 
-  public function use ( string $service );
+  public function new ( string $name );
+
+  public function use ( string $name );
+
+  public function register ( string $name, \Closure $callback );
 }

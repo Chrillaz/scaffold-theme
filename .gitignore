@@ -5,6 +5,7 @@ vendor
 style.css
 package-lock.json
 composer.lock
+wordpress
 
 /assets/css
 /assets/js/*

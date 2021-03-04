@@ -1,6 +1,6 @@
 <?php
 
-namespace WPTheme\Scaffold\Contracts;
+namespace WpTheme\Scaffold\Contracts;
 
 interface Storage {
 
@@ -66,5 +66,5 @@ interface Storage {
    * 
    * @return void
    */
-  public function create ( $list ): void;
+  // public function create ( $list ): void;
 }

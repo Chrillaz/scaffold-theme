@@ -1,26 +1,34 @@
 <?php
 
-namespace WPTheme\Scaffold;
+namespace WpTheme\Scaffold;
 
-use WPTheme\Scaffold\Theme;
+use WpTheme\Scaffold\Theme;
 
-use WPTheme\Scaffold\ServiceContainer;
+use WpTheme\Scaffold\ServiceContainer;
 
-use WPTheme\Scaffold\Services\FlatStorage;
+use WpTheme\Scaffold\Services\Subscriber;
+
+use WpTheme\Scaffold\Services\FlatStorage;
 
 class Bootstrap {
 
   public function __construct () {
-
-    $this->container = new ServiceContainer( new FlatStorage() );
 
     $this->dependencies();
   }
 
   private function dependencies () {
 
-    $this->theme = $this->container->use( __namespace__ . '\\Theme' );
+    $container = new ServiceContainer( new FlatStorage() );
 
-    $this->subscriber = $this->container->use( __namespace__ . '\\Services\\Subscriber' );
+    $container->register( Subscriber::class, function( $container ) {
+      
+      return $container->new( FlatStorage::class, array(
+        'actions' => array(),
+        'filters' => array()
+      ));
+    });
+
+    Theme::getInstance( $container, wp_get_theme( get_template() ) );
   }
 }

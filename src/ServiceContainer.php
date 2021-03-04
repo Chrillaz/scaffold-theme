@@ -1,14 +1,14 @@
 <?php
 
-namespace WPTheme\Scaffold;
+namespace WpTheme\Scaffold;
 
-use WPTheme\Scaffold\Abstracts\Resolver;
+use WpTheme\Scaffold\Services\Logger;
 
-use WPTheme\Scaffold\Services\FlatStorage;
+use WpTheme\Scaffold\Services\FlatStorage;
 
-use WPTheme\Scaffold\Contracts\Container;
+use WpTheme\Scaffold\Contracts\Container;
 
-class ServiceContainer extends Resolver implements Container {
+class ServiceContainer implements Container {
 
   private $storage;
 
@@ -17,13 +17,45 @@ class ServiceContainer extends Resolver implements Container {
     $this->storage = $storage;
   }
 
-  public function use ( string $service ) {
-    
-    if ( $object = $this->storage->get( $service ) ) {
-    
-      return $object;
+  public function new ( string $name, $params = null ) {
+
+    try {
+
+      return new $name( $params );
+    } catch ( \Exception $error ) {
+
+      new Logger( 'container_exception', $error );
     }
-    
-    return $this->storage->update( $service, self::resolve( $service ) );
+  }
+
+  public function use ( string $service ) {
+
+    try {
+
+      if ( $object = $this->storage->get( $service ) ) {
+      
+        return $object;
+      }
+
+      throw new \Exception( "Service not defined." );
+    } catch ( \Exception $error ) {
+      
+      new Logger( 'container_exception', $error );
+    }
+  }
+
+  public function register ( string $name, \Closure $callback ) {
+
+    try {
+      if ( ! $this->storage->get( $name ) ) {
+
+        return $this->storage->update( $name, new $name( $callback( $this ) ) );
+      }
+
+      throw new \Exception( "Service already defined." );
+    } catch ( \Exception $error ) {
+
+      new Logger( 'container_exception', $error );
+    }
   }
 }
