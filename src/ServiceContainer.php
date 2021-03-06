@@ -17,7 +17,7 @@ class ServiceContainer implements Container {
     $this->storage = $storage;
   }
 
-  public function new ( string $name, $params = null ) {
+  public function make ( string $name, $params = null ) {
 
     try {
 

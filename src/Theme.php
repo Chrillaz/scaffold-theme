@@ -4,6 +4,10 @@ namespace WpTheme\Scaffold;
 
 use WpTheme\Scaffold\Wrappers\Hook;
 
+use WpTheme\Scaffold\Wrappers\Style;
+
+use WpTheme\Scaffold\Wrappers\Script;
+
 use WpTheme\Scaffold\ServiceContainer;
 
 use WpTheme\Scaffold\Services\Subscriber;
@@ -33,27 +37,22 @@ class Theme {
     return self::$instance->container;
   }
 
-  public static function addAction ( ...$args ) {
+  public static function addScript ( string $handle, string $file ) {
 
-    self::$instance->container->use( Subscriber::class )->add( 'actions', new Hook( $args ) );
+    return self::$instance->container->make( Script::class, [
+      \wp_scripts(),
+      $handle,
+      $file
+    ] );
   }
 
-  public static function addFilter ( ...$args ) {
-
-    self::$instance->container->use( Subscriber::class )->add( 'filters', new Hook( $args ) );
-  }
-
-  public function subscribe () {
-
-    self::$instance->container->use( Subscriber::class )->subscribe();
-  }
-
-  public static function script ( string $handle, string $file ) {
-
-  }
-
-  public static function style ( string $handle, string $file ) {
+  public static function addStyle ( string $handle, string $file ) {
     
+    return self::$instance->container->make( Style::class, [
+      \wp_styles(),
+      $handle,
+      $file
+    ] );
   }
 
   public static function getInstance ( ServiceContainer $container, \Wp_Theme $theme ) {

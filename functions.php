@@ -27,10 +27,10 @@ new \WpTheme\Scaffold\Bootstrap();
  * 
  * @param Assets $assets
  */
-Theme::addAction( 'wp_enqueue_scripts', function () {
+// Theme::addAction( 'wp_enqueue_scripts', function () {
 
-  echo 'HELLO';
-});
+//   echo 'HELLO';
+// });
 
 // add_action( 'scaffold/public_assets', function ( $assets ) {
 
@@ -48,4 +48,4 @@ Theme::addAction( 'wp_enqueue_scripts', function () {
 
 // });
 
-Theme::subscribe();
+// Theme::subscribe();

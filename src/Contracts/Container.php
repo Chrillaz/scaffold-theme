@@ -4,7 +4,7 @@ namespace WpTheme\Scaffold\Contracts;
 
 interface Container {
 
-  public function new ( string $name );
+  public function make ( string $name );
 
   public function use ( string $name );
 
