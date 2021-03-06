@@ -6,12 +6,19 @@ use WpTheme\Scaffold\Abstracts\ProviderImpl as Provider;
 
 class SetupProvider extends Provider {
 
-  const TYPE = 'action';
+  public $context = [
+    'hook' => 'after_setup_theme',
+    'priority' => 10,
+    'acceptedargs' => 1
+  ];
 
-  const NAME = 'after_setup_theme';
+  public function setup () {
+
+    var_dump('<pre>', 'HELLO SETUP!', '</pre>');
+  }
 
   public function register () {
 
-    $this->provider->register( $this, 'setup' );
+    $this->provider->addAction( $this, 'setup' );
   }
 }

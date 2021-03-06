@@ -6,14 +6,18 @@ use WpTheme\Scaffold\Abstracts\ProviderImpl as Provider;
 
 class ScriptloadProvider extends Provider {
 
-  const NAME = 'script_loader_tag';
+  public $context = [
+    'hook' => 'script_loader_tag',
+    'priority' => 10,
+    'acceptedargs' => 2
+  ];
 
   public function loader ( string $tag, string $handle ) {
 
     var_dump('<pre>', 'HELLO LOADER!', '</pre>');
   }
 
-  private function register () {
+  public function register () {
 
     $this->provider->addAction( $this, 'loader' );
   }

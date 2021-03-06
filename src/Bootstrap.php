@@ -6,6 +6,10 @@ use WpTheme\Scaffold\Theme;
 
 use WpTheme\Scaffold\ServiceContainer;
 
+use WpTheme\Scaffold\Providers\Invoker;
+
+use WpTheme\Scaffold\Providers\Reciever;
+
 use WpTheme\Scaffold\Providers\ServiceProvider;
 
 use WpTheme\Scaffold\Services\Subscriber;
@@ -40,12 +44,13 @@ class Bootstrap {
 
     require __DIR__ . '/Providers/Config.php';
 
-    $serviceProvider = new ServiceProvider();
+    $invoker = new Invoker(); // Executor
+    $reciever = new Reciever(); // Subscriber
 
     foreach ( $providers as $provider ) {
 
-      $provider = new $provider( $serviceProvider );
-      $provider->register();
+      $invoker->setCommand( new $provider( $reciever ) );
+      $invoker->run();
     }
   }
 }
