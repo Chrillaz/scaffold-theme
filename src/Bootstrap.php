@@ -14,8 +14,6 @@ use WpTheme\Scaffold\Providers\ProviderRegistrar;
 
 class Bootstrap {
 
-  private $container;
-
   public function __construct () {
 
     $this->dependencies();
@@ -28,15 +26,10 @@ class Bootstrap {
    */
   private function dependencies () {
 
-    $this->container = $container = new ServiceContainer( new FlatStorage() );
-
-    $this->container->register( Theme::class, function ( $container ) {
-
-      return array(
-        $container, 
-        \wp_get_theme( \get_template() )
-      );
-    });
+    Theme::getInstance( 
+      \wp_get_theme( \get_template() ),
+      new FlatStorage()
+    );
   }
 
   /**

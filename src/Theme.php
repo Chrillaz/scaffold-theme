@@ -2,19 +2,19 @@
 
 namespace WpTheme\Scaffold;
 
-use WpTheme\Scaffold\Wrappers\Hook;
+use WpTheme\Scaffold\Services\Asset;
 
 use WpTheme\Scaffold\Wrappers\Style;
 
 use WpTheme\Scaffold\Wrappers\Script;
 
-use WpTheme\Scaffold\ServiceContainer;
+use WpTheme\Scaffold\Services\FlatStorage;
 
 use WpTheme\Scaffold\Services\Subscriber;
 
 class Theme {
 
-  private $container;
+  private $storage;
 
   private $theme;
 
@@ -22,9 +22,9 @@ class Theme {
 
   private function __construct ( array $args ) {
 
-    list ( $container, $theme ) = $args;
+    list ( $theme, $storage ) = $args;
     
-    $this->container = $container;
+    $this->storage = $storage;
 
     $this->theme = $theme;
   }
@@ -39,25 +39,17 @@ class Theme {
     return self::$instance->container;
   }
 
-  public static function addScript ( string $handle, string $file ) {
+  public static function addScript ( string $handle, string $src ) {
 
-    return self::$instance->container->make( Script::class, [
-      \wp_scripts(),
-      $handle,
-      $file
-    ] );
+    return new Script( \wp_scripts(), new Asset( new FlatStorage(), $handle, $src ) );
   }
 
-  public static function addStyle ( string $handle, string $file ) {
+  public static function addStyle ( string $handle, string $src ) {
     
-    return self::$instance->container->make( Style::class, [
-      \wp_styles(),
-      $handle,
-      $file
-    ] );
+    return new Style( \wp_styles(), new Asset( new FlatStorage(), $handle, $src ) );
   }
 
-  public static function getInstance ( array $args ) {
+  public static function getInstance ( ...$args ) {
 
     if ( self::$instance === null ) {
       
