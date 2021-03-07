@@ -6,7 +6,7 @@ use WpTheme\Scaffold\Theme;
 
 use WpTheme\Scaffold\Abstracts\Provider;
 
-class ScriptloadProvider extends Provider {
+class ScriptexecProvider extends Provider {
 
   public function boot ( ...$args ) {
 
