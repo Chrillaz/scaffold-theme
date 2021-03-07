@@ -6,51 +6,43 @@ use WpTheme\Scaffold\Theme;
 
 use WpTheme\Scaffold\ServiceContainer;
 
-use WpTheme\Scaffold\Providers\Invoker;
-
-use WpTheme\Scaffold\Providers\Reciever;
-
-use WpTheme\Scaffold\Providers\ServiceProvider;
-
-use WpTheme\Scaffold\Services\Subscriber;
+use WpTheme\Scaffold\Services\Commander;
 
 use WpTheme\Scaffold\Services\FlatStorage;
 
+use WpTheme\Scaffold\Providers\ProviderRegistrar;
+
 class Bootstrap {
+
+  private $theme;
+
+  private $container;
 
   public function __construct () {
 
     $this->dependencies();
 
-    $this->services();
+    $this->providers();
   }
 
   private function dependencies () {
 
-    $container = new ServiceContainer( new FlatStorage() );
+    $this->container = $container = new ServiceContainer( new FlatStorage() );
 
-    $container->register( Subscriber::class, function( $container ) {
-      
-      return $container->make( FlatStorage::class, array(
-        'actions' => array(),
-        'filters' => array()
-      ));
-    });
-
-    Theme::getInstance( $container, \wp_get_theme( \get_template() ) );
+    $this->theme = Theme::getInstance( $this->container, \wp_get_theme( \get_template() ) );
   }
 
-  private function services () {
+  private function providers () {
 
     require __DIR__ . '/Providers/Config.php';
 
-    $invoker = new Invoker(); // Executor
-    $reciever = new Reciever(); // Subscriber
+    $command = new Commander();
+    $registrar = new ProviderRegistrar();
 
-    foreach ( $providers as $provider ) {
+    foreach ( $providers as $hook => $service ) {
 
-      $invoker->setCommand( new $provider( $reciever ) );
-      $invoker->run();
+      $command->setCommand( new $service( $this->theme, $registrar, $hook ) );
+      $command->run();
     }
   }
 }

@@ -2,23 +2,39 @@
 
 namespace WpTheme\Scaffold\Providers;
 
-use WpTheme\Scaffold\Abstracts\ProviderImpl as Provider;
+use WpTheme\Scaffold\Abstracts\Provider;
 
 class ScriptloadProvider extends Provider {
 
-  public $context = [
-    'hook' => 'script_loader_tag',
-    'priority' => 10,
-    'acceptedargs' => 2
-  ];
+  public function boot ( ...$args ) {
 
-  public function loader ( string $tag, string $handle ) {
-
-    var_dump('<pre>', 'HELLO LOADER!', '</pre>');
+    list( $tag, $handle ) = $args;
+    
+    $script_exec = wp_scripts()->get_data( $handle, 'script_execution' );
+  
+    if ( ! $script_exec ) {
+  
+      return $tag;
+    }
+  
+    foreach ( wp_scripts()->registered as $script ) {
+  
+      if ( in_array( $handle, $script->deps, true ) ) {
+  
+        return $tag;
+      }
+    }
+      
+    if ( ! preg_match( ":\s$script_exec(=|>|\s):", $tag ) ) {
+  
+      $tag = preg_replace( ':(?=></script>):', " $script_exec", $tag, 1 );
+    }
+  
+    return $tag;
   }
 
   public function register () {
 
-    $this->provider->addAction( $this, 'loader' );
+    $this->provider->action( $this, 10, 2 );
   }
 }

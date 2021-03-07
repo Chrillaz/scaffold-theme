@@ -2,23 +2,43 @@
 
 namespace WpTheme\Scaffold\Providers;
 
-use WpTheme\Scaffold\Abstracts\ProviderImpl as Provider;
+use WpTheme\Scaffold\Abstracts\Provider;
 
 class SetupProvider extends Provider {
 
-  public $context = [
-    'hook' => 'after_setup_theme',
-    'priority' => 10,
-    'acceptedargs' => 1
-  ];
+  public function boot ( ...$args ) {
 
-  public function setup () {
+    load_theme_textdomain( $this->theme->get( 'TextDomain' ) );
+    
+    add_theme_support( 'title-tag' );
+    
+    add_theme_support( 'post-thumbnails' );
+    
+    \register_nav_menus( array(
+      'primary' => __( 'Primary', $this->theme->get( 'TextDomain' ) ),
+      'social'  => __( 'Social Links Menu', $this->theme->get( 'TextDomain' ) )
+    ) );
 
-    var_dump('<pre>', 'HELLO SETUP!', '</pre>');
+    \add_theme_support('html5', [
+			'comment-form',
+			'comment-list',
+			'gallery',
+			'caption',
+			'style',
+			'script',
+			'navigation-widgets',
+    ]);
+      
+    // \set_post_thumbnail_size( $width:integer, $height:integer, $crop:boolean|array );
+        
+    // \add_theme_support( $feature:string, $args:mixed );
+    
+    // \add_image_size( $name:string, $width:integer, $height:integer, $crop:boolean|array );
+    
   }
 
   public function register () {
 
-    $this->provider->addAction( $this, 'setup' );
+    $this->provider->action( $this );
   }
 }

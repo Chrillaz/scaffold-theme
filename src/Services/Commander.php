@@ -1,8 +1,8 @@
 <?php
 
-namespace WpTheme\Scaffold\Providers;
+namespace WpTheme\Scaffold\Services;
 
-class Invoker {
+class Commander {
 
   private $command;
 
