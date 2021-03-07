@@ -14,8 +14,6 @@ use WpTheme\Scaffold\Providers\ProviderRegistrar;
 
 class Bootstrap {
 
-  private $theme;
-
   private $container;
 
   public function __construct () {
@@ -25,13 +23,26 @@ class Bootstrap {
     $this->providers();
   }
 
+  /**
+   * Initializes the container and registers neccessary services.
+   */
   private function dependencies () {
 
     $this->container = $container = new ServiceContainer( new FlatStorage() );
 
-    $this->theme = Theme::getInstance( $this->container, \wp_get_theme( \get_template() ) );
+    $this->container->register( Theme::class, function ( $container ) {
+
+      return array(
+        $container, 
+        \wp_get_theme( \get_template() )
+      );
+    });
   }
 
+  /**
+   * Sets and unsets the wp actions/filters
+   * Maps to Providers namespace.
+   */
   private function providers () {
 
     require __DIR__ . '/Providers/Config.php';
@@ -39,9 +50,14 @@ class Bootstrap {
     $command = new Commander();
     $registrar = new ProviderRegistrar();
 
-    foreach ( $providers as $hook => $service ) {
+    foreach ( $providers['unregister'] as $hook => $provider ) {
+      
+      $registrar->remove( $hook, $provider );
+    }
 
-      $command->setCommand( new $service( $this->theme, $registrar, $hook ) );
+    foreach ( $providers['register'] as $hook => $provider ) {
+
+      $command->setCommand( new $provider( $registrar, $hook ) );
       $command->run();
     }
   }

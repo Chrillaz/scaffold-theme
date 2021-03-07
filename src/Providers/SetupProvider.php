@@ -2,21 +2,23 @@
 
 namespace WpTheme\Scaffold\Providers;
 
+use WpTheme\Scaffold\Theme;
+
 use WpTheme\Scaffold\Abstracts\Provider;
 
 class SetupProvider extends Provider {
 
   public function boot ( ...$args ) {
-
-    load_theme_textdomain( $this->theme->get( 'TextDomain' ) );
+    
+    load_theme_textdomain( Theme::get( 'TextDomain' ) );
     
     add_theme_support( 'title-tag' );
     
     add_theme_support( 'post-thumbnails' );
     
     \register_nav_menus( array(
-      'primary' => __( 'Primary', $this->theme->get( 'TextDomain' ) ),
-      'social'  => __( 'Social Links Menu', $this->theme->get( 'TextDomain' ) )
+      'primary' => __( 'Primary', Theme::get( 'TextDomain' ) ),
+      'social'  => __( 'Social Links Menu', Theme::get( 'TextDomain' ) )
     ) );
 
     \add_theme_support('html5', [
@@ -39,6 +41,6 @@ class SetupProvider extends Provider {
 
   public function register () {
 
-    $this->provider->action( $this );
+    $this->registrar->action( $this );
   }
 }

@@ -2,6 +2,8 @@
 
 namespace WpTheme\Scaffold\Providers;
 
+use WpTheme\Scaffold\Theme;
+
 use WpTheme\Scaffold\Abstracts\Provider;
 
 class ScriptloadProvider extends Provider {
@@ -10,14 +12,14 @@ class ScriptloadProvider extends Provider {
 
     list( $tag, $handle ) = $args;
     
-    $script_exec = wp_scripts()->get_data( $handle, 'script_execution' );
+    $script_exec = \wp_scripts()->get_data( $handle, 'script_execution' );
   
     if ( ! $script_exec ) {
   
       return $tag;
     }
   
-    foreach ( wp_scripts()->registered as $script ) {
+    foreach ( \wp_scripts()->registered as $script ) {
   
       if ( in_array( $handle, $script->deps, true ) ) {
   
@@ -35,6 +37,6 @@ class ScriptloadProvider extends Provider {
 
   public function register () {
 
-    $this->provider->action( $this, 10, 2 );
+    $this->registrar->action( $this, 10, 2 );
   }
 }

@@ -3,6 +3,12 @@
 namespace WpTheme\Scaffold\Providers;
 
 return $providers = [
-  'after_setup_theme' => 'WpTheme\\Scaffold\\Providers\\SetupProvider'::class,
-  'script_loader_tag' => 'WpTheme\\Scaffold\\Providers\\ScriptloadProvider'::class,
+  'register' => [
+    'after_setup_theme' => 'WpTheme\\Scaffold\\Providers\\SetupProvider'::class,
+    'script_loader_tag' => 'WpTheme\\Scaffold\\Providers\\ScriptloadProvider'::class,
+    // 'hook_name' => 'namespace\\ProviderclassName'::class,
+  ],
+  'unregister' => [
+    // 'hook_name' => [ $component|string|array, $priority|int $args|int ],
+  ]
 ];

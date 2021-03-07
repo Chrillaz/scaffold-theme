@@ -8,17 +8,13 @@ use WpTheme\Scaffold\Providers\ProviderRegistrar;
 
 abstract class Provider {
 
-  protected $theme;
-
-  protected $provider;
+  protected $registrar;
   
   protected $hook;
 
-  public function __construct ( Theme $theme, ProviderRegistrar $provider, string $hook ) {
+  public function __construct ( ProviderRegistrar $registrar, string $hook ) {
 
-    $this->theme = $theme;
-
-    $this->provider = $provider;
+    $this->registrar = $registrar;
 
     $this->hook = $hook;
   }

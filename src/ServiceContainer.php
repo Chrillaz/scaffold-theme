@@ -48,8 +48,21 @@ class ServiceContainer implements Container {
 
     try {
       if ( ! $this->storage->get( $name ) ) {
+        
+        $reflection = new \ReflectionClass( $name );
 
-        return $this->storage->update( $name, new $name( $callback( $this ) ) );
+        if ( $reflection->hasMethod( 'getInstance' ) ) {
+
+          return $this->storage->update(
+            $name,
+            $name::getInstance( $callback( $this) )
+          );
+        }
+
+        return $this->storage->update( 
+          $name, 
+          new $name( $callback( $this ) ) 
+        );
       }
 
       throw new \Exception( "Service already defined." );

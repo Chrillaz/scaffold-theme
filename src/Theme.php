@@ -20,8 +20,10 @@ class Theme {
 
   private static $instance;
 
-  private function __construct ( ServiceContainer $container, \WP_Theme $theme ) {
+  private function __construct ( array $args ) {
 
+    list ( $container, $theme ) = $args;
+    
     $this->container = $container;
 
     $this->theme = $theme;
@@ -55,11 +57,11 @@ class Theme {
     ] );
   }
 
-  public static function getInstance ( ServiceContainer $container, \Wp_Theme $theme ) {
+  public static function getInstance ( array $args ) {
 
     if ( self::$instance === null ) {
       
-      self::$instance = new Theme( $container, $theme );
+      self::$instance = new Theme( $args );
     }
 
     return self::$instance;
