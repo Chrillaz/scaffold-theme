@@ -1,6 +1,6 @@
 <?php
 
-namespace WpTheme\Scaffold\Wrappers;
+namespace WpTheme\Scaffold\Services;
 
 use WpTheme\Scaffold\Services\Asset;
 
@@ -19,11 +19,11 @@ class Script extends AssetBuilder {
     $this->asset = $asset;
   }
 
-  public function localize ( string $objectName, array $object ) {
+  public function localize ( string $objectName, array $l10n ) {
 
-    $this->asset->append( 'localizeName', $objectName );
+    $this->asset->append( 'objectName', $objectName );
 
-    $this->asset->append( 'localizeData', $object );
+    $this->asset->append( 'l10n', $l10n );
 
     return $this;
   }
@@ -62,19 +62,19 @@ class Script extends AssetBuilder {
       }
     }
 
-    if ( $inline = $this->asset->getData( 'inline' ) && $this->scripts->registered[$this->asset->getHandle()] ) {
-
-      $this->scripts->add_inline_script( $this->asset->getHandle(), $inline );
-    }
-
-    if ( $name = $this->asset->getData( 'localizeName' ) && $this->scripts->registered[$this->asset->getHanlde()] ) {
-
-      $this->scripts->localize( $this->asset->getHandle(), $name, $this->asset->getData( 'localizeData' ) );
-    }
-
     if ( $exec = $this->asset->getData( 'load' ) && $wp->registered[$this->handle] ) {
 
       $this->scripts->add_data( $this->asset->getHandle(), 'script_execution', $exec );
+    }
+
+    if ( $inline = $this->asset->getData( 'inline' ) && $this->scripts->registered[$this->asset->getHandle()] ) {
+
+      $this->scripts->add_inline_script( $this->asset->getHandle(), $inline, $this->asset->getData( 'position' ) );
+    }
+
+    if ( ( $name = $this->asset->getData( 'objectName' ) ) && $this->scripts->registered[$this->asset->getHandle()] ) {
+      
+      $this->scripts->localize( $this->asset->getHandle(), $name, $this->asset->getData( 'l10n' ) );
     }
 
     $this->scripts->enqueue( $this->asset->getHandle() );

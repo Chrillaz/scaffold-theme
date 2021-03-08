@@ -11,9 +11,11 @@ abstract class AssetBuilder  {
     return $this;
   }
 
-  public function inline ( string $inline ) {
+  public function inline ( string $inline, string $position = 'after' ) {
 
     $this->asset->append( 'inline', $inline );
+
+    $this->asset->append( 'position', $position );
 
     return $this;
   }

@@ -23,4 +23,14 @@ class ProviderRegistrar {
       $numargs
      );
   }
+
+  public function remove ( string $hook, array $args ) {
+
+    \remove_action(
+      $hook,
+      $args['component'],
+      $args['priority'],
+      $args['args']
+    );
+  }
 }

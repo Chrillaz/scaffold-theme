@@ -57,14 +57,4 @@ interface Storage {
    * @return bool
    */
   public function delete ( string $key ): bool;
-
-  /**
-   * Overrides the default empty storage with given list
-   * Multidimentional lists gets flattended before assigned as storage
-   * 
-   * @param array $list
-   * 
-   * @return void
-   */
-  // public function create ( $list ): void;
 }

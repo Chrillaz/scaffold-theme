@@ -4,9 +4,9 @@ namespace WpTheme\Scaffold;
 
 use WpTheme\Scaffold\Services\Asset;
 
-use WpTheme\Scaffold\Wrappers\Style;
+use WpTheme\Scaffold\Services\Style;
 
-use WpTheme\Scaffold\Wrappers\Script;
+use WpTheme\Scaffold\Services\Script;
 
 use WpTheme\Scaffold\Services\FlatStorage;
 

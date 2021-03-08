@@ -10,7 +10,7 @@ class PublicAssetsProvider extends Provider {
 
   public function boot ( ...$args ) {
     
-    Theme::addScript( 'main', '/js/main.min.js' )->load( 'defer' )->enqueue();
+    Theme::addScript( 'main', '/js/main.min.js' )->load( 'defer' )->localize('test', ['test' => 'hej hej'])->enqueue();
 
     // Theme::addStyle( 'main', 'style.css' )->enqueue();
   }

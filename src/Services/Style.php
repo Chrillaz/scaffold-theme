@@ -1,6 +1,6 @@
 <?php
 
-namespace WpTheme\Scaffold\Wrappers;
+namespace WpTheme\Scaffold\Services;
 
 use WpTheme\Scaffold\Services\Asset;
 
@@ -39,7 +39,7 @@ class Style extends AssetBuilder {
 
     if ( $inline = $this->asset->getData( 'inline' ) && $this->styles->registered[$this->asset->getHandle()] ) {
 
-      $this->styles->add_inline_style( $this->asset->getHandle(), $inline );
+      $this->styles->add_inline_style( $this->asset->getHandle(), $inline, $this->asset->getData( 'position' ) );
     }
 
     $this->styles->enqueue( $this->asset->getHandle() );
