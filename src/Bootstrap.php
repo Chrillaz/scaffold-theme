@@ -26,9 +26,15 @@ class Bootstrap {
    */
   private function dependencies () {
 
+    $storage = new FlatStorage();
+
+    $defaults = json_decode( file_get_contents( TEMPLATEPATH . '/settings.json' ), true );
+
+    $storage->update( 'settings', $defaults['settings'] );
+
     Theme::getInstance( 
       \wp_get_theme( \get_template() ),
-      new FlatStorage()
+      $storage
     );
   }
 

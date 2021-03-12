@@ -28,9 +28,8 @@ class ProviderRegistrar {
 
     \remove_action(
       $hook,
-      $args['component'],
-      $args['priority'],
-      $args['args']
+      $args[0],
+      $args[1],
     );
   }
 }

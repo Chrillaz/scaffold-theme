@@ -5,5 +5,12 @@
   ],
   "plugins": [
     
-  ]
+  ],
+  "env": {
+    "tests": {
+        "mappings": [
+          
+        ]
+    }
+  }
 }

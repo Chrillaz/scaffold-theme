@@ -34,9 +34,9 @@ class Theme {
     return self::$instance->theme->get( $header );
   }
 
-  public static function container () {
+  public static function storage () {
 
-    return self::$instance->container;
+    return self::$instance->storage;
   }
 
   public static function addScript ( string $handle, string $src ) {
