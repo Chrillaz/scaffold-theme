@@ -2,8 +2,20 @@
 
 namespace WpTheme\Scaffold\Controllers;
 
-use WpTheme\Scaffold\Abstracts\Model;
+class Settings {
 
-class Settings extends Model {
+  private $settings;
 
+  private $options;
+
+  public function __construct( $settings, $options ) {
+
+    $this->settings = $settings;
+
+    $this->options = $options;
+  }
+
+  public function save () {
+    
+  }
 }

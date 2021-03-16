@@ -26,6 +26,9 @@
     "roots/wordpress": "^5.0",
     "wp-phpunit/wp-phpunit": "^5.0"
   },
+  "require": {
+    "psr/container": "^2.0"
+  },
   "scripts": {
     "test": "phpunit"
   }

@@ -2,15 +2,5 @@
   "core": null,
   "themes": [
     "."
-  ],
-  "plugins": [
-    
-  ],
-  "env": {
-    "tests": {
-        "mappings": [
-          
-        ]
-    }
-  }
+  ]
 }

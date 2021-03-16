@@ -1,8 +1,4 @@
 <?php
-
-/**
- * Load composer autoload.php
- */
 if ( ! file_exists( $autoload = __DIR__ . '/vendor/autoload.php' ) ) {
 
   wp_die( __( 'Please run composer install or composer dump-autoload to generate composer vendor folder.', wp_get_theme()->get( 'TextDomain') ), 'Can not find composer autoload.php', [
@@ -13,7 +9,11 @@ if ( ! file_exists( $autoload = __DIR__ . '/vendor/autoload.php' ) ) {
 
 require $autoload;
 
-/**
- * Bootstrap Theme
- */
-new \WpTheme\Scaffold\Bootstrap();
+// require __DIR__ . '/src/Bootstrap.php';
+
+$storage = new \WpTheme\Scaffold\Services\FlatStorage();
+$container = new \WpTheme\Scaffold\Container( $storage );
+
+$option = $container->use( 'WpTheme\\Scaffold\\Services\\Option'::class );
+
+var_dump('<pre>', $container, '</pre>');
