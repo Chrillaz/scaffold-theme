@@ -39,7 +39,7 @@ interface Storage {
   public function collect ( ...$keys ): array;
 
   /**
-   * Updates value by given key, returns false if value can't be updated
+   * Set value by given key, returns false if value can't be updated
    * 
    * @param string $key
    * 
@@ -47,7 +47,7 @@ interface Storage {
    * 
    * @return mixed|false
    */
-  public function update ( string $key, $value );
+  public function set ( string $key, $value );
 
   /**
    * Unsets value by given key from storage

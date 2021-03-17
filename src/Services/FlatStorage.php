@@ -46,7 +46,7 @@ class FlatStorage implements Storage {
     }, array() );
   }
 
-  public function update ( string $key, $value ) {
+  public function set ( string $key, $value ) {
 
     $this->storage[$key] = $value;
     

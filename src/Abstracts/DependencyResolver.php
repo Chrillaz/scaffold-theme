@@ -12,43 +12,54 @@ class DependencyResolver {
     
     $reflector = new \ReflectionClass( $dependency );
 
-    if ( ! $reflector->isInstantiable() ) throw new \DependencyNotInstantiableException( $reflector->name );
+    if ( $reflector->isInstantiable() ) {
+      
+      $name = $reflector->getShortName();
 
-    $constructor = $reflector->getConstructor();
+      $constructor = $reflector->getConstructor();
 
-    $parameters = $constructor->getParameters();
+      $parameters = $constructor->getParameters();
 
-    if ( is_null( $parameters ) ) return $reflector->newInstance();
+      if ( is_null( $parameters ) ) {
 
-    foreach ( $parameters as $parameter ) {
+        return [
+          'name' => $name,
+          'instance' => $reflector->newInstance()
+        ];
+      } 
 
-      $dependencies[] = $this->resolveDependency( $parameter );
+      return [
+        'name' => $name,
+        'instance' => $reflector->newInstanceArgs( $this->resolveDependencies( $parameters ) )
+      ];
     }
 
-    return $reflector->newInstanceArgs( $dependencies );
+    throw new \DependencyNotInstantiableException( $reflector->name );
   }
 
-  protected function resolveDependency ( \ReflectionParameter $parameter ) {
+  protected function resolveDependencies ( array $parameters ) {
 
-    if ( $parameter->getClass() !== null ) {
+    return array_map( function ( $parameter ) {
 
-      $name = $parameter->getType()->getName();
-      
-      if ( ! $parameter->getType()->isBuiltin() ) {
+      if ( $parameter->getClass() !== null ) {
 
-        $this->set( $name );
-      }
-
-      return $this->get( $name );
-    } else {
-
-      if ( $parameter->isDefaultValueAvailable() ) {
-
-        return $parameter->getDefaultValue();
+        $dependency = $this->resolve( $parameter->getType()->getName() );
+        
+        return $dependency['instance'];
       } else {
 
-        throw new DependencyHasNoDefaultValueException( $parameter->name );
+        return $this->resolveDefaultValue( $parameter );
       }
+    }, $parameters );
+  }
+
+  protected function resolveDefaultValue ( \ReflectionParameter $parameter ) {
+
+    if ( $parameter->isDefaultValueAvailable() ) {
+
+      return $parameter->getDefaultValue();
     }
+  
+    throw new DependencyHasNoDefaultValueException( $parameter->name );
   }
 }

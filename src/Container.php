@@ -19,32 +19,40 @@ class Container extends DependencyResolver implements ContainerInterface {
 
   public function get ( string $dependency ) {
 
-    $instance = $this->storage->get( $dependency );
+    if ( $instance = $this->storage->get( $dependency ) ) {
 
-    if ( ! $instance ) {
+      if ( $instance instanceof \Closure ) {
 
-      throw new DependencyNotRegisteredException( $dependency );
+        return $instance( $this );
+      }
+
+      return $instance;
     }
 
-    return $this->resolve( $instance );
+    throw new DependencyNotRegisteredException( $dependency );
   }
 
   public function set ( string $dependency, $instance = null ) {
 
-    if ( ! $this->storage->contains( $dependency ) ) {
+    if ( ! $this->has( $dependency ) ) {
 
       if ( $instance === null ) {
 
-        $instance = $dependency;
-      }
+        $instance = $this->resolve( $dependency );
 
-      $this->storage->update( $dependency, $instance );
+        $this->storage->set( $instance['name'], $instance['instance'] );
+      } else {
+
+        $this->storage->set( $dependency, $instance );
+      }
     }
   }
 
   public function use ( string $instance ) {
 
-    return $this->resolve( $instance );
+    $instance = $this->resolve( $instance );
+
+    return $instance['instance'];
   }
 
   public function has ( string $dependency ): bool {

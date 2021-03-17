@@ -14,7 +14,7 @@ use WpTheme\Scaffold\Services\Subscriber;
 
 class Theme {
 
-  private $storage;
+  private $container;
 
   private $theme;
 
@@ -22,9 +22,9 @@ class Theme {
 
   private function __construct ( array $args ) {
 
-    list ( $theme, $storage ) = $args;
+    list ( $theme, $container ) = $args;
     
-    $this->storage = $storage;
+    $this->container = $container;
 
     $this->theme = $theme;
   }
@@ -34,9 +34,14 @@ class Theme {
     return self::$instance->theme->get( $header );
   }
 
-  public static function storage () {
+  public static function use ( string $service ) {
 
-    return self::$instance->storage;
+    return self::$instance->container->get( $service );
+  }
+
+  public static function container () {
+
+    return self::$instance->container;
   }
 
   public static function addScript ( string $handle, string $src ) {
