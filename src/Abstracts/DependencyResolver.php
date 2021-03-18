@@ -8,9 +8,9 @@ use WpTheme\Scaffold\Exceptions\DependencyNoDefaultValueException;
 
 class DependencyResolver {
 
-  protected function resolve ( string $dependency ) {
+  protected function resolve ( string $service ) {
     
-    $reflector = new \ReflectionClass( $dependency );
+    $reflector = new \ReflectionClass( $service );
 
     if ( $reflector->isInstantiable() ) {
       
@@ -34,7 +34,7 @@ class DependencyResolver {
       ];
     }
 
-    throw new \DependencyNotInstantiableException( $reflector->name );
+    throw new \ServiceNotInstantiableException( $reflector->name );
   }
 
   protected function resolveDependencies ( array $parameters ) {
@@ -60,6 +60,6 @@ class DependencyResolver {
       return $parameter->getDefaultValue();
     }
   
-    throw new DependencyHasNoDefaultValueException( $parameter->name );
+    throw new ServiceHasNoDefaultValueException( $parameter->name );
   }
 }

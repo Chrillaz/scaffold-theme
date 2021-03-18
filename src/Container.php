@@ -17,9 +17,9 @@ class Container extends DependencyResolver implements ContainerInterface {
     $this->storage = $storage;
   }
 
-  public function get ( string $dependency ) {
+  public function get ( string $service ) {
 
-    if ( $instance = $this->storage->get( $dependency ) ) {
+    if ( $instance = $this->storage->get( $service ) ) {
 
       if ( $instance instanceof \Closure ) {
 
@@ -29,34 +29,34 @@ class Container extends DependencyResolver implements ContainerInterface {
       return $instance;
     }
 
-    throw new DependencyNotRegisteredException( $dependency );
+    throw new ServiceNotRegisteredException( $service );
   }
 
-  public function set ( string $dependency, $instance = null ) {
+  public function set ( string $service, $instance = null ) {
 
-    if ( ! $this->has( $dependency ) ) {
+    if ( ! $this->has( $service ) ) {
 
       if ( $instance === null ) {
 
-        $instance = $this->resolve( $dependency );
+        $instance = $this->resolve( $service );
 
         $this->storage->set( $instance['name'], $instance['instance'] );
       } else {
 
-        $this->storage->set( $dependency, $instance );
+        $this->storage->set( $service, $instance );
       }
     }
   }
 
-  public function use ( string $instance ) {
+  public function use ( string $service ) {
 
-    $instance = $this->resolve( $instance );
+    $service = $this->resolve( $service );
 
-    return $instance['instance'];
+    return $service['instance'];
   }
 
-  public function has ( string $dependency ): bool {
+  public function has ( string $service ): bool {
 
-    return $this->storage->contains( $dependency );
+    return $this->storage->contains( $service );
   }
 }
