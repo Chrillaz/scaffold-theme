@@ -3,12 +3,15 @@
   <form>
     <table class="form-table" role="presentation">
       <tbody>
-        <?php foreach( WpTheme\Scaffold\Theme::storage()->get( 'settings')['support'] as $name => $setting ) {
-          echo '<tr>';
-          echo '<th><label>' . $name . '</label>';
-          echo '<td><input type="checkbox" name="' . $name . '" value="1"' . checked( $setting, true, false ) . ' /></td>';
-          echo '</tr>';
-        } ?>
+        <?php 
+        var_dump('<pre>', $options, '</pre>');
+        // foreach( WpTheme\Scaffold\Theme::use( 'ThemeOptions')->getO() as $name => $setting ) {
+        //   echo '<tr>';
+        //   echo '<th><label>' . $name . '</label>';
+        //   echo '<td><input type="checkbox" name="' . $name . '" value="1"' . checked( $setting, true, false ) . ' /></td>';
+        //   echo '</tr>';
+        // } 
+        ?>
       </tbody>
     </table>
   </form>

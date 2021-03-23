@@ -12,52 +12,46 @@ use WpTheme\Scaffold\Services\FlatStorage;
 
 use WpTheme\Scaffold\Providers\ProviderRegistrar;
 
-class Bootstrap {
+/**
+ * Load composer autoload.php
+ */
+if ( ! file_exists( $autoload = __DIR__ . '/vendor/autoload.php' ) ) {
 
-  public function __construct () {
+  wp_die( __( 'Please run composer install or composer dump-autoload to generate composer vendor folder.', wp_get_theme()->get( 'TextDomain') ), 'Can not find composer autoload.php', [
+    'response'  => 403,
+    'back_link' => get_admin_url( 'admin.php?page=themes' )
+  ]);
+}
 
-    $this->dependencies();
+require $autoload;
 
-    $this->providers();
-  }
+$storage = new FlatStorage();
 
-  /**
-   * Initializes the container and registers neccessary services.
-   */
-  private function dependencies () {
+$defaults = json_decode( file_get_contents( TEMPLATEPATH . '/settings.json' ), true );
 
-    $storage = new FlatStorage();
+$storage->update( 'settings', $defaults['settings'] );
 
-    $defaults = json_decode( file_get_contents( TEMPLATEPATH . '/settings.json' ), true );
+Theme::getInstance( 
+  \wp_get_theme( \get_template() ),
+  $storage
+);
 
-    $storage->update( 'settings', $defaults['settings'] );
+/**
+ * Sets and unsets the wp actions/filters
+ * Maps to Providers namespace.
+ */
+require __DIR__ . '/Providers/Config.php';
 
-    Theme::getInstance( 
-      \wp_get_theme( \get_template() ),
-      $storage
-    );
-  }
+$command = new Commander();
+$registrar = new ProviderRegistrar();
 
-  /**
-   * Sets and unsets the wp actions/filters
-   * Maps to Providers namespace.
-   */
-  private function providers () {
-
-    require __DIR__ . '/Providers/Config.php';
-
-    $command = new Commander();
-    $registrar = new ProviderRegistrar();
-
-    foreach ( $providers['unregister'] as $hook => $provider ) {
+foreach ( $providers['unregister'] as $hook => $provider ) {
       
-      $registrar->remove( $hook, $provider );
-    }
+  $registrar->remove( $hook, $provider );
+}
 
-    foreach ( $providers['register'] as $hook => $provider ) {
+foreach ( $providers['register'] as $hook => $provider ) {
 
-      $command->setCommand( new $provider( $registrar, $hook ) );
-      $command->run();
-    }
-  }
+  $command->setCommand( new $provider( $registrar, $hook ) );
+  $command->run();
 }

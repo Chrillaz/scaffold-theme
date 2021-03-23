@@ -12,19 +12,6 @@ use WpTheme\Scaffold\Abstracts\Provider;
 
 class SettingsPageProvider extends Provider {
 
-  public function view () {
-    
-    $settings = new Settings( new FlatStorage( Theme::storage()->get( 'settings' ) ) );
-    
-    \ob_start();
-
-    require TEMPLATEPATH . '/templates/admin/theme-settings.php';
-
-    $content = \ob_get_clean();
-
-    echo $content;
-  }
-
   public function boot ( ...$args ) {
 
     \add_submenu_page( 
@@ -33,7 +20,16 @@ class SettingsPageProvider extends Provider {
       __( 'Theme Settings', Theme::get( 'TextDomain' ) ),
       'manage_options', 
       'theme-settings', 
-      [$this, 'view'], 
+      function () {
+
+        $options = Theme::use( 'ThemeOptions' );
+        
+        \ob_start();
+
+        require __DIR__ . '/../../templates/admin/theme-settings.php';
+        
+        echo \ob_get_clean();
+      }, 
       NULL 
     );
   }
