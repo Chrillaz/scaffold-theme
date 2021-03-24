@@ -45,6 +45,6 @@ class Asset {
 
   public function append ( string $key, $value ) {
         
-    $this->data->update( $key, $value );  
+    $this->data->set( $key, $value );  
   }
 }

@@ -4,29 +4,24 @@ namespace WpTheme\Scaffold\Providers;
 
 use WpTheme\Scaffold\Theme;
 
-use WpTheme\Scaffold\Services\FlatStorage;
-
-use WpTheme\Scaffold\Controllers\Settings;
-
 use WpTheme\Scaffold\Abstracts\Provider;
 
 class SettingsPageProvider extends Provider {
 
   public function boot ( ...$args ) {
-
-    \add_submenu_page( 
-      'themes.php', 
-      __( 'theme settings', Theme::get( 'TextDomain' ) ),
-      __( 'Theme Settings', Theme::get( 'TextDomain' ) ),
+    
+    \add_theme_page( 
+      __( 'Theme Options', Theme::get( 'TextDomain' ) ),
+      __( 'Theme Options', Theme::get( 'TextDomain' ) ),
       'manage_options', 
-      'theme-settings', 
+      \get_template() . '-options', 
       function () {
 
         $options = Theme::use( 'ThemeOptions' );
-        
+
         \ob_start();
 
-        require __DIR__ . '/../../templates/admin/theme-settings.php';
+        require __DIR__ . '/../../templates/admin/theme-options-page.php';
         
         echo \ob_get_clean();
       }, 

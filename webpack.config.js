@@ -22,7 +22,7 @@ const cleanExcludes = [
 
 const banner = [
   '/*',
-  ' * Theme Name: ' + settings.package.title,
+  ' * Theme Name: ' + settings.package.name,
   ' * Theme URI: ' + settings.package.homepage,
   ' * Author: ' + settings.package.author,
   ' * Author URI: ' + settings.package.authoruri,
@@ -48,11 +48,11 @@ const setAssets = () => {
   
   const entries = {};
 
-  for ( type in package['webpack-assets'] ) {
+  for ( type in settings['webpack-assets'] ) {
     
-    for ( chunk in package['webpack-assets'][type] ) {
+    for ( chunk in settings['webpack-assets'][type] ) {
 
-      entries[chunk] = package['webpack-assets'][type][chunk];
+      entries[chunk] = settings['webpack-assets'][type][chunk];
     }
   }
 
