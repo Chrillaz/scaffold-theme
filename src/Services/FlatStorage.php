@@ -37,7 +37,7 @@ class FlatStorage implements Storage {
 
     return array_reduce( $keys, function ( $acc, $curr ) {
 
-      if ( $this->contains( $key ) ) {
+      if ( $this->contains( $curr ) ) {
 
         array_push( $acc, $this->storage[$curr] );
       }

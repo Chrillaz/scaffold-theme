@@ -15,22 +15,45 @@ abstract class Option {
     $this->default = $default;
   }
 
-  protected function get () {
+  public function get () {
 
-    \get_option( $this->option, $this->default );
+    return \get_option( $this->option, $this->default->all() );
   }
 
-  protected function add ( $value ) {
+  public function pick ( ...$keys ) {
+
+    return \array_reduce( $keys, function ( $acc, $curr ) {
+
+      if ( \array_key_exists( $curr, $this->get() ) ) {
+
+        array_push( $acc, $this->get()[$curr] );
+      }
+
+      return $acc;
+    }, array() );
+  }
+
+  public function use ( $key ) {
+
+    if ( isset( $this->get()[$key] ) ) {
+
+      return $this->get()[$key];
+    }
+
+    return false;
+  }
+
+  public function add ( $value ) {
 
     \add_option( $this->option, $value );
   }
 
-  protected function update ( $value ) {
+  public function update ( $value ) {
 
     \update_option( $this->option, $value );
   }
 
-  protected function remove () {
+  public function remove () {
 
     \delete_option( $this->option );
   }
@@ -42,6 +65,6 @@ abstract class Option {
 
   public function getDefault () {
 
-    return $this->default;
+    return $this->default->all();
   }
 }

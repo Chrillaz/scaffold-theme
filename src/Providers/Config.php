@@ -2,7 +2,7 @@
 
 namespace WpTheme\Scaffold\Providers;
 
-return $providers = [
+return [
   'register' => [
     'admin_menu'         => 'WpTheme\\Scaffold\\Providers\\SettingsPageProvider'::class,
     'admin_init'         => 'WpTheme\\Scaffold\\Providers\\SettingsProvider'::class,

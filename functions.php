@@ -43,7 +43,7 @@ $container = new Container( $storage );
 $container->set( 'ThemeOptions', function ( $self ) use ( $settings ) {
 
   return new ThemeOptions(
-    'theme_mods_' . \get_template() . '[settings]',
+    'theme_options',
     new FlatStorage( $settings['settings'] )
   );
 });
@@ -58,7 +58,7 @@ Theme::getInstance( \wp_get_theme( \get_template() ), $container );
 /**
  * Register WP events
  */
-require __DIR__ .'/src/Providers/Config.php';
+$providers = include( __DIR__ .'/src/Providers/Config.php' );
 
 $registrar = new ProviderRegistrar();
 
