@@ -1,0 +1,46 @@
+@for $i from 1 through 10 {
+
+  .flex-column-#{$i} {
+    flex: 1 1 (1% * #{$i});
+  }
+}
+
+.flex {
+  &-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+}
+
+.pt {
+  padding-top: 1rem;
+}
+
+.pr {
+  padding-right: 1rem;
+}
+
+.pb {
+  padding-bottom: 1rem;
+}
+
+.pl {
+  padding-left: 1rem;
+}
+
+.border-top {
+  border-top: 1px solid #ccc;
+}
+
+.border-right {
+  border-right: 1px solid #ccc;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #ccc;
+}
+
+.border-left {
+  border-left: 1px solid #ccc;
+}

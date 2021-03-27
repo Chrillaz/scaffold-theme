@@ -15,11 +15,13 @@
   "webpack-assets": {
     "scripts": {
       "main": "./js/src/main.ts",
-      "editor-scripts": "./js/src/editor.ts"
+      "editor-scripts": "./js/src/editor.ts",
+      "admin-scripts": "./js/src/admin.ts"
     },
     "styles": {
       "style": "./scss/main.scss",
-      "editor-styles": "./scss/editor.scss"
+      "editor-styles": "./scss/editor.scss",
+      "admin-styles": "./scss/admin.scss"
     }
   },
   "settings": {
@@ -49,12 +51,14 @@
       "color.light": "#FFFFFF"
     },
     "font-sizes": {
-      "font.xs": "12px",
-      "font.sm": "16px",
-      "font.md": "20px",
-      "font.lg": "24px",
-      "font.xl": "28px",
-      "font.xxl": "38px"
+      "font.anchor": "12px",
+      "font.paragraph": "16px",
+      "font.h6": "20px",
+      "font.h5": "24px",
+      "font.h4": "28px",
+      "font.h3": "32px",
+      "font.h2": "36px",
+      "font.h1": "40px"
     }
   },
   "block-types-exclude": [

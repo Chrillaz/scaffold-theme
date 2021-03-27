@@ -18,9 +18,12 @@ class Asset {
 
     $this->handle = $handle;
 
-    $this->version = \filemtime( \get_template_directory() . '/assets' . $src );
+    if ( ! empty( $src ) ) {
 
-    $this->file = \get_template_directory_uri() . '/assets' . $src;
+      $this->version = \filemtime( \get_template_directory() . '/assets' . $src );
+      
+      $this->file = \get_template_directory_uri() . '/assets' . $src;
+    }
   }
 
   public function getHandle () {

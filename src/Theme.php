@@ -44,12 +44,12 @@ class Theme {
     return self::$instance->container;
   }
 
-  public static function addScript ( string $handle, string $src ) {
+  public static function addScript ( string $handle, string $src = '' ) {
 
     return new Script( \wp_scripts(), new Asset( new FlatStorage(), $handle, $src ) );
   }
 
-  public static function addStyle ( string $handle, string $src ) {
+  public static function addStyle ( string $handle, string $src = '' ) {
     
     return new Style( \wp_styles(), new Asset( new FlatStorage(), $handle, $src ) );
   }
