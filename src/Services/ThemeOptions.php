@@ -6,7 +6,7 @@ use WpTheme\Scaffold\Abstracts\Option;
 
 class ThemeOptions extends Option {
 
-  public function getSupportSettings () {
+  public function getSupports () {
 
     return array_filter( $this->getDefault(), function ( $setting ) {
       
@@ -14,7 +14,7 @@ class ThemeOptions extends Option {
     }, ARRAY_FILTER_USE_KEY );
   }
 
-  public function getColorSettings () {
+  public function getColors () {
 
     return array_filter( $this->getDefault(), function ( $setting ) {
       
@@ -22,7 +22,7 @@ class ThemeOptions extends Option {
     }, ARRAY_FILTER_USE_KEY );
   }
 
-  public function getBreakPointSettings () {
+  public function getBreakpoints () {
 
     return array_filter( $this->getDefault(), function ( $setting ) {
       
@@ -30,26 +30,11 @@ class ThemeOptions extends Option {
     }, ARRAY_FILTER_USE_KEY );
   }
 
-  public function getFontSizeSettings () {
+  public function getFontsizes () {
 
     return array_filter( $this->getDefault(), function ( $setting ) {
       
       return false !== strpos( $setting, 'font.' );
     }, ARRAY_FILTER_USE_KEY );
-  }
-
-  public function supportSection () {
-
-    echo '<p>Add theme supports for gutenberg editor.</p>';
-  }
-
-  public function breakpointSection () {
-
-    echo '<p>Define media query breakpoints.</p>';
-  }
-
-  public function fontsizeSection () {
-
-    echo '<p>Define font sizes.</p>';
   }
 }
