@@ -1,6 +1,6 @@
 <?php
 
-namespace WpTheme\Scaffold\Providers;
+namespace WpTheme\Scaffold\Providers\Admin;
 
 use WpTheme\Scaffold\Theme;
 

@@ -12,7 +12,7 @@ class Container extends DependencyResolver implements ContainerInterface {
 
   protected $storage;
 
-  public function __construct ( Services\FlatStorage $storage ) {
+  public function __construct ( Services\Storage $storage ) {
 
     $this->storage = $storage;
   }

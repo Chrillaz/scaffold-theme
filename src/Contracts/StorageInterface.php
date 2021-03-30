@@ -2,7 +2,7 @@
 
 namespace WpTheme\Scaffold\Contracts;
 
-interface Storage {
+interface StorageInterface {
 
   /**
    * Checks wether storage contains given value, could be either key or value

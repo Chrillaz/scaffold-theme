@@ -8,7 +8,7 @@ use WpTheme\Scaffold\Services\Style;
 
 use WpTheme\Scaffold\Services\Script;
 
-use WpTheme\Scaffold\Services\FlatStorage;
+use WpTheme\Scaffold\Services\Storage;
 
 use WpTheme\Scaffold\Services\Subscriber;
 
@@ -46,12 +46,12 @@ class Theme {
 
   public static function addScript ( string $handle, string $src = '' ) {
 
-    return new Script( \wp_scripts(), new Asset( new FlatStorage(), $handle, $src ) );
+    return new Script( \wp_scripts(), new Asset( new Storage(), $handle, $src ) );
   }
 
   public static function addStyle ( string $handle, string $src = '' ) {
     
-    return new Style( \wp_styles(), new Asset( new FlatStorage(), $handle, $src ) );
+    return new Style( \wp_styles(), new Asset( new Storage(), $handle, $src ) );
   }
 
   public static function getInstance ( ...$args ) {

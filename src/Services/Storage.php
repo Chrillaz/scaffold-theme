@@ -2,9 +2,9 @@
 
 namespace WpTheme\Scaffold\Services;
 
-use WpTheme\Scaffold\Contracts\Storage;
+use WpTheme\Scaffold\Contracts\StorageInterface;
 
-class FlatStorage implements Storage {
+class Storage implements StorageInterface {
 
   private $storage;
 

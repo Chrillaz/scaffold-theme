@@ -8,7 +8,7 @@ use WpTheme\Scaffold\Container;
 
 use WpTheme\Scaffold\Services\Hooks;
 
-use WpTheme\Scaffold\Services\FlatStorage;
+use WpTheme\Scaffold\Services\Storage;
 
 use WpTheme\Scaffold\Services\ThemeOptions;
 
@@ -34,7 +34,7 @@ if ( ! \file_exists( $settings = SCAFFOLD_ROOT_DIR . '/settings.json' ) ) {
 
 $settings = \json_decode( \file_get_contents( $settings ), true );
 
-$storage = new FlatStorage();
+$storage = new Storage();
 
 $container = new Container( $storage );
 
@@ -42,7 +42,7 @@ $container->set( 'ThemeOptions', function ( $self ) use ( $settings ) {
 
   return new ThemeOptions(
     'theme_options',
-    new FlatStorage( $settings['settings'] )
+    new Storage( $settings['settings'] )
   );
 });
 

@@ -12,7 +12,7 @@ class Asset {
 
   private $file;
 
-  public function __construct ( FlatStorage $data, string $handle, string $src ) {
+  public function __construct ( Storage $data, string $handle, string $src ) {
 
     $this->data = $data;
 

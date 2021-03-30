@@ -1,6 +1,6 @@
 <?php
 
-namespace WpTheme\Scaffold\Providers;
+namespace WpTheme\Scaffold\Providers\Admin;
 
 use WpTheme\Scaffold\Theme;
 
@@ -21,7 +21,7 @@ class SettingsPageProvider extends Provider {
 
         \ob_start();
 
-        include __DIR__ . '/../../templates/admin/theme-options-page.php';
+        include __DIR__ . '/../../../templates/admin/theme-options-page.php';
         
         echo \ob_get_clean();
       }
