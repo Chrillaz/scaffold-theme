@@ -1,6 +1,6 @@
 <?php
 
-namespace WpTheme\Scaffold\Contracts;
+namespace WpTheme\Scaffold\Framework\Interfaces;
 
 interface StorageInterface {
 
