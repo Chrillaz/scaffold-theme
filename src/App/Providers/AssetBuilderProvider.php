@@ -1,16 +1,16 @@
 <?php
 
-namespace WpTheme\Scaffold\App\ServiceProviders;
+namespace WpTheme\Scaffold\App\Providers;
 
 use WpTheme\Scaffold\Framework\Interfaces\ProviderInterface;
 
-class SettingsPageProvider implements ProviderInterface {
+final class AssetBuilderProvider implements ProviderInterface {
 
   public function register (): array {
 
     return [
       \wp_scripts(),
-      'hello'
+      \wp_styles()
     ];
   }
 }

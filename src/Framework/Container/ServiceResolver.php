@@ -8,6 +8,8 @@ abstract class ServiceResolver {
 
   public function resolve ( string $name ) {
 
+    $reflector = new \ReflectionClass( $name );
+    
     if ( ! class_exists( $name ) ) {
 
       return;
@@ -17,34 +19,30 @@ abstract class ServiceResolver {
 
     if ( $reflector->isInstantiable() ) {
 
-      $constructor = $reflector->getConstructor();
-
-      if ( is_null( $constructor ) ) {
+      if ( is_null( $constructor = $reflector->getConstructor() ) ) {
 
         return $reflector->newInstanceWithoutConstructor();
       }
 
-      $parameters = $constructor->getParameters();
-
-      return is_null( $parameters )
+      return is_null( $parameters = $constructor->getParameters() )
         ? $reflector->newInstance()
         : $reflector->newInstanceArgs( $this->resolveParameters( $parameters ) );
     }
   }
 
-  protected function resolveParameters ( array $parameters ) {
+  protected function resolveParameters ( array $parameters ): array {
 
     return array_map( function ( $parameter ) {
       
-      if ( ! is_null( $parameter->getClass() ) && $parameter->getClass()->inNamespace() ) {
-
-        return $this->resolve( $parameter->getType()->getName() );
-      }
-
       if ( $this->has( $provider = $parameter->getDeclaringClass()->getShortName() . 'Provider'::class ) ) {
 
         return $this->resolveProvider( $this->get( $provider ), $parameter );
-      } 
+      }
+
+      if ( ! is_null( $class = $parameter->getClass() ) && $class->inNamespace() ) {
+        
+        return $this->resolve( $class->name );
+      }
       
       return $this->resolveDefault( $parameter );
     }, $parameters );
@@ -61,25 +59,50 @@ abstract class ServiceResolver {
   }
 
   protected function resolveProvider ( ProviderInterface $provider, \ReflectionParameter $parameter ) {
+    
+    $return = null;
 
     foreach ( $provider->register() as $param ) {
+      
+      if ( 'string' === gettype( $param ) ) {
 
-      if ( ! is_null( $instancearg = $parameter->getClass() ) ) {
+        if ( class_exists( $param ) ) {
+          
+          $return = $this->resolve( $param );
 
-        if ( $param instanceof $instancearg->name ) {
-
-          return $param;
+          break;
         }
+      }
+      
+      if ( ! is_null( $instance = $parameter->getClass() ) ) {
+        
+        if ( $param instanceof $instance->name ) {
+        
+          $return = $param;
+
+          break;
+        }
+
+        $return = $this->resolve( $instance->name );
 
         break;
       }
-        
-      if ( gettype( $param ) === $parameter->getType()->getName() ) {
 
-        return $param;
+      if ( gettype( $param ) === $parameter->getType()->getName() ) {
+        
+        $return = $param;
+
+        break;
+      }
+
+      if ( 'integer' === gettype( $param ) && 'int' === $parameter->getType()->getName() ) {
+
+        $return = $param;
 
         break;
       }
     }
+
+    return $return;
   }
 }

@@ -12,26 +12,40 @@ $themeroot = get_template_directory();
 
 require $themeroot . '/vendor/autoload.php';
 
+$definitions = new Storage();
+
+/**
+ * Register All Services
+ */
+$directory = $themeroot . '/src/Framework/Services';
+
+Util::directoryIterator( $directory, function ( $service ) use ( $definitions ) {
+
+  $definitions->set( $service->name, $service->qualifiedname );
+});
+
 /** 
  * Register All Providers 
  */
-$providers = new Storage();
+$directory = $themeroot . '/src/App/Providers';
 
-$directory = $themeroot . '/src/App/ServiceProviders';
+Util::directoryIterator( $directory, function ( $provider ) use ( $definitions ) {
 
-Util::directoryIterator( $directory, function ( $provider ) use ( $providers ) {
-
-  $providers->set( $provider->name, $provider->qualifiedname );
+  $definitions->set( $provider->name, $provider->qualifiedname );
 });
 
+
 /**
- * Set Theme Facade Singleton
+ * Register Singletons
  */
 $singletons = new Storage();
 
-// $singletons->set( 'Theme', Theme::getInstance() );
+$singletons->set( 'Theme', 'WpTheme\\Scaffold\\App\\Theme'::class );
 
-$container = Container::getInstance( $providers, $singletons );
+/**
+ * Instantiate Container
+ */
+$container = Container::getInstance( $definitions, $singletons );
 
 /**
  * Run All Hooks
@@ -42,5 +56,5 @@ Util::directoryIterator( $directory, function ( $hook ) use ( $container ) {
 
   $hook = $container->resolve( $hook->qualifiedname );
 
-  // $hook->register();
+  $hook->register();
 });
