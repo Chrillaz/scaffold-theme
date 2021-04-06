@@ -2,6 +2,8 @@
 
 namespace WpTheme\Scaffold\Framework\Container;
 
+use WpTheme\Scaffold\Framework\Interfaces\ProviderInterface;
+
 abstract class ServiceResolver {
 
   public function resolve ( string $name ) {
@@ -38,44 +40,46 @@ abstract class ServiceResolver {
 
         return $this->resolve( $parameter->getType()->getName() );
       }
+
+      if ( $this->has( $provider = $parameter->getDeclaringClass()->getShortName() . 'Provider'::class ) ) {
+
+        return $this->resolveProvider( $this->get( $provider ), $parameter );
+      } 
       
-      return $this->resolveUnknown( $parameter );
+      return $this->resolveDefault( $parameter );
     }, $parameters );
   }
 
-  protected function resolveUnknown ( \ReflectionParameter $parameter ) {
+  protected function resolveDefault ( \ReflectionParameter $parameter ) {
 
-    $caller = $parameter->getDeclaringClass()->getShortName();
-
-    if ( $this->has( $caller . 'Provider'::class ) ) {
-
-      $provider = $this->get( $caller . 'Provider'::class );
-
-      foreach ( $provider->register() as $param ) {
-
-        if ( ! is_null( $instancearg = $parameter->getClass() ) ) {
-
-          if ( $param instanceof $instancearg->name ) {
-
-            return $param;
-          }
-
-          break;
-        }
-        
-        if ( gettype( $param ) === $parameter->getType()->getName() ) {
-
-          return $param;
-
-          break;
-        }
-      }
-    } else if ( $parameter->isDefaultValueAvailable() ) {
+    if ( $parameter->isDefaultValueAvailable() ) {
 
       return $parameter->getDefaultValue();
-    } else {
+    }
 
-      throw new Exception( 'Nope' );
+    throw new Exception( 'Nope' );
+  }
+
+  protected function resolveProvider ( ProviderInterface $provider, \ReflectionParameter $parameter ) {
+
+    foreach ( $provider->register() as $param ) {
+
+      if ( ! is_null( $instancearg = $parameter->getClass() ) ) {
+
+        if ( $param instanceof $instancearg->name ) {
+
+          return $param;
+        }
+
+        break;
+      }
+        
+      if ( gettype( $param ) === $parameter->getType()->getName() ) {
+
+        return $param;
+
+        break;
+      }
     }
   }
 }
