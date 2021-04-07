@@ -4,14 +4,9 @@ namespace WpTheme\Scaffold\App\Hooks;
 
 use WpTheme\Scaffold\Framework\Abstracts\Hooks;
 
-class SettingsPage extends Hooks {
+final class SettingsPage extends Hooks {
 
-  /**
-   * @type action
-   * 
-   * @priority 99
-   */
-  final public function adminMenu () {
+  public function adminMenu () {
 
   }
 

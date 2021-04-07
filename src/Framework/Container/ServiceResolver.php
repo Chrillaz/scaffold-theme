@@ -6,40 +6,43 @@ use WpTheme\Scaffold\Framework\Interfaces\ProviderInterface;
 
 abstract class ServiceResolver {
 
-  public function resolve ( string $name ) {
-    
-    if ( ! class_exists( $name ) ) {
+  protected function hasProvider ( \ReflectionParameter $parameter ) {
 
-      return;
-    }
+    if ( ! is_null( $class = $parameter->getDeclaringClass() ) ) {
 
-    $reflector = new \ReflectionClass( $name );
+      if ( ! is_null( $provider = $this->getProvider( $class ) ) ) {
 
-    if ( $reflector->isInstantiable() ) {
-
-      if ( is_null( $constructor = $reflector->getConstructor() ) ) {
-        
-        return $reflector->newInstanceWithoutConstructor();
+        return $provider;
       }
+      
+      if ( ! is_null( $parent = $class->getParentClass() ) ) {
 
-      return is_null( $parameters = $constructor->getParameters() )
-        ? $reflector->newInstance()
-        : $reflector->newInstanceArgs( $this->resolveParameters( $parameters ) );
+        if ( $parent instanceof \ReflectionClass && $parent->isAbstract() && $class->isSubclassOf( $parent ) ) {
+  
+          if ( ! is_null( $provider = $this->getProvider( $parent ) ) ) {
+
+            return $provider;
+          }
+        }
+      }
     }
+  }
 
-    if ( $reflector->hasMethod( 'getInstance' ) ) {
+  protected function getProvider ( \ReflectionClass $class ) {
 
-      return $this->get( $reflector->getShortName() );
+    if ( $this->has( $provider = $class->getShortName() . 'Provider'::class ) ) {
+
+      return $this->get( $provider );
     }
   }
 
   protected function resolveParameters ( array $parameters ): array {
 
     return array_map( function ( $parameter ) {
-      
-      if ( $this->has( $provider = $parameter->getDeclaringClass()->getShortName() . 'Provider'::class ) ) {
 
-        return $this->resolveProvider( $this->get( $provider ), $parameter );
+      if ( ! is_null( $provider = $this->hasProvider( $parameter ) ) ) {
+
+        return $this->resolveProvider( $provider, $parameter );
       }
 
       if ( ! is_null( $class = $parameter->getClass() ) && $class->inNamespace() ) {
@@ -49,16 +52,6 @@ abstract class ServiceResolver {
       
       return $this->resolveDefault( $parameter );
     }, $parameters );
-  }
-
-  protected function resolveDefault ( \ReflectionParameter $parameter ) {
-
-    if ( $parameter->isDefaultValueAvailable() ) {
-
-      return $parameter->getDefaultValue();
-    }
-
-    throw new \Exception( 'Nope' );
   }
 
   protected function resolveProvider ( ProviderInterface $provider, \ReflectionParameter $parameter ) {
@@ -107,5 +100,42 @@ abstract class ServiceResolver {
     }
 
     return $return;
+  }
+
+  protected function resolveDefault ( \ReflectionParameter $parameter ) {
+    
+    if ( $parameter->isDefaultValueAvailable() ) {
+
+      return $parameter->getDefaultValue();
+    }
+
+    throw new \Exception( 'Nope' );
+  }
+
+  public function resolve ( string $name ) {
+    
+    if ( ! class_exists( $name ) ) {
+
+      return;
+    }
+
+    $reflector = new \ReflectionClass( $name );
+
+    if ( $reflector->isInstantiable() ) {
+
+      if ( is_null( $constructor = $reflector->getConstructor() ) ) {
+        
+        return $reflector->newInstanceWithoutConstructor();
+      }
+
+      return is_null( $parameters = $constructor->getParameters() )
+        ? $reflector->newInstance()
+        : $reflector->newInstanceArgs( $this->resolveParameters( $parameters ) );
+    }
+
+    if ( $reflector->hasMethod( 'getInstance' ) ) {
+
+      return $this->get( $reflector->getShortName() );
+    }
   }
 }

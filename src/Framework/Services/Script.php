@@ -2,6 +2,10 @@
 
 namespace WpTheme\Scaffold\Framework\Services;
 
+use WpTheme\Scaffold\Framework\Services\Asset;
+
+use WpTheme\Scaffold\Framework\Container\Container;
+
 use WpTheme\Scaffold\Framework\Abstracts\AssetBuilder;
 
 final class Script extends AssetBuilder {

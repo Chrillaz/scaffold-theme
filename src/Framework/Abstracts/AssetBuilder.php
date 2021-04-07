@@ -2,10 +2,6 @@
 
 namespace WpTheme\Scaffold\Framework\Abstracts;
 
-use WpTheme\Scaffold\Framework\Services\Asset;
-
-use WpTheme\Scaffold\Framework\Container\Container;
-
 use WpTheme\Scaffold\Framework\Interfaces\AssetBuilderInterface;
 
 abstract class AssetBuilder implements AssetBuilderInterface {
