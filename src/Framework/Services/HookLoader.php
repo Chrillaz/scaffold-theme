@@ -2,53 +2,25 @@
 
 namespace WpTheme\Scaffold\Framework\Services;
 
-use WpTheme\Scaffold\Framework\Services\Storage;
+use WpTheme\Scaffold\Framework\Abstracts\Loader;
 
-use WpTheme\Scaffold\Framework\Interfaces\HookInterface;
-
-use WpTheme\Scaffold\Framework\Interfaces\HookLoaderInterface;
-
-class HookLoader implements HookLoaderInterface {
-
-  private static $hooks;
-
-  private $queue;
-
-  public function __construct ( Storage $storage ) {
-
-    $this->queue = $storage;
-  }
-
-  private function reset () {
-
-    foreach ( $this->queue->all() as $key => $hooks ) {
-
-      $this->queue->delete( $key );
-    }
-  }
-
-  private function add ( string $queue, HookInterface $hook ): void {
-
-    if ( ! $this->queue->contains( $queue ) ) {
-
-      $this->queue->set( $queue, [] );
-    }
-
-    $this->queue->set( $queue, array_push( 
-      $this->queue->get( $queue ), 
-      $hook 
-    ));
-  }
+class HookLoader extends Loader {
 
   public function addAction ( ...$args ): void {
 
+    $this->add( 'actions', $this->container->get( 'Hook' )->set(
+      $args
+    ));
   }
 
   public function addFilter ( ...$args ): void {
 
+    $this->add( 'filters', $this->container->get( 'Hook' )->set(
+      $args
+    ));
   }
 
-  public function run (): void {
+  public function load (): void {
 
     if ( $actions = $this->queue->get( 'actions' ) ) {
 

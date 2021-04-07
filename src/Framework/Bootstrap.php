@@ -15,7 +15,7 @@ require $themeroot . '/vendor/autoload.php';
 $definitions = new Storage();
 
 /**
- * Register All Services
+ * Register Services
  */
 $directory = $themeroot . '/src/Framework/Services';
 
@@ -24,8 +24,12 @@ Util::directoryIterator( $directory, function ( $service ) use ( $definitions ) 
   $definitions->set( $service->name, $service->qualifiedname );
 });
 
+// $definitions->set( 'HookLoader', 'WpTheme\\Scaffold\\Framework\\Services\\HookLoader'::class );
+
+// $definitions->set( 'AssetLoader', 'WpTheme\\Scaffold\\Framework\\Services\\AssetLoader'::class );
+
 /** 
- * Register All Providers 
+ * Register Providers 
  */
 $directory = $themeroot . '/src/App/Providers';
 
@@ -34,7 +38,6 @@ Util::directoryIterator( $directory, function ( $provider ) use ( $definitions )
   $definitions->set( $provider->name, $provider->qualifiedname );
 });
 
-
 /**
  * Register Singletons
  */
@@ -42,13 +45,15 @@ $singletons = new Storage();
 
 $singletons->set( 'Theme', 'WpTheme\\Scaffold\\App\\Theme'::class );
 
+$singletons->set( 'Container', 'WpTheme\\Scaffold\\Framework\\Container\\Container'::class );
+
 /**
  * Instantiate Container
  */
 $container = Container::getInstance( $definitions, $singletons );
 
 /**
- * Run All Hooks
+ * Register All Hooks
  */
 $directory = $themeroot . '/src/App/Hooks';
 

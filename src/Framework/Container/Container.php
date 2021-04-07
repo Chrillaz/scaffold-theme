@@ -41,7 +41,9 @@ class Container extends ServiceResolver {
 
     if ( $this->singletons->contains( $key ) ) {
       
-      return $this->singletons->get( $key );
+      $instance = $this->singletons->get( $key );
+
+      return $instance::getInstance();
     }
     
     if ( ! isset( $this->resolved[$key] ) ) {
@@ -53,8 +55,8 @@ class Container extends ServiceResolver {
   }
 
   public static function getInstance ( 
-    Storage $definitions,
-    Storage $singletons
+    Storage $definitions = null,
+    Storage $singletons = null
   ) {
 
     if ( is_null( self::$container ) ) self::$container = new Container(

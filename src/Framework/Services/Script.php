@@ -1,12 +1,27 @@
 <?php
 
-namespace WpTheme\Scaffold\Services;
+namespace WpTheme\Scaffold\Framework\Services;
 
-use WpTheme\Scaffold\Abstracts\AssetBuilder;
+use WpTheme\Scaffold\Framework\Abstracts\AssetBuilder;
 
-class Script extends AssetBuilder {
+final class Script extends AssetBuilder {
 
-  public function enqueue () {
+  protected $queue;
+
+  protected $asset;
+
+  protected $container;
+
+  public function __construct ( \WP_Scripts $scripts, Asset $asset, Container $container ) {
+
+    $this->queue = $scripts;
+
+    $this->asset = $asset;
+
+    $this->container = $container;
+  }
+
+  public function enqueue () : void{
 
     if ( ! isset( $this->queue->registered[$this->asset->getHandle()] ) ) {
 

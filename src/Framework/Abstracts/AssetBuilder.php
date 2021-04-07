@@ -1,10 +1,26 @@
 <?php
 
-namespace WpTheme\Scaffold\Framework\Services;
+namespace WpTheme\Scaffold\Framework\Abstracts;
+
+use WpTheme\Scaffold\Framework\Services\Asset;
+
+use WpTheme\Scaffold\Framework\Container\Container;
 
 use WpTheme\Scaffold\Framework\Interfaces\AssetBuilderInterface;
 
 abstract class AssetBuilder implements AssetBuilderInterface {
+
+  public function set ( string $handle, string $file ): void {
+
+    $this->asset->append( 'handle', $handle );
+
+    if ( ! empty( $file ) ) {
+
+      $this->asset->append( 'version', \filemtime( \get_template_directory() . '/assets' . $file ) );
+      
+      $this->asset->append( 'file', \get_template_directory_uri() . '/assets' . $file );
+    }
+  }
   
   public function dependencies ( ...$dependencies ) {
 

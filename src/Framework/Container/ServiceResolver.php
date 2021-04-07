@@ -7,8 +7,6 @@ use WpTheme\Scaffold\Framework\Interfaces\ProviderInterface;
 abstract class ServiceResolver {
 
   public function resolve ( string $name ) {
-
-    $reflector = new \ReflectionClass( $name );
     
     if ( ! class_exists( $name ) ) {
 
@@ -20,13 +18,18 @@ abstract class ServiceResolver {
     if ( $reflector->isInstantiable() ) {
 
       if ( is_null( $constructor = $reflector->getConstructor() ) ) {
-
+        
         return $reflector->newInstanceWithoutConstructor();
       }
 
       return is_null( $parameters = $constructor->getParameters() )
         ? $reflector->newInstance()
         : $reflector->newInstanceArgs( $this->resolveParameters( $parameters ) );
+    }
+
+    if ( $reflector->hasMethod( 'getInstance' ) ) {
+
+      return $this->get( $reflector->getShortName() );
     }
   }
 
@@ -55,7 +58,7 @@ abstract class ServiceResolver {
       return $parameter->getDefaultValue();
     }
 
-    throw new Exception( 'Nope' );
+    throw new \Exception( 'Nope' );
   }
 
   protected function resolveProvider ( ProviderInterface $provider, \ReflectionParameter $parameter ) {

@@ -19,6 +19,6 @@ class SettingsPage extends Hooks {
 
     $this->hooks->addAction( 'admin_menu', 'adminMenu', $this );
 
-    $this->hooks->run();
+    $this->hooks->load();
   }
 }

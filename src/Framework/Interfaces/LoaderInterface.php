@@ -2,6 +2,7 @@
 
 namespace WpTheme\Scaffold\Framework\Interfaces;
 
-interface AssetLoaderInterface {
+interface LoaderInterface {
   
+  public function load (): void;
 }
