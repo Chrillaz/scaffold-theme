@@ -4,7 +4,7 @@ namespace WpTheme\Scaffold\Exceptions;
 
 use Psr\Container\ContainerExceptionInterface;
 
-class ServiceNotInstantiableException extends \Exception implements ContainerExceptionInterface {
+class NotInstantiableException extends \Exception implements ContainerExceptionInterface {
 
   public function __construct( $service, $code = 0, Exception $previous = null ) {
 

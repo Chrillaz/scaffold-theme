@@ -8,9 +8,9 @@ class Storage implements StorageInterface {
 
   private $storage;
 
-  public function __construct () {
+  public function __construct ( array $storage = [] ) {
 
-    $this->storage = $this->flatten( [] );
+    $this->storage = $this->flatten( $storage );
   }
 
   public function contains ( $keyOrValue ): bool {

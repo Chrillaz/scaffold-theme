@@ -4,7 +4,7 @@ namespace WpTheme\Scaffold\Exceptions;
 
 use Psr\Container\ContainerExceptionInterface;
 
-class ServiceNoDefaultValueException extends \Exception implements ContainerExceptionInterface {
+class NoDefaultValueException extends \Exception implements ContainerExceptionInterface {
 
   public function __construct( $sercive, $code = 0, Exception $previous = null ) {
         

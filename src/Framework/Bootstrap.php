@@ -24,9 +24,25 @@ Util::directoryIterator( $directory, function ( $service ) use ( $definitions ) 
   $definitions->set( $service->name, $service->qualifiedname );
 });
 
-// $definitions->set( 'HookLoader', 'WpTheme\\Scaffold\\Framework\\Services\\HookLoader'::class );
+/**
+ * Register Options
+ */
+$directory = $themeroot . '/src/App/Options';
 
-// $definitions->set( 'AssetLoader', 'WpTheme\\Scaffold\\Framework\\Services\\AssetLoader'::class );
+Util::directoryIterator( $directory, function ( $option ) use ( $definitions ) {
+
+  $definitions->set( $option->name, $option->qualifiedname );
+});
+
+/**
+ * Register Meta
+ */
+// $directory = $themeroot . '/src/App/Mete';
+
+// Util::directoryIterator( $directory, function ( $meta ) use ( $definitions ) {
+
+//   $definitions->set( $meta->name, $meta->qualifiedname );
+// });
 
 /** 
  * Register Providers 
@@ -43,7 +59,7 @@ Util::directoryIterator( $directory, function ( $provider ) use ( $definitions )
  */
 $singletons = new Storage();
 
-$singletons->set( 'Theme', 'WpTheme\\Scaffold\\App\\Theme'::class );
+$singletons->set( 'Theme', 'WpTheme\\Scaffold\\Framework\\Theme'::class );
 
 $singletons->set( 'Container', 'WpTheme\\Scaffold\\Framework\\Container\\Container'::class );
 

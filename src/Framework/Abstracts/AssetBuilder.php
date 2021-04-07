@@ -6,16 +6,9 @@ use WpTheme\Scaffold\Framework\Interfaces\AssetBuilderInterface;
 
 abstract class AssetBuilder implements AssetBuilderInterface {
 
-  public function set ( string $handle, string $file ): void {
+  public function set ( string $handle, string $file ) {
 
-    $this->asset->append( 'handle', $handle );
-
-    if ( ! empty( $file ) ) {
-
-      $this->asset->append( 'version', \filemtime( \get_template_directory() . '/assets' . $file ) );
-      
-      $this->asset->append( 'file', \get_template_directory_uri() . '/assets' . $file );
-    }
+    $this->asset->set( $handle, $file );
   }
   
   public function dependencies ( ...$dependencies ) {
@@ -61,6 +54,8 @@ abstract class AssetBuilder implements AssetBuilderInterface {
 
     return $this;
   }
+
+  abstract public function dequeue (): void;
 
   abstract public function enqueue (): void;
 }

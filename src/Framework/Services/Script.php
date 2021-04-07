@@ -4,8 +4,6 @@ namespace WpTheme\Scaffold\Framework\Services;
 
 use WpTheme\Scaffold\Framework\Services\Asset;
 
-use WpTheme\Scaffold\Framework\Container\Container;
-
 use WpTheme\Scaffold\Framework\Abstracts\AssetBuilder;
 
 final class Script extends AssetBuilder {
@@ -14,18 +12,19 @@ final class Script extends AssetBuilder {
 
   protected $asset;
 
-  protected $container;
-
-  public function __construct ( \WP_Scripts $scripts, Asset $asset, Container $container ) {
+  public function __construct ( \WP_Scripts $scripts, Asset $asset ) {
 
     $this->queue = $scripts;
 
     $this->asset = $asset;
-
-    $this->container = $container;
   }
 
-  public function enqueue () : void{
+  public function dequeue (): void {
+
+    $this->queue->dequeue( $this->asset->getHandle() );
+  }
+
+  public function enqueue (): void {
 
     if ( ! isset( $this->queue->registered[$this->asset->getHandle()] ) ) {
 

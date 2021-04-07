@@ -24,7 +24,5 @@ class AssetLoader extends Loader {
     return $script;
   }
 
-  public function load (): void {
-
-  } 
+  public function load (): void {} 
 }

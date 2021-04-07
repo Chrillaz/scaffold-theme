@@ -2,9 +2,15 @@
 
 namespace WpTheme\Scaffold\Framework\Container;
 
+use Psr\Container\ContainerInterface;
+
 use WpTheme\Scaffold\Framework\Services\Storage;
 
-class Container extends ServiceResolver {
+use WpTheme\Scaffold\Framework\Exceptions\NotRegisteredException;
+
+use WpTheme\Scaffold\Framework\Exceptions\NotInstantiableException;
+
+class Container extends Resolver implements ContainerInterface {
 
   private static $container;
 
@@ -26,7 +32,7 @@ class Container extends ServiceResolver {
     $this->resolved = [];
   }
 
-  protected function has ( string $key ): bool {
+  public function has ( string $key ): bool {
 
     return ( $this->singletons->contains( $key ) || $this->definitions->contains( $key ) );
   }
@@ -35,8 +41,7 @@ class Container extends ServiceResolver {
     
     if ( ! $this->has( $key ) ) {
 
-      // Exception
-      return;
+      throw new NotRegisteredException( $key );
     }
 
     if ( $this->singletons->contains( $key ) ) {
@@ -48,10 +53,39 @@ class Container extends ServiceResolver {
     
     if ( ! isset( $this->resolved[$key] ) ) {
 
-      return $this->resolved[$key] = $this->resolve( $this->definitions->get( $key ) );
+      $this->resolved[$key] = $this->resolve( $this->definitions->get( $key ) );
     }
 
     return $this->resolved[$key];
+  }
+
+  public function resolve ( string $name ) {
+    
+    if ( ! class_exists( $name ) ) {
+
+      return;
+    }
+
+    $reflector = new \ReflectionClass( $name );
+
+    if ( $reflector->isInstantiable() ) {
+
+      if ( is_null( $constructor = $reflector->getConstructor() ) ) {
+        
+        return $reflector->newInstanceWithoutConstructor();
+      }
+
+      return is_null( $parameters = $constructor->getParameters() )
+        ? $reflector->newInstance()
+        : $reflector->newInstanceArgs( $this->resolveParameters( $parameters ) );
+    }
+
+    if ( $reflector->hasMethod( 'getInstance' ) ) {
+
+      return $this->get( $reflector->getShortName() );
+    }
+
+    throw new NotInstantiableException( $name );
   }
 
   public static function getInstance ( 

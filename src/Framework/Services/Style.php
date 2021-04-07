@@ -4,28 +4,27 @@ namespace WpTheme\Scaffold\Framework\Services;
 
 use WpTheme\Scaffold\Framework\Services\Asset;
 
-use WpTheme\Scaffold\Framework\Container\Container;
-
 use WpTheme\Scaffold\Framework\Abstracts\AssetBuilder;
 
-class Style extends AssetBuilder {
+final class Style extends AssetBuilder {
 
   protected $queue;
 
   protected $asset;
 
-  protected $container;
-
-  public function __construct ( \WP_Styles $styles, Asset $asset, Container $container ) {
+  public function __construct ( \WP_Styles $styles, Asset $asset ) {
 
     $this->queue = $styles;
 
     $this->asset = $asset;
-
-    $this->container = $container;
   }
 
-  public function enqueue () : void{
+  public function dequeue (): void {
+
+    $this->queue->dequeue( $this->asset->getHandle() );
+  }
+
+  public function enqueue (): void {
     
     if ( ! isset( $this->queue->registered[$this->asset->getHandle()] ) ) {
 

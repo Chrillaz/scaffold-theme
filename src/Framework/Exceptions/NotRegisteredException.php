@@ -4,7 +4,7 @@ namespace WpTheme\Scaffold\Exceptions;
 
 use Psr\Container\NotFoundExceptionInterface;
 
-class ServiceNotRegisteredException extends \Exception implements NotFoundExceptionInterface {
+class NotRegisteredException extends \Exception implements NotFoundExceptionInterface {
     
   public function __construct( $service, $code = 0, Exception $previous = null ) {
 

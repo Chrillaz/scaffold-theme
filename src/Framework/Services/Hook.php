@@ -2,7 +2,9 @@
 
 namespace WpTheme\Scaffold\Framework\Services;
 
-final class Hook {
+use WpTheme\Scaffold\Framework\Interfaces\HookInterface;
+
+final class Hook implements HookInterface{
 
   public $event;
 
@@ -12,7 +14,7 @@ final class Hook {
 
   public $numargs;
 
-  public function set ( array $args ) {
+  public function set ( array $args ): HookInterface {
 
     list ( $event, $callback, $component, $priority, $numargs ) = array_pad( $args, 5, null );
     
