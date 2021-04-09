@@ -45,10 +45,8 @@ class Container extends Resolver implements ContainerInterface {
     }
 
     if ( $this->singletons->contains( $key ) ) {
-      
-      $instance = $this->singletons->get( $key );
 
-      return $instance::getInstance();
+      return $this->singletons->get( $key )::getInstance();
     }
     
     if ( ! isset( $this->resolved[$key] ) ) {

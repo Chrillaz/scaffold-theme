@@ -14,7 +14,10 @@ abstract class Resolver {
 
       if ( ! is_null( $provider = $this->hasProvider( $parameter ) ) ) {
 
-        return $this->resolveProvider( $provider, $parameter );
+        if ( $provided = $this->isProvided( $provider, $parameter ) ) {
+
+          return $provided;
+        }
       }
 
       if ( ! is_null( $class = $parameter->getClass() ) && $class->inNamespace() ) {
@@ -56,52 +59,43 @@ abstract class Resolver {
     }
   }
 
-  protected function resolveProvider ( ProviderInterface $provider, \ReflectionParameter $parameter ) {
-    
-    $return = null;
+  protected function isProvided ( ProviderInterface $provider, \ReflectionParameter $parameter ) {
 
-    foreach ( $provider->register() as $param ) {
-      
-      if ( 'string' === gettype( $param ) ) {
+    $type = $parameter->getType()->getName();
 
-        if ( class_exists( $param ) ) {
-          
-          $return = $this->resolve( $param );
+    foreach ( $provider->register() as $provide ) {
 
-          break;
+      if ( \is_string( $provide ) && $type === gettype( $provide ) ) {
+        
+        return $provide;
+      }
+
+      if ( \is_array( $provide ) && $type === gettype( $provide ) ) {
+
+        return $provide;
+      }
+
+      if ( \is_integer( $provide ) && 'int' === $type ) {
+
+        return $provide;
+      }
+
+      if ( \is_object( $provide ) ) {
+        
+        if ( ! is_null( $class = $parameter->getClass() ) ) {
+        
+          if ( $provide instanceof $class->name ) {
+
+            return $provide;
+          }
         }
-      }
-      
-      if ( ! is_null( $instance = $parameter->getClass() ) ) {
-        
-        if ( $param instanceof $instance->name ) {
 
-          $return = $param;
+        if ( is_callable( $provide ) && ! $parameter->isCallable() ) {
 
-          break;
+          return $provide();
         }
-        
-        $return = $this->resolve( $instance->name );
-
-        break;
-      }
-
-      if ( gettype( $param ) === $parameter->getType()->getName() ) {
-        
-        $return = $param;
-
-        break;
-      }
-
-      if ( 'integer' === gettype( $param ) && 'int' === $parameter->getType()->getName() ) {
-
-        $return = $param;
-
-        break;
       }
     }
-
-    return $return;
   }
 
   protected function resolveDefault ( \ReflectionParameter $parameter ) {

@@ -13,7 +13,7 @@ final class ThemeOption implements OptionInterface {
   private $default;
 
   public function __construct ( string $name, Storage $default ) {
-
+    
     $this->name = $name;
 
     $this->default = $default;
@@ -36,7 +36,7 @@ final class ThemeOption implements OptionInterface {
 
   public function get ( string $key ) {
 
-    if ( in_array( $option = $this->getOption, $key ) ) {
+    if ( in_array( $option = $this->getOption(), $key ) ) {
 
       return $option[$key];
     }

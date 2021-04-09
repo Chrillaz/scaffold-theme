@@ -1,15 +1,11 @@
-<?php
-list( $theme, $options ) = $args;
-
-var_dump('<pre>', $options, '</pre>');
-?>
+<?php list( $theme, $options ) = $args; ?>
 
 <div class="wrap">
   <h2><?php _e( 'THEME OPTIONS', $theme::get( 'TextDomain' ) ); ?></h2>
   <form method="post" action="options.php">
     <?php 
       settings_fields( $options->getName() ); 
-      do_settings_sections( $options->getName() );
+      // do_settings_sections( __FILE__ );
     ?>
     <section class="flex-container">
       <div class="flex-column-30">
