@@ -22,7 +22,7 @@ final class ScriptLoader extends Hooks {
   public function scriptExecution ( string $tag, string $handle ) {
 
     $script_exec = $this->scripts->get_data( $handle, 'script_execution' );
-  
+    
     if ( ! $script_exec ) {
   
       return $tag;

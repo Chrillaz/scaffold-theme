@@ -32,7 +32,7 @@ final class Style extends AssetBuilder {
       );
     }
 
-    if ( $inline = $this->asset->getData( 'inline' ) && isset( $this->queue->registered[$this->asset->getHandle()] ) ) {
+    if ( ( $inline = $this->asset->getData( 'inline' ) ) && isset( $this->queue->registered[$this->asset->getHandle()] ) ) {
 
       $this->queue->add_inline_style( $this->asset->getHandle(), $inline, $this->asset->getData( 'position' ) );
     }

@@ -36,12 +36,12 @@ final class Script extends AssetBuilder {
       }
     }
 
-    if ( $exec = $this->asset->getData( 'load' ) && isset( $this->queue->registered[$this->asset->getHandle()] ) ) {
-
+    if ( ( $exec = $this->asset->getData( 'load' ) ) && isset( $this->queue->registered[$this->asset->getHandle()] ) ) {
+      
       $this->queue->add_data( $this->asset->getHandle(), 'script_execution', $exec );
     }
 
-    if ( $inline = $this->asset->getData( 'inline' ) && isset( $this->queue->registered[$this->asset->getHandle()] ) ) {
+    if ( ( $inline = $this->asset->getData( 'inline' ) ) && isset( $this->queue->registered[$this->asset->getHandle()] ) ) {
 
       $this->queue->add_inline_script( $this->asset->getHandle(), $inline, $this->asset->getData( 'position' ) );
     }

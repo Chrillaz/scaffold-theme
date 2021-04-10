@@ -4,9 +4,10 @@ namespace WpTheme\Scaffold\App\Hooks;
 
 use WpTheme\Scaffold\Framework\Abstracts\Hooks;
 
-use WpTheme\Scaffold\Framework\Services\HookLoader;
-
-use WpTheme\Scaffold\Framework\Services\AssetLoader;
+use WpTheme\Scaffold\Framework\Services\{
+  HookLoader,
+  AssetLoader
+};
 
 final class EnqueueScripts extends Hooks {
 
@@ -25,12 +26,12 @@ final class EnqueueScripts extends Hooks {
 
     $this->assets->addScript( 'main', '/js/main.min.js' )->load( 'defer' )->enqueue();
 
-    // $this->assets->load();
+    $this->assets->load();
   }
 
   public function adminAssets ( $hook_suffix ) {
 
-    if ( 'appearance_page_theme_option_page' === $hook_suffix ) {
+    if ( 'appearance_page_theme_option' === $hook_suffix ) {
 
       $this->assets->addScript( 'scaffold-options', '/js/admin-scripts.min.js' )->dependencies( 'jquery', 'wp-color-picker' )->enqueue();
 
@@ -38,7 +39,7 @@ final class EnqueueScripts extends Hooks {
       
       $this->assets->addStyle( 'wp-color-picker' )->enqueue();
       
-      // $this->assets->load();
+      $this->assets->load();
     }
   }
 

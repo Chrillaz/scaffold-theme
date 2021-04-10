@@ -10,13 +10,15 @@ use WpTheme\Scaffold\Framework\Services\HookLoader;
 
 use WpTheme\Scaffold\Framework\Container\Container;
 
-final class SettingsPage extends Hooks {
+final class OptionPage extends Hooks {
 
   protected $hooks;
 
   protected $theme;
 
   protected $container;
+
+  protected $options;
 
   public function __construct ( HookLoader $hooks, Theme $theme, Container $container ) {
 
@@ -25,24 +27,26 @@ final class SettingsPage extends Hooks {
     $this->theme = $theme;
 
     $this->container = $container;
+
+    $this->options = $this->container->get( 'ThemeOption' );
   }
 
   public function adminInit () {
     
-    \register_setting( 'theme_option', 'theme_option' );;
+    \register_setting( $this->options->getName(), $this->options->getName() );
   }
 
   public function adminMenu () {
-    
+
     \add_theme_page( 
       __( 'Theme Options', $this->theme::get( 'TextDomain' ) ),
       __( 'Theme Options', $this->theme::get( 'TextDomain' ) ),
-      'manage_options', 
-      'theme_option_page', 
+      $this->options->getCapability(), 
+      $this->options->getName(), 
       function () {
-        \get_template_part( 'templates/admin/options', 'page', [
+        \get_template_part( 'templates/admin/option', 'page', [
           $this->theme,
-          $this->container->get( 'ThemeOption' )
+          $this->options
         ]);
       },
       null  

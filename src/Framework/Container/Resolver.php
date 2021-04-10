@@ -14,9 +14,9 @@ abstract class Resolver {
 
       if ( ! is_null( $provider = $this->hasProvider( $parameter ) ) ) {
 
-        if ( $provided = $this->isProvided( $provider, $parameter ) ) {
+        if ( array_key_exists( $parameter->name, $registered = $provider->register() ) ) {
 
-          return $provided;
+          return $registered[$parameter->name];
         }
       }
 
@@ -56,45 +56,6 @@ abstract class Resolver {
     if ( $this->has( $provider = $class->getShortName() . 'Provider'::class ) ) {
 
       return $this->get( $provider );
-    }
-  }
-
-  protected function isProvided ( ProviderInterface $provider, \ReflectionParameter $parameter ) {
-
-    $type = $parameter->getType()->getName();
-
-    foreach ( $provider->register() as $provide ) {
-
-      if ( \is_string( $provide ) && $type === gettype( $provide ) ) {
-        
-        return $provide;
-      }
-
-      if ( \is_array( $provide ) && $type === gettype( $provide ) ) {
-
-        return $provide;
-      }
-
-      if ( \is_integer( $provide ) && 'int' === $type ) {
-
-        return $provide;
-      }
-
-      if ( \is_object( $provide ) ) {
-        
-        if ( ! is_null( $class = $parameter->getClass() ) ) {
-        
-          if ( $provide instanceof $class->name ) {
-
-            return $provide;
-          }
-        }
-
-        if ( is_callable( $provide ) && ! $parameter->isCallable() ) {
-
-          return $provide();
-        }
-      }
     }
   }
 

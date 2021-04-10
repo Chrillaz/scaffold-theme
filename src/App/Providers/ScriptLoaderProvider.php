@@ -9,7 +9,7 @@ final class ScriptLoaderProvider implements ProviderInterface {
   public function register (): array {
 
     return [
-      \wp_scripts()
+      'scripts' => \wp_scripts()
     ];
   }
 }

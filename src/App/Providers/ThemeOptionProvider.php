@@ -18,8 +18,9 @@ final class ThemeOptionProvider implements ProviderInterface {
     );
 
     return [
-      'theme_option',
-      new Storage( $settings['settings'] )
+      'name'       => 'theme_option',
+      'capability' => 'edit_themes',
+      'default'    => new Storage( $settings['settings'] )
     ];
   }
 }
