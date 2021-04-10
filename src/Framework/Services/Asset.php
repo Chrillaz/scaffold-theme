@@ -10,36 +10,39 @@ class Asset implements AssetInterface {
 
   private $data;
 
-  public function __construct ( Storage $data ) {
+  private $handle;
+
+  private $version;
+
+  private $file;
+
+  public function __construct ( Storage $data, $handle, $file ) {
 
     $this->data = $data;
-  }
 
-  public function set ( string $handle, string $file ): void {
-
-    $this->append( 'handle', $handle );
+    $this->handle = $handle;
 
     if ( ! empty( $file ) ) {
 
-      $this->append( 'version', \filemtime( \get_template_directory() . '/assets' . $file ) );
+      $this->version = \filemtime( \get_template_directory() . '/assets' . $file );
       
-      $this->append( 'file', \get_template_directory_uri() . '/assets' . $file );
+      $this->file = \get_template_directory_uri() . '/assets' . $file;
     }
   }
 
   public function getHandle (): string {
 
-    return $this->data->get( 'handle' );
+    return $this->handle;
   }
 
   public function getVersion (): string {
 
-    return $this->data->get( 'version' );
+    return $this->version;
   }
 
   public function getFile (): string {
 
-    return $this->data->get( 'file' );
+    return $this->file;
   }
 
   public function getData ( string $name ) {

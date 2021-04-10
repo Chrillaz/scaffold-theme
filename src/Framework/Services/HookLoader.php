@@ -2,22 +2,20 @@
 
 namespace WpTheme\Scaffold\Framework\Services;
 
+use WpTheme\Scaffold\Framework\Services\Hook;
+
 use WpTheme\Scaffold\Framework\Abstracts\Loader;
 
 class HookLoader extends Loader {
 
   public function addAction ( ...$args ): void {
 
-    $this->add( 'actions', $this->container->get( 'Hook' )->set(
-      $args
-    ));
+    $this->add( 'actions', new Hook( $args ) );
   }
 
   public function addFilter ( ...$args ): void {
 
-    $this->add( 'filters', $this->container->get( 'Hook' )->set(
-      $args
-    ));
+    $this->add( 'filters', new Hook( $args ) );
   }
 
   public function load (): void {
@@ -26,7 +24,7 @@ class HookLoader extends Loader {
 
       array_map( function ( $hook ) {
   
-        \add_action( $hook->event, $hook->callback, $hook->priority, $hook->numargs );
+        \add_action( $hook->getAction(), $hook->getCallback(), $hook->getPriority(), $hook->getNumArgs() );
   
         unset( $hook );
       }, $actions );
@@ -36,7 +34,7 @@ class HookLoader extends Loader {
 
       array_map( function ( $hook ) {
   
-        \add_filter( $hook->event, $hook->callback, $hook->priority, $hook->numargs );
+        \add_filter( $hook->getAction(), $hook->getCallback(), $hook->getPriority(), $hook->getNumArgs() );
   
         unset( $hook );
       }, $filters );

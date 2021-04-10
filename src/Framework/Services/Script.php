@@ -19,11 +19,6 @@ final class Script extends AssetBuilder {
     $this->asset = $asset;
   }
 
-  public function dequeue (): void {
-
-    $this->queue->dequeue( $this->asset->getHandle() );
-  }
-
   public function enqueue (): void {
 
     if ( ! isset( $this->queue->registered[$this->asset->getHandle()] ) ) {

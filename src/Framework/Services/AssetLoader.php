@@ -2,27 +2,44 @@
 
 namespace WpTheme\Scaffold\Framework\Services;
 
+use WpTheme\Scaffold\Framework\Services\{
+  Asset,
+  Style,
+  Script,
+  Storage
+};
+
 use WpTheme\Scaffold\Framework\Abstracts\Loader;
 
 class AssetLoader extends Loader {
 
   public function addScript ( string $handle, string $file = '' ) {
 
-    $script = $this->container->get( 'Script' );
-    
-    $script->set( $handle, $file );
+    $this->add( 'assets', $script = new Script(
+      \wp_scripts(),
+      new Asset( new Storage(), $handle, $file )
+    ));
 
     return $script;
   }
 
   public function addStyle ( string $handle, string $file = '' ) {
 
-    $script = $this->container->get( 'Style' );
-    
-    $script->set( $handle, $file );
+    $this->add( 'assets', $style = new Style(
+      \wp_styles(),
+      new Asset( new Storage(), $handle, $file )
+    ));
 
-    return $script;
+    return $style;
   }
 
-  public function load (): void {} 
+  public function load (): void {
+
+    array_map( function ( $asset ) {
+
+      unset( $asset );
+    }, $this->queue->get( 'assets' ) );
+
+    $this->reset();
+  } 
 }

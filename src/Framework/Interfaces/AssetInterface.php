@@ -4,8 +4,6 @@ namespace WpTheme\Scaffold\Framework\Interfaces;
 
 interface AssetInterface {
 
-  public function set ( string $handle, string $file ): void;
-
   public function getHandle (): string;
 
   public function getVersion (): string;

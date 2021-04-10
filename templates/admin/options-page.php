@@ -1,21 +1,21 @@
 <?php list( $theme, $options ) = $args; ?>
 
 <div class="wrap">
-  <h2><?php _e( 'THEME OPTIONS', $theme::get( 'TextDomain' ) ); ?></h2>
+  <h2><?php _e( 'THEME OPTIONS', $theme->get( 'TextDomain' ) ); ?></h2>
   <form method="post" action="options.php">
     <?php 
       settings_fields( $options->getName() ); 
-      // do_settings_sections( __FILE__ );
+      do_settings_sections( $options->getName() );
     ?>
     <section class="flex-container">
       <div class="flex-column-30">
         <table class="form-table" role="presentation">
-          <p><?php _e( 'Enable gutenberg features.', $theme::get( 'TextDomain' ) ); ?></p>
+          <p><?php _e( 'Enable gutenberg features.', $theme->get( 'TextDomain' ) ); ?></p>
           <tr valign="top">
             <td>
               <label>
                 <input id="theme-block-styles" name="<?php echo $options->getName(); ?>[block-styles]" type="checkbox" value="1" <?php checked( '1', $options->get( 'block-styles' ) ); ?> />
-                <?php _e( 'Enable block styles.', $theme::get( 'TextDomain' ) ); ?>
+                <?php _e( 'Enable block styles.', $theme->get( 'TextDomain' ) ); ?>
               </label>
             </td>
           </tr>
@@ -23,7 +23,7 @@
             <td>
               <label>
                 <input id="theme-editor-styles" name="<?php echo $options->getName(); ?>[editor-styles]" type="checkbox" value="1" <?php checked( '1', $options->get( 'editor-styles' ) ); ?> />
-                <?php _e( 'Enable editor styles.', $theme::get( 'TextDomain' ) ); ?>
+                <?php _e( 'Enable editor styles.', $theme->get( 'TextDomain' ) ); ?>
               </label>
             </td>
           </tr>
@@ -31,7 +31,7 @@
             <td>
               <label>
                 <input id="theme-align-wide" name="<?php echo $options->getName(); ?>[align-wide]" type="checkbox" value="1" <?php checked( '1', $options->get( 'align-wide' ) ); ?> />
-                <?php _e( 'Enable wide and full alignments.', $theme::get( 'TextDomain' ) ); ?>
+                <?php _e( 'Enable wide and full alignments.', $theme->get( 'TextDomain' ) ); ?>
               </label>
             </td>
           </tr>
@@ -39,7 +39,7 @@
             <td>
               <label>
                 <input id="theme-responsive-embeds" name="<?php echo $options->getName(); ?>[responsive-embeds]" type="checkbox" value="1" <?php checked( '1', $options->get( 'responsive-embeds' ) ); ?> />
-                <?php _e( 'Enable responsive embeds.', $theme::get( 'TextDomain' ) ); ?>
+                <?php _e( 'Enable responsive embeds.', $theme->get( 'TextDomain' ) ); ?>
               </label>
             </td>
           </tr>
@@ -47,7 +47,7 @@
             <td>
               <label>
                 <input id="theme-custom-colors" name="<?php echo $options->getName(); ?>[custom-colors]" type="checkbox" value="1" <?php checked( '1', $options->get( 'disable-custom-colors' ) ); ?> />
-                <?php _e( 'Enable custom colors.', $theme::get( 'TextDomain' ) ); ?>
+                <?php _e( 'Enable custom colors.', $theme->get( 'TextDomain' ) ); ?>
               </label>
             </td>
           </tr>
@@ -55,7 +55,7 @@
             <td>
               <label>
                 <input id="theme-disable-custom-gradients" name="<?php echo $options->getName(); ?>[disable-custom-gradients]" type="checkbox" value="1" <?php checked( '1', $options->get( 'disable-custom-gradients' ) ); ?> />
-                <?php _e( 'Enable custom gradients.', $theme::get( 'TextDomain' ) ); ?>
+                <?php _e( 'Enable custom gradients.', $theme->get( 'TextDomain' ) ); ?>
               </label>
             </td>
           </tr>
@@ -63,7 +63,7 @@
             <td>
               <label>
                 <input id="theme-disable-custom-font-sizes" name="<?php echo $options->getName(); ?>[disable-custom-font-sizes]" type="checkbox" value="1" <?php checked( '1', $options->get( 'disable-custom-font-sizes' ) ); ?> />
-                <?php _e( 'Enable custom font sizes.', $theme::get( 'TextDomain' ) ); ?>
+                <?php _e( 'Enable custom font sizes.', $theme->get( 'TextDomain' ) ); ?>
               </label>
             </td>
           </tr>
@@ -74,12 +74,12 @@
           <tr valign="top">
             <th></th>
             <td>
-              <p><?php _e( 'Define theme color palette.', $theme::get( 'TextDomain' ) ); ?></p>
+              <p><?php _e( 'Define theme color palette.', $theme->get( 'TextDomain' ) ); ?></p>
             </td>
           </tr>
           <tr>
             <th>
-              <?php _e( 'Dark', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Dark', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <input type="text" class="color-picker" name="<?php echo $options->getName(); ?>[color.dark]" id='color-picker' value="<?php echo $options->get( 'color.dark' ); ?>" />
@@ -87,7 +87,7 @@
           </tr>
           <tr>
             <th>
-              <?php _e( 'Primary Dark', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Primary Dark', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <input type="text" class="color-picker" name="<?php echo $options->getName(); ?>[color.primary-dark]" id='color-picker' value="<?php echo $options->get( 'color.primary-dark' ); ?>" />
@@ -95,7 +95,7 @@
           </tr>
           <tr>
             <th>
-              <?php _e( 'Primary', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Primary', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <input type="text" class="color-picker" name="<?php echo $options->getName(); ?>[color.primary]" id='color-picker' value="<?php echo $options->get( 'color.primary' ); ?>" />
@@ -103,7 +103,7 @@
           </tr>
           <tr>
             <th>
-              <?php _e( 'Primary Light', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Primary Light', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <input type="text" class="color-picker" name="<?php echo $options->getName(); ?>[color.primary-light]" id='color-picker' value="<?php echo $options->get( 'color.primary-light' ); ?>" />
@@ -111,7 +111,7 @@
           </tr>
           <tr>
             <th>
-              <?php _e( 'Secondary Dark', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Secondary Dark', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <input type="text" class="color-picker" name="<?php echo $options->getName(); ?>[color.secondary-dark]" id='color-picker' value="<?php echo $options->get( 'color.secondary-dark' ); ?>" />
@@ -119,7 +119,7 @@
           </tr>
           <tr>
             <th>
-              <?php _e( 'Secondary', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Secondary', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <input type="text" class="color-picker" name="<?php echo $options->getName(); ?>[color.secondary]" id='color-picker' value="<?php echo $options->get( 'color.secondary' ); ?>" />
@@ -127,7 +127,7 @@
           </tr>
           <tr>
             <th>
-              <?php _e( 'Secondary Light', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Secondary Light', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <input type="text" class="color-picker" name="<?php echo $options->getName(); ?>[color.secondary-light]" id='color-picker' value="<?php echo $options->get( 'color.secondary-light' ); ?>" />
@@ -135,7 +135,7 @@
           </tr>
           <tr>
             <th>
-              <?php _e( 'Light', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Light', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <input type="text" class="color-picker" name="<?php echo $options->getName(); ?>[color.light]" id='color-picker' value="<?php echo $options->get( 'color.light' ); ?>" />
@@ -145,12 +145,12 @@
           <tr valign="top">
             <th></th>
             <td>
-              <p><?php _e( 'Define media breakpoint widths.', $theme::get( 'TextDomain' ) ); ?></p>
+              <p><?php _e( 'Define media breakpoint widths.', $theme->get( 'TextDomain' ) ); ?></p>
             </td>
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Media Breakpoint SM', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Media Breakpoint SM', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -160,7 +160,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Media Breakpoint MD', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Media Breakpoint MD', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -170,7 +170,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Media Breakpoint LG', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Media Breakpoint LG', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -180,7 +180,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Media Breakpoint XL', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Media Breakpoint XL', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -192,12 +192,12 @@
           <tr valign="top">
             <th></th>
             <td>
-              <p><?php _e( 'Define font sizes.', $theme::get( 'TextDomain' ) ); ?></p>
+              <p><?php _e( 'Define font sizes.', $theme->get( 'TextDomain' ) ); ?></p>
             </td>
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Font size H1', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Font size H1', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -207,7 +207,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Font size H2', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Font size H2', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -217,7 +217,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Font size H3', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Font size H3', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -227,7 +227,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Font size H4', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Font size H4', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -237,7 +237,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Font size H5', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Font size H5', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -247,7 +247,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Font size H6', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Font size H6', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -257,7 +257,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Font size Paragraph', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Font size Paragraph', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -267,7 +267,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Font size Anchor', $theme::get( 'TextDomain' ) ); ?>
+              <?php _e( 'Font size Anchor', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>

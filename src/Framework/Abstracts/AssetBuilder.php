@@ -5,11 +5,6 @@ namespace WpTheme\Scaffold\Framework\Abstracts;
 use WpTheme\Scaffold\Framework\Interfaces\AssetBuilderInterface;
 
 abstract class AssetBuilder implements AssetBuilderInterface {
-
-  public function set ( string $handle, string $file ) {
-
-    $this->asset->set( $handle, $file );
-  }
   
   public function dependencies ( ...$dependencies ) {
 
@@ -55,7 +50,10 @@ abstract class AssetBuilder implements AssetBuilderInterface {
     return $this;
   }
 
-  abstract public function dequeue (): void;
+  public function dequeue (): void {
+
+    $this->queue->dequeue( $this->asset->getHandle() );
+  }
 
   abstract public function enqueue (): void;
 }

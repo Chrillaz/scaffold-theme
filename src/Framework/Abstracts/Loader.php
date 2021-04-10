@@ -4,21 +4,15 @@ namespace WpTheme\Scaffold\Framework\Abstracts;
 
 use WpTheme\Scaffold\Framework\Services\Storage;
 
-use WpTheme\Scaffold\Framework\Container\Container;
-
 use WpTheme\Scaffold\Framework\Interfaces\LoaderInterface;
 
 abstract class Loader implements LoaderInterface {
 
   protected $queue;
 
-  protected $container;
-
-  public function __construct ( Storage $storage, Container $container ) {
+  public function __construct ( Storage $storage ) {
 
     $this->queue = $storage;
-
-    $this->container = $container;
   }
 
   protected function add ( string $queue, $value ): void {
@@ -38,7 +32,7 @@ abstract class Loader implements LoaderInterface {
   protected function reset (): void {
 
     foreach ( $this->queue->all() as $key => $value ) {
-
+      
       $this->queue->delete( $key );
     }
   }

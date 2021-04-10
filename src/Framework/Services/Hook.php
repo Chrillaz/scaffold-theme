@@ -4,17 +4,17 @@ namespace WpTheme\Scaffold\Framework\Services;
 
 use WpTheme\Scaffold\Framework\Interfaces\HookInterface;
 
-final class Hook implements HookInterface{
+final class Hook implements HookInterface {
 
-  public $event;
+  private $event;
 
-  public $callback;
+  private $callback;
 
-  public $priority;
+  private $priority;
 
-  public $numargs;
+  private $numargs;
 
-  public function set ( array $args ): HookInterface {
+  public function __construct ( array $args ) {
 
     list ( $event, $callback, $component, $priority, $numargs ) = array_pad( $args, 5, null );
     
@@ -35,7 +35,25 @@ final class Hook implements HookInterface{
   
       $this->numargs = ( $numargs === null ? 1 : $numargs );
     }
+  }
 
-    return $this;
+  public function getAction (): string {
+
+    return $this->event;
+  }
+
+  public function getCallback () {
+
+    return $this->callback;
+  }
+
+  public function getPriority (): int {
+
+    return $this->priority;
+  }
+
+  public function getNumArgs (): int {
+
+    return $this->numargs;
   }
 }

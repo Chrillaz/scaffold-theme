@@ -25,18 +25,20 @@ final class EnqueueScripts extends Hooks {
 
     $this->assets->addScript( 'main', '/js/main.min.js' )->load( 'defer' )->enqueue();
 
-    $this->assets->load();
+    // $this->assets->load();
   }
 
-  public function adminAssets ( ...$args ) {
+  public function adminAssets ( $hook_suffix ) {
 
-    if ( 'appearance_page_wordpress_theme_scaffold_options' === $args[0] ) {
+    if ( 'appearance_page_theme_option_page' === $hook_suffix ) {
 
       $this->assets->addScript( 'scaffold-options', '/js/admin-scripts.min.js' )->dependencies( 'jquery', 'wp-color-picker' )->enqueue();
 
       $this->assets->addStyle( 'scaffold-options', '/css/admin-styles.css' )->enqueue();
       
       $this->assets->addStyle( 'wp-color-picker' )->enqueue();
+      
+      // $this->assets->load();
     }
   }
 

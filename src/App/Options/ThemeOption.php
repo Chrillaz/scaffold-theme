@@ -35,13 +35,11 @@ final class ThemeOption implements OptionInterface {
   }
 
   public function get ( string $key ) {
-
-    if ( in_array( $option = $this->getOption(), $key ) ) {
-
+    
+    if ( array_key_exists( $key, $option = $this->getOption() ) ) {
+      
       return $option[$key];
     }
-
-    return $this->default->get( $key );
   }
 
   public function set ( string $option, $value ) {

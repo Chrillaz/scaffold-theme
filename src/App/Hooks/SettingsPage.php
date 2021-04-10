@@ -28,8 +28,8 @@ final class SettingsPage extends Hooks {
   }
 
   public function adminInit () {
-
-    \register_setting( 'theme_options', 'theme_options' );
+    
+    \register_setting( 'theme_option', 'theme_option' );;
   }
 
   public function adminMenu () {
@@ -38,21 +38,22 @@ final class SettingsPage extends Hooks {
       __( 'Theme Options', $this->theme::get( 'TextDomain' ) ),
       __( 'Theme Options', $this->theme::get( 'TextDomain' ) ),
       'manage_options', 
-      'wordpress_theme_scaffold_options', 
+      'theme_option_page', 
       function () {
         \get_template_part( 'templates/admin/options', 'page', [
           $this->theme,
           $this->container->get( 'ThemeOption' )
         ]);
-      }
+      },
+      null  
     );
   }
 
   public function register (): void {
 
-    $this->hooks->addAction( 'admin_init', 'adminInit', $this );
-    
     $this->hooks->addAction( 'admin_menu', 'adminMenu', $this );
+    
+    $this->hooks->addAction( 'admin_init', 'adminInit', $this );
 
     $this->hooks->load();
   }
