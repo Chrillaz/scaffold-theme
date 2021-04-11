@@ -4,7 +4,7 @@ namespace WpTheme\Scaffold\Framework;
 
 use WpTheme\Scaffold\Framework\Utilities as Util;
 
-use WpTheme\Scaffold\Framework\Services\Storage;
+use WpTheme\Scaffold\Framework\Resources\Storage;
 
 use WpTheme\Scaffold\Framework\Container\Container;
 

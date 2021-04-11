@@ -2,7 +2,7 @@
 
 namespace WpTheme\Scaffold\App\Options;
 
-use WpTheme\Scaffold\Framework\Services\Storage;
+use WpTheme\Scaffold\Framework\Resources\Storage;
 
 use WpTheme\Scaffold\Framework\Interfaces\OptionInterface;
 

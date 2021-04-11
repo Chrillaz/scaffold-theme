@@ -1,8 +1,8 @@
 <?php
 
-namespace WpTheme\Scaffold\Framework\Services;
+namespace WpTheme\Scaffold\Framework\Resources;
 
-use WpTheme\Scaffold\Framework\Services\Storage;
+use WpTheme\Scaffold\Framework\Resources\Storage;
 
 use WpTheme\Scaffold\Framework\Interfaces\AssetInterface;
 

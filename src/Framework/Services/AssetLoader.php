@@ -2,7 +2,7 @@
 
 namespace WpTheme\Scaffold\Framework\Services;
 
-use WpTheme\Scaffold\Framework\Services\{
+use WpTheme\Scaffold\Framework\Resources\{
   Asset,
   Style,
   Script,

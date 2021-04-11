@@ -1,8 +1,8 @@
 <?php
 
-namespace WpTheme\Scaffold\Framework\Services;
+namespace WpTheme\Scaffold\Framework\Resources;
 
-use WpTheme\Scaffold\Framework\Services\Asset;
+use WpTheme\Scaffold\Framework\Resources\Asset;
 
 use WpTheme\Scaffold\Framework\Abstracts\AssetBuilder;
 

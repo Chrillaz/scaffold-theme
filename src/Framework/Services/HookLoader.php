@@ -2,7 +2,7 @@
 
 namespace WpTheme\Scaffold\Framework\Services;
 
-use WpTheme\Scaffold\Framework\Services\Hook;
+use WpTheme\Scaffold\Framework\Resources\Hook;
 
 use WpTheme\Scaffold\Framework\Abstracts\Loader;
 

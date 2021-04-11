@@ -2,7 +2,7 @@
 
 namespace WpTheme\Scaffold\Framework\Abstracts;
 
-use WpTheme\Scaffold\Framework\Services\Storage;
+use WpTheme\Scaffold\Framework\Resources\Storage;
 
 use WpTheme\Scaffold\Framework\Interfaces\LoaderInterface;
 

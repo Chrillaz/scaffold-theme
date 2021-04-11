@@ -1,6 +1,6 @@
 <?php
 
-namespace WpTheme\Scaffold\Framework\Services;
+namespace WpTheme\Scaffold\Framework\Resources;
 
 use WpTheme\Scaffold\Framework\Interfaces\StorageInterface;
 
