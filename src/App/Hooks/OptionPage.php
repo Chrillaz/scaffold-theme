@@ -4,11 +4,11 @@ namespace WpTheme\Scaffold\App\Hooks;
 
 use WpTheme\Scaffold\Framework\Theme;
 
+use WpTheme\Scaffold\App\Options\ThemeOption;
+
 use WpTheme\Scaffold\Framework\Abstracts\Hooks;
 
 use WpTheme\Scaffold\Framework\Services\HookLoader;
-
-use WpTheme\Scaffold\Framework\Container\Container;
 
 final class OptionPage extends Hooks {
 
@@ -16,19 +16,15 @@ final class OptionPage extends Hooks {
 
   protected $theme;
 
-  protected $container;
-
   protected $options;
 
-  public function __construct ( HookLoader $hooks, Theme $theme, Container $container ) {
+  public function __construct ( HookLoader $hooks, Theme $theme, ThemeOption $options ) {
 
     $this->hooks = $hooks;
 
     $this->theme = $theme;
 
-    $this->container = $container;
-
-    $this->options = $this->container->get( 'ThemeOption' );
+    $this->options = $options;
   }
 
   public function adminInit () {
@@ -44,7 +40,7 @@ final class OptionPage extends Hooks {
       $this->options->getCapability(), 
       $this->options->getName(), 
       function () {
-        \get_template_part( 'templates/admin/option', 'page', [
+        \get_template_part( 'templates/admin/options', 'page', [
           $this->theme,
           $this->options
         ]);

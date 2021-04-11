@@ -23,7 +23,6 @@ Util::directoryIterator( $directory, function ( $service ) use ( $definitions ) 
 
   $definitions->set( $service->name, $service->qualifiedname );
 });
-// $definitions->set( 'Storage', 'WpTheme\\Scaffold\\Framework\\Services\\Storage'::class );
 
 /**
  * Register Options
@@ -54,7 +53,6 @@ Util::directoryIterator( $directory, function ( $provider ) use ( $definitions )
 
   $definitions->set( $provider->name, $provider->qualifiedname );
 });
-// $definitions->set( 'ThemeOptionProvider', 'WpTheme\\Scaffold\\App\\Providers\\ThemeOptionProvider'::class );
 
 /**
  * Register Singletons
@@ -81,6 +79,3 @@ Util::directoryIterator( $directory, function ( $hook ) use ( $container ) {
 
   $hook->register();
 });
-
-// $container->resolve( 'WpTheme\\Scaffold\\App\\Options\\ThemeOption'::class );
-// $hook = $container->resolve( 'WpTheme\\Scaffold\\App\\Hooks\\SettingsPage'::class );

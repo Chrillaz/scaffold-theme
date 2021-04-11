@@ -4,7 +4,7 @@ namespace WpTheme\Scaffold\Framework\Container;
 
 use Psr\Container\ContainerInterface;
 
-use WpTheme\Scaffold\Framework\Services\Storage;
+use WpTheme\Scaffold\Framework\Interfaces\StorageInterface;
 
 use WpTheme\Scaffold\Framework\Exceptions\NotRegisteredException;
 
@@ -21,8 +21,8 @@ class Container extends Resolver implements ContainerInterface {
   private $resolved;
 
   private function __construct (
-    Storage $definitions,
-    Storage $singletons
+    StorageInterface $definitions,
+    StorageInterface $singletons
   ) {
 
     $this->definitions = $definitions;
@@ -34,7 +34,11 @@ class Container extends Resolver implements ContainerInterface {
 
   public function has ( string $key ): bool {
 
-    return ( $this->singletons->contains( $key ) || $this->definitions->contains( $key ) );
+    return ( 
+      $this->singletons->contains( $key ) 
+      || $this->definitions->contains( $key ) 
+      || isset( $this->resolved[$key] ) 
+    );
   }
 
   public function get ( string $key ) {
@@ -52,6 +56,11 @@ class Container extends Resolver implements ContainerInterface {
     if ( ! isset( $this->resolved[$key] ) ) {
 
       $this->resolved[$key] = $this->resolve( $this->definitions->get( $key ) );
+    }
+
+    if ( $this->resolved[$key] instanceof \Closure ) {
+
+      return $this->resolved[$key]();
     }
 
     return $this->resolved[$key];
@@ -87,8 +96,8 @@ class Container extends Resolver implements ContainerInterface {
   }
 
   public static function getInstance ( 
-    Storage $definitions = null,
-    Storage $singletons = null
+    StorageInterface $definitions = null,
+    StorageInterface $singletons = null
   ) {
 
     if ( is_null( self::$container ) ) self::$container = new Container(
