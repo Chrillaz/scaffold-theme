@@ -28,7 +28,7 @@ final class OptionPage extends Hooks {
   }
 
   public function adminInit () {
-    
+  
     \register_setting( $this->options->getName(), $this->options->getName() );
   }
 

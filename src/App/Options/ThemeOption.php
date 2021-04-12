@@ -47,6 +47,21 @@ final class ThemeOption implements OptionInterface {
       
       return $option[$key];
     }
+
+    return false;
+  }
+
+  public function getGroup ( string $group ): array {
+
+    $group = array_filter( $this->getOption(), function ( $key ) {
+
+      return false !== strpos( $key, 'color.' );
+    }, ARRAY_FILTER_USE_KEY );
+
+    return \wp_parse_args( $group, array_filter( $this->getDefault(), function ( $key ) {
+
+      return false !== strpos( $key, 'color.' );
+    }, ARRAY_FILTER_USE_KEY ) );
   }
 
   public function set ( string $option, $value ) {

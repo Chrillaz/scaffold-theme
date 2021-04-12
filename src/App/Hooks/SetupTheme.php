@@ -40,6 +40,6 @@ final class SetupTheme extends Hooks {
 
     $this->hooks->addAction( 'after_setup_theme', 'setupTheme', $this );
 
-    // $this->hooks->load();
+    $this->hooks->load();
   }
 }

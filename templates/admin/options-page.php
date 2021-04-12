@@ -46,7 +46,7 @@
           <tr valign="top">
             <td>
               <label>
-                <input id="theme-custom-colors" name="<?php echo $options->getName(); ?>[custom-colors]" type="checkbox" value="1" <?php checked( '1', $options->get( 'disable-custom-colors' ) ); ?> />
+                <input id="theme-custom-colors" name="<?php echo $options->getName(); ?>[disable-custom-colors]" type="checkbox" value="1" <?php checked( '1', $options->get( 'disable-custom-colors' ) ); ?> />
                 <?php _e( 'Enable custom colors.', $theme->get( 'TextDomain' ) ); ?>
               </label>
             </td>
