@@ -4,6 +4,8 @@ namespace WpTheme\Scaffold\App\Hooks;
 
 use WpTheme\Scaffold\Framework\Abstracts\Hooks;
 
+use WpTheme\Scaffold\App\Options\ThemeOption;
+
 use WpTheme\Scaffold\Framework\Services\{
   HookLoader,
   AssetLoader
@@ -15,11 +17,15 @@ final class EnqueueScripts extends Hooks {
 
   protected $assets;
 
-  public function __construct ( HookLoader $hooks, AssetLoader $assets ) {
+  protected $options;
+
+  public function __construct ( HookLoader $hooks, AssetLoader $assets, ThemeOption $options ) {
 
     $this->hooks = $hooks;
 
     $this->assets = $assets;
+
+    $this->options = $options;
   }
 
   public function publicAssets () {
@@ -43,11 +49,23 @@ final class EnqueueScripts extends Hooks {
     }
   }
 
+  public function blockAssets () {
+
+    $this->assets->addScript( 'theme-editor-scripts', 'editor-scripts.min.js' )->dependencies( 'wp-blocks', 'wp-hooks' )->enqueue();
+
+    if ( '1' === $this->options->get( 'editor-styles' ) ) {
+
+      // $this->assets->addStyle( 'theme-editor-css', 'editor-styles.css' )->inline( Context::use( 'cssVars' ) )->enqueue();
+    }
+  }
+
   public function register (): void {
 
     $this->hooks->addAction( 'wp_enqueue_scripts', 'publicAssets', $this );
 
     $this->hooks->addAction( 'admin_enqueue_scripts', 'adminAssets', $this );
+
+    $this->hooks->addAction( 'enqueue_block_editor_assets', 'blockAssets', $this );
 
     $this->hooks->load();
   }
