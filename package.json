@@ -1,0 +1,52 @@
+{
+  "name": "wp-scaffold-theme",
+  "version": "1.0.0",
+  "description": "wordpress starter theme",
+  "main": "assets/js/src/main.ts",
+  "scripts": {
+    "wp-env": "wp-env",
+    "tests": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/themes/wordpress-theme-scaffold/phpunit.xml.dist --verbose'",
+    "build": "webpack --mode production",
+    "start": "webpack --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chrillaz/wordpress-theme-scaffold.git"
+  },
+  "author": "Christoffer Öhman",
+  "authorUri": "https://github.com/Chrillaz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chrillaz/wordpress-theme-scaffold/issues"
+  },
+  "homepage": "https://github.com/Chrillaz/wordpress-theme-scaffold#readme",
+  "devDependencies": {
+    "@wordpress/browserslist-config": "^2.7.0",
+    "@wordpress/env": "^4.0.0",
+    "autoprefixer": "^10.0.1",
+    "browserslist": "^4.14.5",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^4.3.0",
+    "file-loader": "^6.1.1",
+    "mini-css-extract-plugin": "^0.11.3",
+    "node-sass": "^4.14.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
+    "postcss": "^8.1.1",
+    "postcss-loader": "^4.0.3",
+    "sass-loader": "^10.0.2",
+    "style-loader": "^1.3.0",
+    "stylelint": "^13.6.1",
+    "stylelint-webpack-plugin": "^1.2.3",
+    "terser-webpack-plugin": "^4.2.2",
+    "ts-loader": "^8.0.4",
+    "typescript": "^4.0.3",
+    "url-loader": "^4.1.1",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-fix-style-only-entries": "^0.6.0"
+  },
+  "dependencies": {},
+  "browserslist": [
+    "extends @wordpress/browserslist-config"
+  ]
+}
