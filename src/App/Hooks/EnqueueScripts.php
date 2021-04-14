@@ -51,11 +51,11 @@ final class EnqueueScripts extends Hooks {
 
   public function blockAssets () {
 
-    $this->assets->addScript( 'theme-editor-scripts', 'editor-scripts.min.js' )->dependencies( 'wp-blocks', 'wp-hooks' )->enqueue();
+    $this->assets->addScript( 'theme-editor-scripts', '/js/editor-scripts.min.js' )->dependencies( 'wp-blocks', 'wp-hooks' )->enqueue();
 
     if ( '1' === $this->options->get( 'editor-styles' ) ) {
 
-      // $this->assets->addStyle( 'theme-editor-css', 'editor-styles.css' )->inline( Context::use( 'cssVars' ) )->enqueue();
+      // $this->assets->addStyle( 'theme-editor-css', '/css/editor-styles.css' )->inline( Context::use( 'cssVars' ) )->enqueue();
     }
   }
 

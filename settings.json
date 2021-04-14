@@ -13,6 +13,9 @@
     "template": ""
   },
   "webpack-assets": {
+    "flags": {
+      "jquery": false
+    },
     "scripts": {
       "main": "./js/src/main.ts",
       "editor-scripts": "./js/src/editor.ts",
@@ -64,8 +67,5 @@
   "block-types-exclude": [
     "core/columns",
     "core/column"
-  ],
-  "integrations": [
-    "WPTheme\\Scaffold\\Integrations\\BlockEditor"
   ]
 }

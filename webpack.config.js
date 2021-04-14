@@ -52,11 +52,31 @@ const setAssets = () => {
     
     for ( chunk in settings['webpack-assets'][type] ) {
 
-      entries[chunk] = settings['webpack-assets'][type][chunk];
+      if ( type !== settings['webpack-assets']['flags'] ) {
+
+        entries[chunk] = settings['webpack-assets'][type][chunk];
+      }
     }
   }
 
   return entries;
+}
+
+const usesJquery = config => {
+
+  if ( settings['webpack-assets'].flags.jquery ) {
+
+    config.externals = {
+      jquery: 'jQuery' 
+    };
+
+    config.plugins.push( 
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery'
+      })
+    );
+  }
 }
 
 module.exports = (env, argv) => {
@@ -78,9 +98,6 @@ module.exports = (env, argv) => {
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js']
-    },
-    externals: {
-      jquery: 'jQuery' 
     },
     watch: development,
     optimization: {
@@ -147,13 +164,9 @@ module.exports = (env, argv) => {
       ! development && new FixStyleOnlyEntriesPlugin(),
       new MiniCSSExtractPlugin({
         filename: 'css/[name].css'
-      }),
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery'
       })
     ].filter( Boolean )
   };
 
-  return config;
+  return usesJquery( config );
 };
