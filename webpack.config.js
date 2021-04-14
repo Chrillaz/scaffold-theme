@@ -2,11 +2,9 @@ const fs = require( 'fs' ),
       path = require( 'path' ),
       webpack = require('webpack'),
       settings = require( './settings.json' ),
-      TerserPlugin = require( 'terser-webpack-plugin' ),
       { CleanWebpackPlugin } = require( 'clean-webpack-plugin' ),
       MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' ),
-      FixStyleOnlyEntriesPlugin = require( 'webpack-fix-style-only-entries' ),
-      OptimizeCSSAssetsPlugin = require( 'optimize-css-assets-webpack-plugin' );
+      RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 
 const cleanExcludes = [
   '!js', 
@@ -52,7 +50,7 @@ const setAssets = () => {
     
     for ( chunk in settings['webpack-assets'][type] ) {
 
-      if ( type !== settings['webpack-assets']['flags'] ) {
+      if ( 'flags' !== type ) {
 
         entries[chunk] = settings['webpack-assets'][type][chunk];
       }
@@ -77,6 +75,8 @@ const usesJquery = config => {
       })
     );
   }
+
+  return config;
 }
 
 module.exports = (env, argv) => {
@@ -89,7 +89,7 @@ module.exports = (env, argv) => {
 
   const config = {
     context,
-    devtool: development ? 'cheap-module-source-map' : 'source-map',
+    devtool: development ? 'inline-source-map' : 'source-map',
     entry: setAssets(),
     output: {
       path: context,
@@ -101,19 +101,7 @@ module.exports = (env, argv) => {
     },
     watch: development,
     optimization: {
-      minimizer: [
-        new TerserPlugin({
-          sourceMap: true
-        }),
-        new OptimizeCSSAssetsPlugin({
-          cssProcessorOptions: {
-            map: {
-              inline: false,
-              annotation: true
-            }
-          }
-        })
-      ]
+      removeEmptyChunks: true
     },
     module: { 
       rules: [
@@ -161,7 +149,7 @@ module.exports = (env, argv) => {
         verbose: true,
         cleanOnceBeforeBuildPatterns: ['**/*', ...cleanExcludes]
       }),
-      ! development && new FixStyleOnlyEntriesPlugin(),
+      new RemoveEmptyScriptsPlugin({ extensions:['css', 'scss', 'sass'] }),
       new MiniCSSExtractPlugin({
         filename: 'css/[name].css'
       })
