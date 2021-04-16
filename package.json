@@ -6,8 +6,8 @@
   "scripts": {
     "wp-env": "wp-env",
     "test": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/themes/wordpress-theme-scaffold/phpunit.xml.dist --verbose'",
-    "build": "webpack --mode production",
-    "start": "webpack --mode development"
+    "build": "webpack --mode production --config config/webpack.config.js",
+    "start": "webpack --mode development --config config/webpack.config.js"
   },
   "repository": {
     "type": "git",

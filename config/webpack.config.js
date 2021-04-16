@@ -1,7 +1,8 @@
 const fs = require( 'fs' ),
       path = require( 'path' ),
-      webpack = require('webpack'),
-      settings = require( './settings.json' ),
+      webpack = require( 'webpack' ),
+      assetsConfig = require( '../webpack.assets' ),
+      settings = require( '../settings.json' ),
       { CleanWebpackPlugin } = require( 'clean-webpack-plugin' ),
       MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' ),
       RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
@@ -42,27 +43,9 @@ const generateThemeHeaders = development => {
   }
 }
 
-const setAssets = () => {
-  
-  const entries = {};
-
-  for ( type in settings['webpack-assets'] ) {
-    
-    for ( chunk in settings['webpack-assets'][type] ) {
-
-      if ( 'flags' !== type ) {
-
-        entries[chunk] = settings['webpack-assets'][type][chunk];
-      }
-    }
-  }
-
-  return entries;
-}
-
 const usesJquery = config => {
 
-  if ( settings['webpack-assets'].flags.jquery ) {
+  if ( assetsConfig.flags.jquery ) {
 
     config.externals = {
       jquery: 'jQuery' 
@@ -83,14 +66,14 @@ module.exports = (env, argv) => {
   
   const development = argv.mode === 'development';
 
-  const context = path.resolve(__dirname, 'assets');
+  const context = path.resolve(__dirname, '../assets');
 
   generateThemeHeaders( development );
 
   const config = {
     context,
     devtool: development ? 'inline-source-map' : 'source-map',
-    entry: setAssets(),
+    entry: assetsConfig.entries,
     output: {
       path: context,
       filename: 'js/[name].min.js',
@@ -109,7 +92,10 @@ module.exports = (env, argv) => {
           test: /\.tsx?$/,
           exclude: /node_modules/,
           use: {
-            loader: 'ts-loader'
+            loader: 'ts-loader',
+            options: {
+              configFile: path.resolve(__dirname, './tsconfig.json' )
+            }
           }
         },
         {

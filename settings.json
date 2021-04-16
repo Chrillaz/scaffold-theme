@@ -12,21 +12,6 @@
     "domainpath": "",
     "template": ""
   },
-  "webpack-assets": {
-    "flags": {
-      "jquery": false
-    },
-    "scripts": {
-      "main": "./js/src/main.ts",
-      "editor-scripts": "./js/src/editor.ts",
-      "admin-scripts": "./js/src/admin.ts"
-    },
-    "styles": {
-      "style": "./scss/main.scss",
-      "editor-styles": "./scss/editor.scss",
-      "admin-styles": "./scss/admin.scss"
-    }
-  },
   "settings": {
     "support": {
       "block-styles": true,
