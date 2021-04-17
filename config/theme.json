@@ -1,17 +1,4 @@
 {
-  "package": {
-    "name": "Wp Scaffold",
-    "homepage": "https://github.com/Chrillaz/wordpress-theme-scaffold/",
-    "author": "Christoffer Öhman",
-    "authoruri": "https://github.com/Chrillaz/",
-    "description": "Wordpress base theme to extend on",
-    "version": "1.0.0",
-    "license": "",
-    "licenseuri": "",
-    "textdomain": "scaffold",
-    "domainpath": "",
-    "template": ""
-  },
   "settings": {
     "support": {
       "block-styles": true,

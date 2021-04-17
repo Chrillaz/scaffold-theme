@@ -1,4 +1,4 @@
-const config = require( '../../../settings.json' );
+const config = require( '../../../config/theme.json' );
 
 if ( Array.isArray( config['block-types-exclude'] ) && config['block-types-exclude'].length > 0 ) {
 

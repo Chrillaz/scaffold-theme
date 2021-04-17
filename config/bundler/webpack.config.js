@@ -1,8 +1,5 @@
-const fs = require( 'fs' ),
-      path = require( 'path' ),
-      webpack = require( 'webpack' ),
-      assetsConfig = require( '../webpack.assets' ),
-      settings = require( '../settings.json' ),
+const path = require( 'path' ),
+      helper = require( '../../webpack.helper' ),
       { CleanWebpackPlugin } = require( 'clean-webpack-plugin' ),
       MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' ),
       RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
@@ -19,61 +16,19 @@ const cleanExcludes = [
   '!icons/**/*'
 ];
 
-const banner = [
-  '/*',
-  ' * Theme Name: ' + settings.package.name,
-  ' * Theme URI: ' + settings.package.homepage,
-  ' * Author: ' + settings.package.author,
-  ' * Author URI: ' + settings.package.authoruri,
-  ' * Description: ' + settings.package.description,
-  ' * Version: ' + settings.package.version,
-  ' * License: ' + settings.package.license,
-  ' * Licence URI: ' + settings.package.licenseuri,
-  ' * Text Domain: ' + settings.package.textdomain,
-  ' * Domain Path: ' + settings.package.domainpath,
-  ' * Template: ' + settings.package.template,
-  ' */\n',
-].join( '\n' );
-
-const generateThemeHeaders = development => {
-
-  if ( ! fs.existsSync( './style.scss' ) ) {
-  
-    fs.writeFile( 'style.css', banner, err => console.log( err ? err : 'Theme style.css generated! \n' ) ); 
-  }
-}
-
-const usesJquery = config => {
-
-  if ( assetsConfig.flags.jquery ) {
-
-    config.externals = {
-      jquery: 'jQuery' 
-    };
-
-    config.plugins.push( 
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery'
-      })
-    );
-  }
-
-  return config;
-}
-
 module.exports = (env, argv) => {
   
   const development = argv.mode === 'development';
 
-  const context = path.resolve(__dirname, '../assets');
+  const context = path.resolve(__dirname, '../../assets');
 
-  generateThemeHeaders( development );
+  helper.doThemeHeaders();
 
   const config = {
     context,
     devtool: development ? 'inline-source-map' : 'source-map',
-    entry: assetsConfig.entries,
+    entry: helper.getEntries(),
+    externals: helper.getExternals(),
     output: {
       path: context,
       filename: 'js/[name].min.js',
@@ -128,7 +83,7 @@ module.exports = (env, argv) => {
             }
           ]
         }
-      ]
+      ].concat( helper.getRules() )
     },
     plugins: [
       new CleanWebpackPlugin({
@@ -139,8 +94,8 @@ module.exports = (env, argv) => {
       new MiniCSSExtractPlugin({
         filename: 'css/[name].css'
       })
-    ].filter( Boolean )
+    ].concat( helper.getPlugins() ).filter( Boolean )
   };
 
-  return usesJquery( config );
+  return config;
 };

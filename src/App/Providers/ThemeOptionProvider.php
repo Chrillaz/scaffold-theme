@@ -12,7 +12,7 @@ final class ThemeOptionProvider implements ProviderInterface {
 
     $settings = \json_decode(
       \file_get_contents(
-        \get_template_directory() . '/settings.json'
+        \get_template_directory() . '/config/theme.json'
       ),
       true
     );

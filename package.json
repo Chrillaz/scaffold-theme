@@ -1,13 +1,14 @@
 {
   "name": "wp-scaffold-theme",
+  "themeName": "Wp Scaffold Theme",
   "version": "1.0.0",
   "description": "wordpress starter theme",
   "main": "assets/js/src/main.ts",
   "scripts": {
     "wp-env": "wp-env",
     "test": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/themes/wordpress-theme-scaffold/phpunit.xml.dist --verbose'",
-    "build": "webpack --mode production --config config/webpack.config.js",
-    "start": "webpack --mode development --config config/webpack.config.js"
+    "build": "webpack --mode production --config config/bundler/webpack.config.js",
+    "start": "webpack --mode development --config config/bundler/webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +17,7 @@
   "author": "Christoffer Öhman",
   "authorUri": "https://github.com/Chrillaz",
   "license": "ISC",
+  "licenseUri": "",
   "bugs": {
     "url": "https://github.com/Chrillaz/wordpress-theme-scaffold/issues"
   },
