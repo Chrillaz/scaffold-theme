@@ -4,8 +4,6 @@ namespace WpTheme\Scaffold\Framework\Container;
 
 use WpTheme\Scaffold\Framework\Exceptions\NoDefaultValueException;
 
-use WpTheme\Scaffold\Framework\Interfaces\ProviderInterface;
-
 abstract class Resolver {
 
   protected function resolveParameters ( array $parameters ): array {
