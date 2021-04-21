@@ -1,59 +1,75 @@
-<?php 
+<?php
 
 namespace WpTheme\Scaffold\Framework\Container;
 
-use Exception;
+use Psr\Container\ContainerInterface;
 
-class Container {
+use WpTheme\Scaffold\Framework\Container\Reflector;
 
+class Container implements ContainerInterface {
+
+  protected $reflector;
+  
+  protected $config = [];
+  
   protected $bindings = [];
+  
+  protected $persisted = [];
 
-  protected $instances = [];
+  protected function __construct ( Reflector $reflector ) {
 
-  protected $providers = [];
-
-  public static function create () {
-
-    return new Static();
+    $this->reflector = $reflector;
   }
 
-  public function has ( string $key ) {
+  protected function isBound ( string $abstract ): bool {
 
-    return ( isset( $this->bindings[$key] ) || isset( $this->instances[$key] ) );
+    return isset( $this->bindings[$abstract] );
   }
 
-  protected function hasDefinition ( string $key ) {
+  protected function isPersisted ( string $abstract ): bool {
 
-    return array_key_exists( $key, $this->providers );
+    return isset( $this->persisted[$abstract] );
   }
 
-  public function get ( string $key, array $args = [] ) {
+  public function has ( string $abstract ): bool {
 
-    $abstract = $this->isBound( $key ) ? $this->bindings[$key]($this) : $key;
+    return $this->isBound( $abstract ) || $this->isPersisted( $abstract );
+  }
 
-    $withOverride = ! empty( $args );
+  public function get ( string $abstract ) {
 
-    if ( $this->has( $key ) && ! $withOverride ) {
+    return $this->resolve( $abstract );
+  }
 
-      return $this->instances[$abstract];
+  public function resolve ( string $abstract, array $parameters = [] ) {
+
+    $object = $this->isBound( $abstract ) ? $this->bindings[$abstract] : $abstract;
+
+    $hasDetails = ! empty( $parameters );
+
+    if ( $this->isPersisted( $object ) && ! $hasDetails ) {
+
+      return $this->persisted[$object];
     }
-    
-    $concrete = $this->resolve( $abstract, $args );
 
-    if ( $this->isSingleton( $abstract ) ) {
+    if ( $object instanceof \Closure ) {
 
-      $this->instances[$abstract] = $concrete;
+      return $object( $this );
+    }
+
+    $concrete = $this->reflector->concretize( $object, $parameters );
+
+    if ( $this->isBound( $this->bindings[$abstract] ) && $this->bindings[$abstract]['persist'] ) {
+
+      $this->persisted[$object] = $concrete;
     }
 
     return $concrete;
   }
 
-  public function getDefinition ( string $key ) {
-
-    if ( isset( $this->providers[$key] ) ) {
-
-      return $this->providers[$key];
-    }
+  public function make ( string $key, array $args = [] ) {
+    
+    return $this->get( $key, $args );
   }
 
   public function bind ( string $abstract, $concrete = null, $shared = false ) {
@@ -71,135 +87,11 @@ class Container {
       };
     }
 
-    $this->bindings[$abstract] = compact('concrete', 'shared' );
+    $this->bindings[$abstract] = compact('concrete', 'persist' );
   }
 
-  public function bindDefinition ( string $key, string $definition ) {
+  public static function create ( ...$params ) {
 
-    $this->providers[$key] = $this->make( $definition )->register();
-  }
-
-  public function make ( string $key, array $args = [] ) {
-    
-    return $this->get( $key, $args );
-  }
-
-  protected function isBound ( string $key ) {
-
-    return array_key_exists( $key, $this->bindings ) || in_array( $key, $this->bindings );
-  }
-
-  protected function isSingleton ( string $key ) {
-
-    return ( $this->isBound( $key ) && $this->bindings[$key]['shared'] );
-  }
-
-  protected function resolve ( string $abstract, array $definitions ) {
-
-    if ( $abstract instanceof \Closure ) {
-
-      return $abstract( $this );
-    }
-
-    try {
-
-      $reflector = new \ReflectionClass( $abstract );
-    } catch ( \ReflectionException $error ) {
-      
-    }
-
-    if ( ! $reflector->isInstantiable() ) {
-
-      throw new \Exception( 'Not instantiable' );
-    }
-
-    if ( is_null( $constructor = $reflector->getConstructor() ) ) {
-        
-      return $reflector->newInstanceWithoutConstructor();
-    }
-
-    if ( is_null( $parameters = $constructor->getParameters() ) ) {
-
-      return $reflector->newInstance();
-    }
-
-    if ( ! empty( $definitions ) ) {
-
-      $diff = array_filter( $parameters, function ( $parameter ) use ( $definitions ) {
-
-        return ! array_key_exists( $parameter->name, $definitions );
-      });
-
-      $dependencies = $this->resolveDependencies( $diff );
-      
-      $dependencies = array_merge( $dependencies, array_values($definitions) );
-
-      return $reflector->newInstanceArgs( $dependencies );
-    }
-
-    return $reflector->newInstanceArgs( $this->resolveDependencies( $parameters ) );
-  }
-
-  protected function hasOverrides ( \ReflectionParameter $parameter ) {
-
-    if ( ! is_null( $class = $parameter->getDeclaringClass() ) ) {
-
-      return $this->getDefinition( $class->getShortName() );
-      
-      if ( ! is_null( $parent = $class->getParentClass() ) ) {
-
-        if ( $parent instanceof \ReflectionClass && $parent->isAbstract() && $class->isSubclassOf( $parent ) ) {
-  
-          return $this->getDefinition( $parent->getShortName() );
-        }
-      }
-    }
-  }
-
-  protected function resolveDependencies ( array $parameters ) {
-    
-    return array_map( function ( $parameter ) {
-
-      if ( ! is_null( $overrides = $this->hasOverrides( $parameter ) ) ) {
-
-        if ( array_key_exists( $parameter->name, $overrides ) ) {
-
-          $override = $overrides[$parameter->name];
-
-          unset( $overrides[$parameter->name] );
-
-          return $override;
-        }
-      }
-
-      if ( ! is_null( $class = $parameter->getClass() ) ) {
-        
-        return $class->inNamespace()
-          ? $this->make( $class->name )
-          : $this->resolveWpMappings( $class->getName() );
-      }
-      
-      return $this->resolveDefault( $parameter );
-    }, $parameters );
-  }
-
-  protected function resolveWpMappings ( string $class ) {
-
-    if ( array_key_exists( $class, $wpMappings = require 'WpBindings.php' ) ) {
-
-      return $wpMappings[$class];
-    }
-
-    throw new \Exception( 'No WP mappings' );
-  }
-
-  protected function resolveDefault ( \ReflectionParameter $parameter ) {
-
-    if ( $parameter->isDefaultValueAvailable() ) {
-
-      return $parameter->getDefaultValue();
-    }
-
-    throw new \Exception( $parameter );
+    return new static( ...$params );
   }
 }
