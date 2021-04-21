@@ -4,78 +4,47 @@ namespace WpTheme\Scaffold\Framework;
 
 use WpTheme\Scaffold\Framework\Utilities as Util;
 
-use WpTheme\Scaffold\Framework\Resources\Storage;
-
 use WpTheme\Scaffold\Framework\Container\Container;
+
 
 $themeroot = get_template_directory();
 
 require $themeroot . '/vendor/autoload.php';
 
-$definitions = new Storage();
+$container = Container::create();
 
-/**
- * Register Services
- */
-$directory = $themeroot . '/src/Framework/Services';
-
-Util::directoryIterator( $directory, function ( $service ) use ( $definitions ) {
-
-  $definitions->set( $service->name, $service->qualifiedname );
-});
-
-/**
- * Register Options
- */
-$directory = $themeroot . '/src/App/Options';
-
-Util::directoryIterator( $directory, function ( $option ) use ( $definitions ) {
-
-  $definitions->set( $option->name, $option->qualifiedname );
-});
-
-/**
- * Register Meta
- */
-// $directory = $themeroot . '/src/App/Meta';
-
-// Util::directoryIterator( $directory, function ( $meta ) use ( $definitions ) {
-
-//   $definitions->set( $meta->name, $meta->qualifiedname );
-// });
+$container->bind( 'theme', \WpTheme\Scaffold\Framework\Theme::class, true );
 
 /** 
  * Register Providers 
  */
 $directory = $themeroot . '/src/App/Providers';
 
-Util::directoryIterator( $directory, function ( $provider ) use ( $definitions ) {
+Util::directoryIterator( $directory, function ( $provider ) use ( $container ) {
 
-  $definitions->set( $provider->name, $provider->qualifiedname );
+  $container->bindDefinition( str_replace( 'Provider', '', $provider->name ), $provider->qualifiedname );
 });
 
+
 /**
- * Register Singletons
+ * Register Options
  */
-$singletons = new Storage();
+$directory = $themeroot . '/src/App/Options';
 
-$singletons->set( 'Theme', 'WpTheme\\Scaffold\\Framework\\Theme'::class );
+Util::directoryIterator( $directory, function ( $option ) use ( $container ) {
 
-$singletons->set( 'Container', 'WpTheme\\Scaffold\\Framework\\Container\\Container'::class );
+  $container->bind( $option->name, $option->qualifiedname, true );
+});
 
-/**
- * Instantiate Container
- */
-$container = Container::getInstance( $definitions, $singletons );
 
 /**
- * Register All Hooks
+ * Run All Hooks
  */
 $directory = $themeroot . '/src/App/Hooks';
 
 Util::directoryIterator( $directory, function ( $hook ) use ( $container ) {
 
-  $hook = $container->resolve( $hook->qualifiedname );
+  $hook = $container->make( $hook->qualifiedname );
 
   $hook->register();
 });

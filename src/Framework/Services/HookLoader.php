@@ -9,7 +9,7 @@ use WpTheme\Scaffold\Framework\Abstracts\Loader;
 class HookLoader extends Loader {
 
   public function addAction ( ...$args ): void {
-
+    
     $this->add( 'actions', new Hook( $args ) );
   }
 

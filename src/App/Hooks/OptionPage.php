@@ -35,8 +35,8 @@ final class OptionPage extends Hooks {
   public function adminMenu () {
 
     \add_theme_page( 
-      __( 'Theme Options', $this->theme::get( 'TextDomain' ) ),
-      __( 'Theme Options', $this->theme::get( 'TextDomain' ) ),
+      __( 'Theme Options', $this->theme->get( 'TextDomain' ) ),
+      __( 'Theme Options', $this->theme->get( 'TextDomain' ) ),
       $this->options->getCapability(), 
       $this->options->getName(), 
       function () {

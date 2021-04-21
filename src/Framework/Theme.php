@@ -4,24 +4,24 @@ namespace WpTheme\Scaffold\Framework;
 
 final class Theme {
 
-  private static $instance;
+  // private static $instance;
 
   private $theme;
 
-  private function __construct () {
+  public function __construct ( \WP_Theme $theme ) {
 
-    $this->theme = \wp_get_theme( \get_template() );
+    $this->theme = $theme;
   }
 
-  public static function get ( string $head ) {
+  public function get ( string $head ) {
 
-    return self::$instance->theme->get( $head );
+    return $this->theme->get( $head );
   }
 
-  public static function getInstance () {
+  // public static function getInstance () {
 
-    if ( is_null( self::$instance ) ) self::$instance = new Theme();
+  //   if ( is_null( self::$instance ) ) self::$instance = new Theme();
 
-    return self::$instance;
-  }
+  //   return self::$instance;
+  // }
 }
