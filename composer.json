@@ -18,16 +18,6 @@
   ],
   "autoload": {
     "psr-4": {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-      "Theme\\Scaffold\\": "lib/"
-    },
-    "files": [
-      
-    ]
-=======
->>>>>>> ab5cf1da9340e35e87b114e7c219d887b7aea71e
       "WpTheme\\Scaffold\\": "src/"
     }
   },
@@ -37,19 +27,8 @@
   },
   "scripts": {
     "test": "phpunit"
-<<<<<<< HEAD
   },
   "require": {
     "illuminate/container": "^8.37"
-=======
-      "Theme\\Scaffold\\": "lib/"
-    },
-    "files": [
-      
-    ]
->>>>>>> new
-=======
->>>>>>> main
->>>>>>> ab5cf1da9340e35e87b114e7c219d887b7aea71e
   }
 }
