@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 $theme = require __DIR__ . '/src/Framework/Bootstrap.php';
 =======
 /**
@@ -70,3 +71,9 @@ $theme = require __DIR__ . '/src/Framework/Bootstrap.php';
 =======
 $theme = require get_template_directory() . '/src/Framework/Bootstrap.php';
 >>>>>>> functions
+=======
+$theme = require get_template_directory() . '/src/Framework/Bootstrap.php';
+=======
+$theme = require __DIR__ . '/src/Framework/Bootstrap.php';
+>>>>>>> removal
+>>>>>>> removal
