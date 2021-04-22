@@ -9,13 +9,17 @@ use WpTheme\Scaffold\Framework\Abstracts\Loader;
 class HookLoader extends Loader {
 
   public function addAction ( ...$args ): void {
-
-    $this->add( 'actions', new Hook( $args ) );
+    
+    $this->add( 'actions', $this->theme->make( hook::class, [
+      'args' => $args 
+    ]));
   }
 
   public function addFilter ( ...$args ): void {
 
-    $this->add( 'filters', new Hook( $args ) );
+    $this->add( 'filters', $this->theme->make( hook::class, [
+      'args' => $args 
+    ]));
   }
 
   public function load (): void {
@@ -23,7 +27,7 @@ class HookLoader extends Loader {
     if ( $actions = $this->queue->get( 'actions' ) ) {
 
       array_map( function ( $hook ) {
-  
+        
         \add_action( $hook->getAction(), $hook->getCallback(), $hook->getPriority(), $hook->getNumArgs() );
   
         unset( $hook );

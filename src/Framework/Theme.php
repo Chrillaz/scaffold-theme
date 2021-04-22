@@ -2,25 +2,27 @@
 
 namespace WpTheme\Scaffold\Framework;
 
-final class Theme {
+use Illuminate\Container\Container;
 
-  private static $instance;
+class Theme extends Container {
 
-  private $theme;
+  protected static $instance;
 
-  private function __construct () {
+  protected $theme;
 
-    $this->theme = \wp_get_theme( \get_template() );
+  private function __construct ( \WP_Theme $theme ) {
+
+    $this->theme = $theme;
   }
 
-  public static function get ( string $head ) {
+  public function getHeader ( string $head ) {
 
-    return self::$instance->theme->get( $head );
+    return $this->theme->get( $head );
   }
 
-  public static function getInstance () {
+  public static function create ( ...$args ) {
 
-    if ( is_null( self::$instance ) ) self::$instance = new Theme();
+    if ( is_null( self::$instance ) ) self::$instance = new Theme( ...$args );
 
     return self::$instance;
   }

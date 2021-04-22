@@ -25,10 +25,10 @@
     "phpunit/phpunit": "^7.3",
     "wp-phpunit/wp-phpunit": "^5.0"
   },
-  "require": {
-    "psr/container": "^2.0"
-  },
   "scripts": {
     "test": "phpunit"
+  },
+  "require": {
+    "illuminate/container": "^8.37"
   }
 }

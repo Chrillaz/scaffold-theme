@@ -2,80 +2,75 @@
 
 namespace WpTheme\Scaffold\Framework;
 
+use WpTheme\Scaffold\Framework\Theme;
+
 use WpTheme\Scaffold\Framework\Utilities as Util;
-
-use WpTheme\Scaffold\Framework\Resources\Storage;
-
-use WpTheme\Scaffold\Framework\Container\Container;
 
 $themeroot = get_template_directory();
 
 require $themeroot . '/vendor/autoload.php';
 
-$definitions = new Storage();
+$theme = Theme::create( \wp_get_theme( \get_template() ) );
+
+$theme->singleton( Theme::class, function ( $theme ) {
+
+  return $theme;
+});
 
 /**
- * Register Services
+ * WP Core Component Bindings
+ */
+$theme->bind( \WP_Scripts::class, function ( $theme ) {
+
+  return \wp_scripts();
+});
+
+$theme->bind( \WP_Styles::class, function ( $theme ) {
+
+  return \wp_styles();
+});
+
+/**
+ * Theme Services
  */
 $directory = $themeroot . '/src/Framework/Services';
 
-Util::directoryIterator( $directory, function ( $service ) use ( $definitions ) {
+Util::directoryIterator( $directory, function ( $service ) use ( $theme ) {
 
-  $definitions->set( $service->name, $service->qualifiedname );
+  $theme->singleton( $service->qualifiedname );
+}); 
+
+/**
+ * Theme Options
+ */
+$theme->singleton( \WpTheme\Scaffold\App\Options\ThemeOption::class, function ( $theme ) {
+
+  $settings = \json_decode(
+    \file_get_contents(
+      \get_template_directory() . '/config/theme.json'
+    ),
+    true
+  );
+
+  return new \WpTheme\Scaffold\App\Options\ThemeOption(
+    'theme_option',
+    'edit_themes',
+    $theme->make( \WpTheme\Scaffold\Framework\Resources\Storage::class, [
+      'storage' => $settings['settings']
+    ])
+  );
 });
 
 /**
- * Register Options
- */
-$directory = $themeroot . '/src/App/Options';
-
-Util::directoryIterator( $directory, function ( $option ) use ( $definitions ) {
-
-  $definitions->set( $option->name, $option->qualifiedname );
-});
-
-/**
- * Register Meta
- */
-// $directory = $themeroot . '/src/App/Meta';
-
-// Util::directoryIterator( $directory, function ( $meta ) use ( $definitions ) {
-
-//   $definitions->set( $meta->name, $meta->qualifiedname );
-// });
-
-/** 
- * Register Providers 
- */
-$directory = $themeroot . '/src/App/Providers';
-
-Util::directoryIterator( $directory, function ( $provider ) use ( $definitions ) {
-
-  $definitions->set( $provider->name, $provider->qualifiedname );
-});
-
-/**
- * Register Singletons
- */
-$singletons = new Storage();
-
-$singletons->set( 'Theme', 'WpTheme\\Scaffold\\Framework\\Theme'::class );
-
-$singletons->set( 'Container', 'WpTheme\\Scaffold\\Framework\\Container\\Container'::class );
-
-/**
- * Instantiate Container
- */
-$container = Container::getInstance( $definitions, $singletons );
-
-/**
- * Register All Hooks
+ * Run All Hooks
  */
 $directory = $themeroot . '/src/App/Hooks';
 
-Util::directoryIterator( $directory, function ( $hook ) use ( $container ) {
+Util::directoryIterator( $directory, function ( $hook ) use ( $theme ) {
 
-  $hook = $container->resolve( $hook->qualifiedname );
+  $hook = $theme->make( $hook->qualifiedname );
 
   $hook->register();
 });
+
+return $theme;
