@@ -1,6 +1,7 @@
 <?php
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 $theme = require __DIR__ . '/src/Framework/Bootstrap.php';
 =======
 /**
@@ -62,3 +63,6 @@ $theme->assets()->add( 'public', function ( $asset ) {
 
 $theme->run();
 >>>>>>> new
+=======
+$theme = require __DIR__ . '/src/Framework/Bootstrap.php';
+>>>>>>> removal
