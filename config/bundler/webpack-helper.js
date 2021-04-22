@@ -14,7 +14,7 @@ const themeHeaders = () => {
     ' * License: ' + package.license,
     ' * Licence URI: ' + package.licenseUri,
     ' * Text Domain: ' + package.name,
-    ' * Template: ' + package.name,
+    ' * Template: ',
     ' */\n',
   ].join( '\n' );
 }

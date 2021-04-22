@@ -20,12 +20,15 @@ class ContextResolution {
       return ! array_key_exists( $parameter->name, $contextParameters ) 
         || ( ! is_null( $parameter->getType() ) && isset( $this->config[$parameter->getType()] ) );
     });
+  }
 
-    // $dependencies = $this->resolveDependencies( $diff );
+  public function getProvider ( \ReflectionClass $reflector ) {
+
+    $provider = $reflector->getShortName . 'Provider';
+
+    if ( ! is_null( $provider->getType() ) {
       
-    // $dependencies = array_merge( $dependencies, array_values( $contextParameters ) );
-
-    // return $parameters;
+    }
   }
 
   public function getConfig () {

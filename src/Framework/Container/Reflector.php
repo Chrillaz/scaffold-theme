@@ -35,11 +35,14 @@ class Reflector {
       return $reflector->newInstance();
     }
 
-    if ( ! empty( $contextParameters ) ) {
+    if ( ! empty( $contextParameters ) || $this->context->getProvider( $parameters ) ) {
 
       $parameters = $this->context->parseParameters( $parameters, $contextParameters );
 
-      return $reflector->newInstanceArgs( $parameters );
+      return $reflector->newInstanceArgs( array_merge(
+        $this->concretizeParameters( $parameters ),
+        array_values( $contextParameters )
+      ));
     }
 
     return $reflector->newInstanceArgs( $this->concretizeParameters( $parameters ) );
@@ -51,7 +54,6 @@ class Reflector {
     
       if ( ! is_null( $class = $parameter->getClass() ) && $class->inNamespace()) {
         
-        // This need to run the make...
         return $this->concretize( $class->name, [] );
       }
       

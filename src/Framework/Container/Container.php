@@ -10,8 +10,6 @@ class Container implements ContainerInterface {
 
   protected $reflector;
   
-  protected $config = [];
-  
   protected $bindings = [];
   
   protected $persisted = [];
@@ -36,30 +34,50 @@ class Container implements ContainerInterface {
     return $this->isBound( $abstract ) || $this->isPersisted( $abstract );
   }
 
+  public function getProvider ( string $abstract ) {
+
+    if ( $provider = $this->get( $abstract . 'Provider' ) && ! is_string( $provider ) ) {
+      
+      return $provider( $this )->register();
+    }
+
+    return [];
+  }
+
   public function get ( string $abstract ) {
 
-    return $this->resolve( $abstract );
+    if ( $this->isPersisted( $abstract ) ) {
+
+      return $this->persisted[$abstract];
+    }
+
+    if ( $this->isBound( $abstract ) ) {
+
+      return $this->bindings[$abstract];
+    }
+
+    return $abstract;
   }
 
   public function resolve ( string $abstract, array $parameters = [] ) {
 
-    $object = $this->isBound( $abstract ) ? $this->bindings[$abstract] : $abstract;
+    $object = $this->get( $abstract );
 
     $hasDetails = ! empty( $parameters );
-
-    if ( $this->isPersisted( $object ) && ! $hasDetails ) {
-
-      return $this->persisted[$object];
-    }
 
     if ( $object instanceof \Closure ) {
 
       return $object( $this );
     }
 
+    if ( $this->isPersisted( $object ) && ! $hasDetails ) {
+
+      return $this->persisted[$object];
+    }
+
     $concrete = $this->reflector->concretize( $object, $parameters );
 
-    if ( $this->isBound( $this->bindings[$abstract] ) && $this->bindings[$abstract]['persist'] ) {
+    if ( isset( $object['persist'] ) ) {
 
       $this->persisted[$object] = $concrete;
     }
@@ -69,10 +87,10 @@ class Container implements ContainerInterface {
 
   public function make ( string $key, array $args = [] ) {
     
-    return $this->get( $key, $args );
+    return $this->resolve( $key, $args );
   }
 
-  public function bind ( string $abstract, $concrete = null, $shared = false ) {
+  public function bind ( string $abstract, $concrete = null, $persist = false ) {
     
     if ( is_null( $concrete ) ) {
 
@@ -87,10 +105,10 @@ class Container implements ContainerInterface {
       };
     }
 
-    $this->bindings[$abstract] = compact('concrete', 'persist' );
+    $this->bindings[$abstract] = compact( 'concrete', 'persist' );
   }
 
-  public static function create ( ...$params ) {
+  public static function create ( ...$params ): Container {
 
     return new static( ...$params );
   }
