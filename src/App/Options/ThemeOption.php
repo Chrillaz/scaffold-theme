@@ -12,7 +12,7 @@ final class ThemeOption implements OptionInterface {
 
   private $default;
 
-  public function __construct ( string $name, string $capability, Storage $default ) {
+  public function __construct ( Storage $default, string $name, string $capability ) {
     
     $this->name = $name;
 

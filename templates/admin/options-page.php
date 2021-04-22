@@ -6,6 +6,7 @@
     <?php 
       settings_fields( $options->getName() ); 
       do_settings_sections( $options->getName() );
+      var_dump('<pre>', $options, '</pre>');
     ?>
     <section class="flex-container">
       <div class="flex-column-30">

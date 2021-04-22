@@ -4,37 +4,65 @@ namespace WpTheme\Scaffold\Framework;
 
 use WpTheme\Scaffold\Framework\Utilities as Util;
 
-use WpTheme\Scaffold\Framework\Resources\Storage;
-
-use WpTheme\Scaffold\Framework\Container\{
-  Container,
-  Reflector,
-  ContextResolution
-};
+use Illuminate\Container\Container;
 
 $themeroot = get_template_directory();
 
 require $themeroot . '/vendor/autoload.php';
 
-$config = new Storage( require $themeroot . '/src/Framework/Container/WpBindings.php' );
+$container = Container::getInstance();
 
-$contextResolution = new ContextResolution( $config );
-
-$reflector = new Reflector( $contextResolution );
-
-$container = Container::create( $reflector );
-
-$container->bind( 'theme', \WpTheme\Scaffold\Framework\Theme::class, true );
-
-/** 
- * Register Providers 
+/**
+ * WP Singleton Bindings
  */
-$directory = $themeroot . '/src/App/Providers';
+$container->bind( \WP_Theme::class, function ( $container ) {
 
-Util::directoryIterator( $directory, function ( $provider ) use ( $container ) {
+  return \wp_get_theme( \get_template() );
+}, true );
 
-  $container->bind( $provider->name, $provider->qualifiedname, true );
+$container->bind( \WP_Scripts::class, function ( $container ) {
+
+  return \wp_scripts();
+}, true );
+
+$container->bind( \WP_Styles::class, function ( $container ) {
+
+  return \wp_styles();
+}, true );
+
+/**
+ * Theme Services
+ */
+$directory = $themeroot . '/src/Framework/Services';
+
+Util::directoryIterator( $directory, function ( $service ) use ( $container ) {
+
+  $container->singleton( $service->qualifiedname );
 });
+
+$container->singleton( 'theme', WpTheme\Scaffold\Framework\Theme::class );
+
+// $directory = $themeroot . 'src/App/Providers';
+
+// Util::directoryIterator( $directory, function ( $provider ) use ( $container ) {
+
+//   $
+// });
+
+/**
+ * Theme Options
+ */
+$container->bind( \WpTheme\Scaffold\App\Options\ThemeOption::class );
+
+$container
+  ->when( \WpTheme\Scaffold\App\Options\ThemeOption::class )
+  ->needs('$name')
+  ->give( 'theme_option' );
+
+$container
+  ->when( \WpTheme\Scaffold\App\Options\ThemeOption::class )
+  ->needs('$capability')
+  ->give( 'edit_themes' );
 
 /**
  * Register Options
@@ -43,7 +71,7 @@ $directory = $themeroot . '/src/App/Options';
 
 Util::directoryIterator( $directory, function ( $option ) use ( $container ) {
 
-  $container->bind( $option->name, $option->qualifiedname, true );
+  $container->singleton( $option->name, $option->qualifiedname );
 });
 
 /**

@@ -4,15 +4,19 @@ namespace WpTheme\Scaffold\Framework\Abstracts;
 
 use WpTheme\Scaffold\Framework\Resources\Storage;
 
+use Illuminate\Container\Container;
+
 use WpTheme\Scaffold\Framework\Interfaces\LoaderInterface;
 
 abstract class Loader implements LoaderInterface {
 
   protected $queue;
 
-  public function __construct ( Storage $storage ) {
+  public function __construct ( Storage $storage, Container $container ) {
 
     $this->queue = $storage;
+
+    $this->container = $container;
   }
 
   protected function add ( string $queue, $value ): void {
