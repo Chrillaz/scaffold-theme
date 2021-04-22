@@ -6,9 +6,11 @@ use Illuminate\Container\Container;
 
 class Theme extends Container {
 
-  private $theme;
+  protected static $instance;
 
-  public function __construct ( \WP_Theme $theme ) {
+  protected $theme;
+
+  private function __construct ( \WP_Theme $theme ) {
 
     $this->theme = $theme;
   }
@@ -16,5 +18,12 @@ class Theme extends Container {
   public function getHeader ( string $head ) {
 
     return $this->theme->get( $head );
+  }
+
+  public static function create ( ...$args ) {
+
+    if ( is_null( self::$instance ) ) self::$instance = new Theme( ...$args );
+
+    return self::$instance;
   }
 }

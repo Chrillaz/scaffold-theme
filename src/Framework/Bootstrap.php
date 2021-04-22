@@ -10,16 +10,16 @@ $themeroot = get_template_directory();
 
 require $themeroot . '/vendor/autoload.php';
 
-$theme = new Theme( \wp_get_theme( \get_template() ) );
+$theme = Theme::create( \wp_get_theme( \get_template() ) );
 
-/**
- * WP Singleton Bindings
- */
-$theme->bind( \WP_Theme::class, function ( $theme ) {
+$theme->singleton( Theme::class, function ( $theme ) {
 
-  return \wp_get_theme( \get_template() );
+  return $theme;
 });
 
+/**
+ * WP Core Component Bindings
+ */
 $theme->bind( \WP_Scripts::class, function ( $theme ) {
 
   return \wp_scripts();
@@ -40,37 +40,26 @@ Util::directoryIterator( $directory, function ( $service ) use ( $theme ) {
   $theme->singleton( $service->qualifiedname );
 }); 
 
-// // $directory = $themeroot . 'src/App/Providers';
-
-// // Util::directoryIterator( $directory, function ( $provider ) use ( $theme ) {
-
-// //   $
-// // });
-
 /**
  * Theme Options
  */
-$theme->bind( \WpTheme\Scaffold\App\Options\ThemeOption::class );
+$theme->singleton( \WpTheme\Scaffold\App\Options\ThemeOption::class, function ( $theme ) {
 
-$theme
-  ->when( \WpTheme\Scaffold\App\Options\ThemeOption::class )
-  ->needs('$name')
-  ->give( 'theme_option' );
+  $settings = \json_decode(
+    \file_get_contents(
+      \get_template_directory() . '/config/theme.json'
+    ),
+    true
+  );
 
-$theme
-  ->when( \WpTheme\Scaffold\App\Options\ThemeOption::class )
-  ->needs('$capability')
-  ->give( 'edit_themes' );
-
-// /**
-//  * Register Options
-//  */
-// $directory = $themeroot . '/src/App/Options';
-
-// Util::directoryIterator( $directory, function ( $option ) use ( $theme ) {
-
-//   $theme->singleton( $option->name, $option->qualifiedname );
-// });
+  return new \WpTheme\Scaffold\App\Options\ThemeOption(
+    'theme_option',
+    'edit_themes',
+    $theme->make( \WpTheme\Scaffold\Framework\Resources\Storage::class, [
+      'storage' => $settings['settings']
+    ])
+  );
+});
 
 /**
  * Run All Hooks
@@ -83,16 +72,5 @@ Util::directoryIterator( $directory, function ( $hook ) use ( $theme ) {
 
   $hook->register();
 });
-
-class Test {
-
-  public $theme;
-
-  public function __construct( \WP_Theme $theme ) {
-
-    $this->theme = $theme;
-  }
-}
-var_dump('<pre>', \wp_get_theme( \get_template() ) === ($theme->make(Test::class))->theme, '</pre>');
 
 return $theme;
