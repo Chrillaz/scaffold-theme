@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 /**
  * Load composer autoload.php
  */
@@ -58,3 +59,6 @@ $theme->assets()->add( 'public', function ( $asset ) {
 
 
 $theme->run();
+=======
+require __DIR__ . '/src/Framework/Bootstrap.php';
+>>>>>>> main

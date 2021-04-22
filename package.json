@@ -1,48 +1,49 @@
 {
-  "name": "wordpress-theme-scaffold",
+  "name": "wp-scaffold-theme",
+  "themeName": "Wp Scaffold Theme",
   "version": "1.0.0",
-  "description": "wordpress starter",
-  "main": "assets/src/index.ts",
+  "description": "wordpress starter theme",
+  "main": "assets/js/src/main.ts",
   "scripts": {
-    "start": "webpack --mode development",
-    "build": "webpack --mode production"
+    "wp-env": "wp-env",
+    "test": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/themes/wordpress-theme-scaffold/phpunit.xml.dist --verbose'",
+    "build": "webpack --mode production --config config/bundler/webpack.config.js",
+    "start": "webpack --mode development --config config/bundler/webpack.config.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Chrillaz/wordpress-theme-scaffold.git"
   },
   "author": "Christoffer Öhman",
+  "authorUri": "https://github.com/Chrillaz",
   "license": "ISC",
+  "licenseUri": "",
   "bugs": {
     "url": "https://github.com/Chrillaz/wordpress-theme-scaffold/issues"
   },
   "homepage": "https://github.com/Chrillaz/wordpress-theme-scaffold#readme",
   "devDependencies": {
     "@wordpress/browserslist-config": "^2.7.0",
-    "autoprefixer": "^10.0.1",
+    "@wordpress/env": "^4.0.0",
+    "autoprefixer": "^10.2.5",
     "browserslist": "^4.14.5",
-    "clean-webpack-plugin": "^3.0.0",
-    "css-loader": "^4.3.0",
-    "file-loader": "^6.1.1",
-    "mini-css-extract-plugin": "^0.11.3",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "css-loader": "^5.2.1",
+    "file-loader": "^6.2.0",
+    "mini-css-extract-plugin": "^1.4.1",
     "node-sass": "^4.14.1",
-    "optimize-css-assets-webpack-plugin": "^5.0.4",
-    "postcss": "^8.1.1",
-    "postcss-loader": "^4.0.3",
+    "postcss": "^8.2.10",
+    "postcss-loader": "^5.2.0",
     "sass-loader": "^10.0.2",
-    "style-loader": "^1.3.0",
-    "stylelint": "^13.6.1",
-    "stylelint-webpack-plugin": "^1.2.3",
-    "terser-webpack-plugin": "^4.2.2",
-    "ts-loader": "^8.0.4",
-    "typescript": "^4.0.3",
+    "style-loader": "^2.0.0",
+    "stylelint": "^13.12.0",
+    "stylelint-webpack-plugin": "^2.1.1",
+    "ts-loader": "^8.1.0",
+    "typescript": "^4.2.4",
     "url-loader": "^4.1.1",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.3.12",
-    "webpack-fix-style-only-entries": "^0.6.0"
-  },
-  "dependencies": {
-    "dotenv": "^8.2.0"
+    "webpack": "^5.33.2",
+    "webpack-cli": "^4.6.0",
+    "webpack-remove-empty-scripts": "^0.7.1"
   },
   "browserslist": [
     "extends @wordpress/browserslist-config"

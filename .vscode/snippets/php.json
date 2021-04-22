@@ -1,0 +1,45 @@
+{
+	"class": {
+		"prefix": "class",
+		"body": [
+			"class ${TM_FILENAME_BASE} {",
+			"",
+			"}"
+		],
+		"description": "New class"
+	},
+	"publicmethod": {
+		"prefix": "public",
+		"body": [
+			"public function $1 () {",
+			"\t$2",
+			"}"
+		],
+		"description": "Public method"
+	},
+	"protectedmethod": {
+		"prefix": "protected",
+		"body": [
+			"protected function $1 () {",
+			"\t$2",
+			"}"
+		],
+		"description": "Protected method"
+	},
+	"privatemethod": {
+		"prefix": "private",
+		"body": [
+			"private function $1 () {",
+			"\t$2",
+			"}"
+		],
+		"description": "Private method"
+	},
+	"Dump to screen": {
+		"prefix": "var",
+		"body": [
+			"var_dump('<pre>', $variable, '</pre>');"
+		],
+		"description": "dumps variable to screen"
+	}
+}

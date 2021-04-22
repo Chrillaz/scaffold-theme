@@ -1,4 +1,2 @@
-<?php 
-  get_header();
-
-  get_footer();
+<?php
+  // Silence ...

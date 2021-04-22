@@ -1,2 +1,0 @@
-# Wordpress Theme Scaffold
-

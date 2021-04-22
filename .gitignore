@@ -1,7 +1,12 @@
 .DS_Store
 node_modules
-vendor
 .env
+style.css
+wordpress
+vendor
+/assets/css
+/assets/js/*
+!/assets/js/src
 
 # Log files
 npm-debug.log*
@@ -10,7 +15,9 @@ yarn-error.log*
 
 # Editor directories and files
 .idea
-.vscode
+.vscode/*
+!.vscode/launch.json
+!.vscode/snippets
 *.suo
 *.ntvs*
 *.njsproj
