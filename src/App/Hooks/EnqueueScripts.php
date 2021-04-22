@@ -29,7 +29,7 @@ final class EnqueueScripts extends Hooks {
   }
 
   public function publicAssets () {
-
+    
     $this->assets->addScript( 'main', '/js/main.min.js' )->load( 'defer' )->enqueue();
 
     $this->assets->load();

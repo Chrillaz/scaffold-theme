@@ -2,7 +2,9 @@
 
 namespace WpTheme\Scaffold\Framework;
 
-final class Theme {
+use Illuminate\Container\Container;
+
+class Theme extends Container {
 
   private $theme;
 
@@ -11,7 +13,7 @@ final class Theme {
     $this->theme = $theme;
   }
 
-  public function get ( string $head ) {
+  public function getHeader ( string $head ) {
 
     return $this->theme->get( $head );
   }

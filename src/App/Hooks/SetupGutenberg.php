@@ -34,7 +34,7 @@ final class SetupGutenberg extends Hooks {
       $keys = explode( '.', $item, 2 );
 
       return [
-        'name'   => __( \ucfirst( str_replace( '-', ' ', $keys[1] ) ), $this->theme->get( 'TextDomain' ) ),
+        'name'   => __( \ucfirst( str_replace( '-', ' ', $keys[1] ) ), $this->theme->getHeader( 'TextDomain' ) ),
         'slug'   => $keys[1],
         $keys[0] => $this->options->get( $item )
       ];

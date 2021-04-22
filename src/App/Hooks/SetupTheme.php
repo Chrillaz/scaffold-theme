@@ -8,15 +8,15 @@ final class SetupTheme extends Hooks {
 
   public function setupTheme () {
 
-    \load_theme_textdomain( $this->theme->get( 'TextDomain' ) );
+    \load_theme_textdomain( $this->theme->getHeader( 'TextDomain' ) );
     
     \add_theme_support( 'title-tag' );
     
     \add_theme_support( 'post-thumbnails' );
     
     \register_nav_menus( [
-      'primary' => __( 'Primary', $this->theme->get( 'TextDomain' ) ),
-      'social'  => __( 'Social Links Menu', $this->theme->get( 'TextDomain' ) )
+      'primary' => __( 'Primary', $this->theme->getHeader( 'TextDomain' ) ),
+      'social'  => __( 'Social Links Menu', $this->theme->getHeader( 'TextDomain' ) )
     ]);
 
     \add_theme_support('html5', [
