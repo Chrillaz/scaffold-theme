@@ -1,3 +1,5 @@
+@import 'modules/switch.scss';
+
 @for $i from 1 through 10 {
 
   .flex-column-#{$i} {
