@@ -13,70 +13,72 @@
           <p><?php _e( 'Enable gutenberg features.', $theme->getHeader( 'TextDomain' ) ); ?></p>
           <tr valign="top">
             <td>
-              <label>
+              <label class="switch">
                 <input id="theme-block-styles" name="<?php echo $options->getName(); ?>[block-styles]" type="checkbox" value="1" <?php checked( '1', $options->get( 'block-styles' ) ); ?> />
-                <?php _e( 'Enable block styles.', $theme->getHeader( 'TextDomain' ) ); ?>
+                <span class="slider round"></span>
               </label>
+              <?php _e( 'Enable block styles.', $theme->getHeader( 'TextDomain' ) ); ?>
             </td>
           </tr>
           <tr valign="top">
             <td>
-              <label>
+              <label class="switch">
                 <input id="theme-editor-styles" name="<?php echo $options->getName(); ?>[editor-styles]" type="checkbox" value="1" <?php checked( '1', $options->get( 'editor-styles' ) ); ?> />
-                <?php _e( 'Enable editor styles.', $theme->getHeader( 'TextDomain' ) ); ?>
+                <span class="slider round"></span>
               </label>
+              <?php _e( 'Enable editor styles.', $theme->getHeader( 'TextDomain' ) ); ?>
             </td>
           </tr>
           <tr valign="top">
             <td>
-              <label>
+              <label class="switch">
                 <input id="theme-align-wide" name="<?php echo $options->getName(); ?>[align-wide]" type="checkbox" value="1" <?php checked( '1', $options->get( 'align-wide' ) ); ?> />
-                <?php _e( 'Enable wide and full alignments.', $theme->getHeader( 'TextDomain' ) ); ?>
+                <span class="slider round"></span>
               </label>
+              <?php _e( 'Enable wide and full alignments.', $theme->getHeader( 'TextDomain' ) ); ?>
             </td>
           </tr>
           <tr valign="top">
             <td>
-              <label>
+              <label class="switch">
                 <input id="theme-responsive-embeds" name="<?php echo $options->getName(); ?>[responsive-embeds]" type="checkbox" value="1" <?php checked( '1', $options->get( 'responsive-embeds' ) ); ?> />
-                <?php _e( 'Enable responsive embeds.', $theme->getHeader( 'TextDomain' ) ); ?>
+                <span class="slider round"></span>
               </label>
+              <?php _e( 'Enable responsive embeds.', $theme->getHeader( 'TextDomain' ) ); ?>
             </td>
           </tr>
           <tr valign="top">
             <td>
-              <label>
+              <label class="switch">
                 <input id="theme-custom-colors" name="<?php echo $options->getName(); ?>[disable-custom-colors]" type="checkbox" value="1" <?php checked( '1', $options->get( 'disable-custom-colors' ) ); ?> />
-                <?php _e( 'Enable custom colors.', $theme->getHeader( 'TextDomain' ) ); ?>
+                <span class="slider round"></span>
               </label>
+              <?php _e( 'Enable custom colors.', $theme->getHeader( 'TextDomain' ) ); ?>
             </td>
           </tr>
           <tr valign="top">
             <td>
-              <label>
+              <label class="switch">
                 <input id="theme-disable-custom-gradients" name="<?php echo $options->getName(); ?>[disable-custom-gradients]" type="checkbox" value="1" <?php checked( '1', $options->get( 'disable-custom-gradients' ) ); ?> />
-                <?php _e( 'Enable custom gradients.', $theme->getHeader( 'TextDomain' ) ); ?>
+                <span class="slider round"></span>
               </label>
+              <?php _e( 'Enable custom gradients.', $theme->getHeader( 'TextDomain' ) ); ?>
             </td>
           </tr>
           <tr valign="top">
             <td>
-              <label>
+              <label class="switch">
                 <input id="theme-disable-custom-font-sizes" name="<?php echo $options->getName(); ?>[disable-custom-font-sizes]" type="checkbox" value="1" <?php checked( '1', $options->get( 'disable-custom-font-sizes' ) ); ?> />
-                <?php _e( 'Enable custom font sizes.', $theme->getHeader( 'TextDomain' ) ); ?>
+                <span class="slider round"></span>
               </label>
+              <?php _e( 'Enable custom font sizes.', $theme->getHeader( 'TextDomain' ) ); ?>
             </td>
           </tr>
         </table>
       </div>
       <div class="flex-column-70 pl border-left">
         <table class="form-table colors" role="presentation">
-          <tr valign="top">
-            <th></th>
-            <td>
-              <p><?php _e( 'Define theme color palette.', $theme->getHeader( 'TextDomain' ) ); ?></p>
-            </td>
-          </tr>
+          <tr><th><h2><?php _e( 'Color Palette', $theme->getHeader( 'TextDomain' ) ); ?></h2></th></tr>
           <tr>
             <th>
               <?php _e( 'Dark', $theme->getHeader( 'TextDomain' ) ); ?>
@@ -142,12 +144,7 @@
             </td>
           </tr><!-- end colors -->
 
-          <tr valign="top">
-            <th></th>
-            <td>
-              <p><?php _e( 'Define media breakpoint widths.', $theme->getHeader( 'TextDomain' ) ); ?></p>
-            </td>
-          </tr>
+          <tr><th><h2><?php _e( 'Media Breakpoints', $theme->getHeader( 'TextDomain' ) ); ?></h2></th></tr>
           <tr valign="top">
             <th>
               <?php _e( 'Media Breakpoint SM', $theme->getHeader( 'TextDomain' ) ); ?>
@@ -188,11 +185,18 @@
               </label>
             </td>
           </tr><!-- end breakpoints -->
-
+          
+          <tr><th><h2><?php _e( 'Font sizes', $theme->getHeader( 'TextDomain' ) ); ?></h2></th></tr>
           <tr valign="top">
-            <th></th>
+            <th>
+              <?php _e( 'Enable REM units.', $theme->getHeader( 'TextDomain' ) ); ?>
+            </th>
             <td>
-              <p><?php _e( 'Define font sizes.', $theme->getHeader( 'TextDomain' ) ); ?></p>
+              <label class="switch">
+                <input id="theme-px-or-rem-unit" name="<?php echo $options->getName(); ?>[px-or-rem-unit]" type="checkbox" value="1" <?php checked( '1', $options->get( 'px-or-rem-unit' ) ); ?> />
+                <span class="slider round"></span>
+              </label>
+              <?php _e( 'Defaults to px unit.', $theme->getHeader( 'TextDomain' ) ); ?>
             </td>
           </tr>
           <tr valign="top">
