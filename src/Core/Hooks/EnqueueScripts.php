@@ -4,10 +4,11 @@ namespace WpTheme\Scaffold\Core\Hooks;
 
 use WpTheme\Scaffold\Core\Abstracts\Hooks;
 
+use WpTheme\Scaffold\App\Options\ThemeOption;
+
 use WpTheme\Scaffold\Core\Services\{
   HookLoader,
   AssetLoader,
-  ThemeOption,
   GlobalStyles
 };
 

@@ -2,7 +2,7 @@
 
 namespace WpTheme\Scaffold\Core\Services;
 
-use WpTheme\Scaffold\Core\Services\ThemeOption;
+use WpTheme\Scaffold\App\Options\ThemeOption;
 
 class GlobalStyles {
   

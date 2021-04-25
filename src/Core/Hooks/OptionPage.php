@@ -6,10 +6,9 @@ use WpTheme\Scaffold\Core\Theme;
 
 use WpTheme\Scaffold\Core\Abstracts\Hooks;
 
-use WpTheme\Scaffold\Core\Services\{
-  HookLoader,
-  ThemeOption
-};
+use WpTheme\Scaffold\App\Options\ThemeOption;
+
+use WpTheme\Scaffold\Core\Services\HookLoader;
 
 final class OptionPage extends Hooks {
 
