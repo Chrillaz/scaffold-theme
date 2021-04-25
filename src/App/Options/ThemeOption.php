@@ -2,73 +2,35 @@
 
 namespace WpTheme\Scaffold\App\Options;
 
-use WpTheme\Scaffold\Framework\Resources\Storage;
+use WpTheme\Scaffold\Core\Theme;
 
-use WpTheme\Scaffold\Framework\Interfaces\OptionInterface;
+use WpTheme\Scaffold\Core\Abstracts\Option;
 
-final class ThemeOption implements OptionInterface {
+use WpTheme\Scaffold\Core\Contracts\OptionInterface; 
 
-  private $name;
-
-  private $default;
-
-  public function __construct ( string $name, string $capability, Storage $default ) {
-    
-    $this->name = $name;
-
-    $this->capability = $capability;
-
-    $this->default = $default;
-  }
-
-  public function getName (): string {
-
-    return $this->name;
-  }
-
-  public function getCapability (): string {
-
-    return $this->capability;
-  }
-
-  public function getDefault () {
-
-    return $this->default->all();
-  }
-
-  public function getOption () {
-
-    return \get_option( $this->getName(), $this->getDefault() );
-  }
-
-  public function get ( string $key ) {
-    
-    if ( array_key_exists( $key, $option = $this->getOption() ) ) {
-      
-      return $option[$key];
-    }
-
-    return false;
-  }
+final class ThemeOption extends Option implements OptionInterface {
 
   public function getGroup ( string $group ): array {
 
-    $group = array_filter( $this->getOption(), function ( $key ) {
+    $found = array_filter( $this->getOption(), function ( $key ) use ( $group ) {
 
-      return false !== strpos( $key, 'color.' );
+      return false !== strpos( $key, "$group." );
     }, ARRAY_FILTER_USE_KEY );
 
-    return \wp_parse_args( $group, array_filter( $this->getDefault(), function ( $key ) {
+    return \wp_parse_args( $found, array_filter( $this->getDefault(), function ( $key ) use ( $group ) {
 
-      return false !== strpos( $key, 'color.' );
+      return false !== strpos( $key, "$group." );
     }, ARRAY_FILTER_USE_KEY ) );
   }
 
-  public function set ( string $option, $value ) {
+  public static function register ( Theme $theme ) {
 
-  }
-
-  public function remove ( string $option ) {
-
+    return new Self( 
+      'theme_option',
+      'edit_themes',
+      $theme->make( \WpTheme\Scaffold\Core\Resources\Storage::class, [
+        'default' => array_merge( $theme['theme.styles'], $theme['theme.supports'] )
+      ])
+    );
   }
 }

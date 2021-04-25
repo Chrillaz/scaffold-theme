@@ -2,13 +2,12 @@
 
 namespace WpTheme\Scaffold\App\Hooks;
 
-use WpTheme\Scaffold\Framework\Abstracts\Hooks;
+use WpTheme\Scaffold\Core\Abstracts\Hooks;
 
-use WpTheme\Scaffold\App\Options\ThemeOption;
-
-use WpTheme\Scaffold\Framework\Services\{
+use WpTheme\Scaffold\Core\Services\{
   HookLoader,
-  AssetLoader
+  AssetLoader,
+  GlobalStyles
 };
 
 final class EnqueueScripts extends Hooks {
@@ -17,55 +16,33 @@ final class EnqueueScripts extends Hooks {
 
   protected $assets;
 
-  protected $options;
+  protected $styles;
 
-  public function __construct ( HookLoader $hooks, AssetLoader $assets, ThemeOption $options ) {
+  public function __construct ( HookLoader $hooks, AssetLoader $assets, GlobalStyles $styles ) {
 
     $this->hooks = $hooks;
 
     $this->assets = $assets;
 
-    $this->options = $options;
+    $this->styles = $styles;
   }
 
   public function publicAssets () {
-    
-    $this->assets->addScript( 'main', '/js/main.min.js' )->load( 'defer' )->enqueue();
 
-    $this->assets->load();
-  }
+    $this->assets
+      ->addStyle( 'main', '/css/style.css' )
+      ->inline( $this->styles->getCustomProperties() )
+      ->enqueue();
 
-  public function adminAssets ( $suffix ) {
-
-    if ( 'appearance_page_theme_option' === $suffix ) {
-
-      $this->assets->addScript( 'scaffold-options', '/js/admin-scripts.min.js' )->dependencies( 'jquery', 'wp-color-picker' )->enqueue();
-
-      $this->assets->addStyle( 'scaffold-options', '/css/admin-styles.css' )->enqueue();
-      
-      $this->assets->addStyle( 'wp-color-picker' )->enqueue();
-      
-      $this->assets->load();
-    }
-  }
-
-  public function blockAssets () {
-
-    $this->assets->addScript( 'theme-editor-scripts', '/js/editor-scripts.min.js' )->dependencies( 'wp-blocks', 'wp-hooks' )->enqueue();
-
-    if ( '1' === $this->options->get( 'editor-styles' ) ) {
-
-      // $this->assets->addStyle( 'theme-editor-css', '/css/editor-styles.css' )->inline( Context::use( 'cssVars' ) )->enqueue();
-    }
+    $this->assets
+      ->addScript( 'main', '/js/main.min.js' )
+      ->load( 'defer' )
+      ->enqueue();
   }
 
   public function register (): void {
-    
+
     $this->hooks->addAction( 'wp_enqueue_scripts', 'publicAssets', $this );
-
-    $this->hooks->addAction( 'admin_enqueue_scripts', 'adminAssets', $this );
-
-    $this->hooks->addAction( 'enqueue_block_editor_assets', 'blockAssets', $this );
 
     $this->hooks->load();
   }
