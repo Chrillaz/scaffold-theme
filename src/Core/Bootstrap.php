@@ -56,27 +56,20 @@ Util::directoryIterator( $directory, function ( $service ) use ( $theme ) {
 /**
  * Theme Options
  */
-$theme->when( \WpTheme\Scaffold\Core\Services\ThemeOption::class )
-  ->needs('$name')
-  ->give('theme_option');
+$directory = $themeroot . '/src/App/Options';
 
-$theme->when( \WpTheme\Scaffold\Core\Services\ThemeOption::class )
-  ->needs('$capability')
-  ->give('edit_themes');
+Util::directoryIterator( $directory, function ( $option ) use ( $theme ) {
 
-$theme->when( \WpTheme\Scaffold\Core\Services\ThemeOption::class )
-  ->needs( \WpTheme\Scaffold\Core\Resources\storage::class )
-  ->give(function ( $theme ) {
-
-    $theme->make( \WpTheme\Scaffold\Core\Resources\Storage::class, [
-      'storage' => array_merge( $theme['theme.styles'], $theme['theme.supports'] )
-    ]);
+  $theme->singleton( $option->qualifiedname, function ( $theme ) use ( $option ) {
+    
+    return $option->qualifiedname::register( $theme );
   });
+});
 
 /**
  * Theme Integrations
  */
-$directory = $themeroot . '/src/Core/Integrations';
+$directory = $themeroot . '/src/App/Integrations';
 
 Util::directoryIterator( $directory, function ( $integration ) use ( $theme ) {
 

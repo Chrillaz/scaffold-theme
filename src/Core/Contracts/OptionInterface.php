@@ -8,6 +8,8 @@ interface OptionInterface {
 
   public function getDefault ();
 
+  public function getCapability (): string;
+
   public function getOption ();
 
   public function get ( string $key );
