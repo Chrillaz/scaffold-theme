@@ -12,8 +12,6 @@ define( 'APP_DIR', THEME_ROOT . '/src/App' );
 
 define( 'CORE_DIR', THEME_ROOT . '/src/Core' );
 
-require THEME_ROOT . '/vendor/autoload.php';
-
 $theme = Theme::create( \wp_get_theme( \get_template() ) );
 
 $theme->singleton( Theme::class, function ( $theme ) {
