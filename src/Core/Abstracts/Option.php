@@ -28,7 +28,7 @@ abstract class Option implements OptionInterface {
 
   public function getDefault () {
 
-    return $this->default->all();
+    return $this->default;
   }
 
   public function getCapability (): string {
@@ -38,10 +38,7 @@ abstract class Option implements OptionInterface {
 
   public function getOption () {
 
-    return \wp_parse_args(
-      \get_option( $this->getName(), $this->getDefault() ),
-      $this->getDefault()
-    );
+    return \get_option( $this->getName(), $this->getDefault() );
   }
 
   public function get ( string $key = null ) {
@@ -64,12 +61,36 @@ abstract class Option implements OptionInterface {
     return false;
   }
 
-  public function set ( string $option, $value ) {
+  public function set ( string $key, $value ) {
 
+    if ( ! is_array( $option = $this->getOption() ) ) {
+
+      return \update_option( $this->getName(), $value );
+    }
+
+    if ( array_key_exists( $key, $option ) ) {
+
+      $option[$key] = $value;
+
+      return \update_option( $this->getName(), $option );
+    }
+
+    throw new \Exception( 'Option not set' );
   }
 
-  public function remove ( string $option ) {
+  public function remove ( string $key ) {
 
+    if ( $key === $this->getName() ) {
+
+      return \delete_option( $this->getName() );
+    }
+
+    if ( is_array( $option = $this->getOption() ) && array_key_exists( $key, $option ) ) {
+
+      unset( $option[$key] );
+
+      return \update_option( $this->getName(), $option );
+    }
   }
 
   abstract public static function register ( \WpTheme\Scaffold\Core\Theme $theme );

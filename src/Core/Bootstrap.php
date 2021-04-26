@@ -6,9 +6,11 @@ use WpTheme\Scaffold\Core\Theme;
 
 use WpTheme\Scaffold\Core\Utilities as Util;
 
-$themeroot = get_template_directory();
+define( 'THEME_ROOT', get_template_directory() );
 
-require $themeroot . '/vendor/autoload.php';
+define( 'APP_DIR', THEME_ROOT . '/src/App' );
+
+define( 'CORE_DIR', THEME_ROOT . '/src/Core' );
 
 $theme = Theme::create( \wp_get_theme( \get_template() ) );
 
@@ -34,8 +36,8 @@ $theme->bind( \WP_Styles::class, function ( $theme ) {
  * Store config
  */
 $config = array_merge(
-  require __DIR__ . '/Config.php',
-  require __DIR__ . '/../App/Config.php'
+  require CORE_DIR . '/Config.php',
+  require APP_DIR . '/Config.php'
 );
 
 foreach ( $config as $key => $value ) {
@@ -46,9 +48,7 @@ foreach ( $config as $key => $value ) {
 /**
  * Theme Services
  */
-$directory = $themeroot . '/src/Core/Services';
-
-Util::directoryIterator( $directory, function ( $service ) use ( $theme ) {
+Util::directoryIterator( CORE_DIR . '/Services', function ( $service ) use ( $theme ) {
 
   $theme->singleton( $service->qualifiedname );
 });
@@ -56,9 +56,7 @@ Util::directoryIterator( $directory, function ( $service ) use ( $theme ) {
 /**
  * Theme Options
  */
-$directory = $themeroot . '/src/App/Options';
-
-Util::directoryIterator( $directory, function ( $option ) use ( $theme ) {
+Util::directoryIterator( APP_DIR . '/Options', function ( $option ) use ( $theme ) {
 
   $theme->singleton( $option->qualifiedname, function ( $theme ) use ( $option ) {
     
@@ -67,39 +65,31 @@ Util::directoryIterator( $directory, function ( $option ) use ( $theme ) {
 });
 
 /**
- * Theme Integrations
+ * Theme Meta
  */
-$directory = $themeroot . '/src/App/Integrations';
+// Util::directoryIterator( APP_DIR . '/Metas', function ( $meta ) use ( $theme ) {
 
-Util::directoryIterator( $directory, function ( $integration ) use ( $theme ) {
+//   $theme->singleton( $meta->qualifiedname, function ( $theme ) use ( $meta ) {
 
-  $integration = $theme->make( $integration->qualifiedname );
-
-  $integration->register();
-});
+//     return $meta->qualifiedname::register( $theme );
+//   });
+// });
 
 /**
- * Run Core Hooks
+ * Run Core, App Hooks and Integrations
  */
-$directory = $themeroot . '/src/Core/Hooks';
+array_map( function ( $directory ) use ( $theme ) {
 
-Util::directoryIterator( $directory, function ( $hook ) use ( $theme ) {
+  Util::directoryIterator( $directory, function ( $hook ) use ( $theme ) {
 
-  $hook = $theme->make( $hook->qualifiedname );
-
-  $hook->register();
-});
-
-/**
- * Run App Hooks
- */
-$directory = $themeroot . '/src/App/Hooks';
-
-Util::directoryIterator( $directory, function ( $hook ) use ( $theme ) {
-
-  $hook = $theme->make( $hook->qualifiedname );
-
-  $hook->register();
-});
+    $hook = $theme->make( $hook->qualifiedname );
+  
+    $hook->register();
+  });
+}, [
+  APP_DIR . '/Integrations',
+  CORE_DIR . '/Hooks',
+  APP_DIR . '/Hooks'
+]);
 
 return $theme;

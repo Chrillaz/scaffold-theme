@@ -12,15 +12,10 @@ final class ThemeOption extends Option implements OptionInterface {
 
   public function getGroup ( string $group ): array {
 
-    $found = array_filter( $this->getOption(), function ( $key ) use ( $group ) {
+    return array_filter( $this->getOption(), function ( $key ) use ( $group ) {
 
       return false !== strpos( $key, "$group." );
     }, ARRAY_FILTER_USE_KEY );
-
-    return \wp_parse_args( $found, array_filter( $this->getDefault(), function ( $key ) use ( $group ) {
-
-      return false !== strpos( $key, "$group." );
-    }, ARRAY_FILTER_USE_KEY ) );
   }
 
   public static function register ( Theme $theme ) {
@@ -28,9 +23,7 @@ final class ThemeOption extends Option implements OptionInterface {
     return new Self( 
       'theme_option',
       'edit_themes',
-      $theme->make( \WpTheme\Scaffold\Core\Resources\Storage::class, [
-        'default' => array_merge( $theme['theme.styles'], $theme['theme.supports'] )
-      ])
+      array_merge( $theme['theme.styles'], $theme['theme.supports'] )
     );
   }
 }
