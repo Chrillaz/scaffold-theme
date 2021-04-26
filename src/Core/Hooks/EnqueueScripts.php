@@ -28,6 +28,8 @@ final class EnqueueScripts extends Hooks {
 
     $this->assets = $assets;
 
+    $this->styles = $styles;
+    
     $this->options = $options;
   }
 
