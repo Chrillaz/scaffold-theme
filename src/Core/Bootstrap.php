@@ -22,35 +22,41 @@ $theme->singleton( Theme::class, function ( $theme ) {
 });
 
 /**
- * WP Core Component Bindings
- */
-$theme->bind( \WP_Scripts::class, function ( $theme ) {
-
-  return \wp_scripts();
-});
-
-$theme->bind( \WP_Styles::class, function ( $theme ) {
-
-  return \wp_styles();
-});
-
-/**
  * Store config
  */
-$config = array_merge(
-  require CORE_DIR . '/Config.php',
-  require APP_DIR . '/Config.php'
+$config = require APP_DIR . '/Config.php';
+
+array_map( function ( $key, $config ) use ( $theme ) {
+
+  return $theme->instance( $key, $config );
+}, 
+  array_keys( $config ),
+  $config
 );
 
-foreach ( $config as $key => $value ) {
+/**
+ * Bind modules
+ */
+array_map( function ( $module, $implementation ) use ( $theme ) {
 
-  $theme->instance( $key, $value );
-}
+  if ( $implementation instanceof \Closure ) {
+
+    return $theme->bind( $module, function ( $theme ) use ( $implementation ) {
+
+      return $implementation();
+    });
+  }
+
+  return $theme->bind( $module, $implementation );
+}, 
+  array_keys( $theme['theme.bindings'] ),
+  $theme['theme.bindings'] 
+);
 
 /**
  * Theme Services
  */
-Util::directoryIterator( CORE_DIR . '/Services', function ( $service ) use ( $theme ) {
+Util::directoryIterator( APP_DIR . '/Services', function ( $service ) use ( $theme ) {
 
   $theme->singleton( $service->qualifiedname );
 });
@@ -89,8 +95,7 @@ array_map( function ( $directory ) use ( $theme ) {
     $hook->register();
   });
 }, [
-  APP_DIR . '/Integrations',
-  CORE_DIR . '/Hooks',
+  // APP_DIR . '/Integrations',
   APP_DIR . '/Hooks'
 ]);
 

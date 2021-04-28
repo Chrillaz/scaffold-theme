@@ -1,12 +1,11 @@
 <?php
 
-namespace WpTheme\Scaffold\Core\Services;
+namespace WpTheme\Scaffold\App\Services;
 
 use WpTheme\Scaffold\Core\Resources\{
   Asset,
   Style,
-  Script,
-  Storage
+  Script
 };
 
 use WpTheme\Scaffold\Core\Abstracts\Loader;
