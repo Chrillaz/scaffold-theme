@@ -4,7 +4,7 @@ namespace WpTheme\Scaffold\Core\Abstracts;
 
 use WpTheme\Scaffold\Core\Theme;
 
-use WpTheme\Scaffold\Core\Resources\Storage;
+use WpTheme\Scaffold\Core\Contracts\StorageInterface;
 
 use WpTheme\Scaffold\Core\Contracts\LoaderInterface;
 
@@ -12,7 +12,7 @@ abstract class Loader implements LoaderInterface {
 
   protected $theme;
 
-  public function __construct ( Storage $storage, Theme $theme ) {
+  public function __construct ( StorageInterface $storage, Theme $theme ) {
 
     $this->queue = $storage;
 

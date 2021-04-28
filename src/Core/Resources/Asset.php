@@ -2,7 +2,7 @@
 
 namespace WpTheme\Scaffold\Core\Resources;
 
-use WpTheme\Scaffold\Core\Resources\Storage;
+use WpTheme\Scaffold\Core\Contracts\StorageInterface;
 
 use WpTheme\Scaffold\Core\Contracts\AssetInterface;
 
@@ -16,7 +16,7 @@ class Asset implements AssetInterface {
 
   private $file;
 
-  public function __construct ( Storage $data, $handle, $file ) {
+  public function __construct ( StorageInterface $data, $handle, $file ) {
 
     $this->data = $data;
 

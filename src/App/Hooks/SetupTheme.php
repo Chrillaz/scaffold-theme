@@ -1,6 +1,6 @@
 <?php
 
-namespace WpTheme\Scaffold\Core\Hooks;
+namespace WpTheme\Scaffold\App\Hooks;
 
 use WpTheme\Scaffold\Core\Theme;
 
@@ -8,7 +8,7 @@ use WpTheme\Scaffold\Core\Abstracts\Hooks;
 
 use WpTheme\Scaffold\App\Options\ThemeOption;
 
-use WpTheme\Scaffold\Core\Services\HookLoader;
+use WpTheme\Scaffold\App\Services\HookLoader;
 
 final class SetupTheme extends Hooks {
 

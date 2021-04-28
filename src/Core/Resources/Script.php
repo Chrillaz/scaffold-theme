@@ -2,7 +2,7 @@
 
 namespace WpTheme\Scaffold\Core\Resources;
 
-use WpTheme\Scaffold\Core\Resources\Asset;
+use WpTheme\Scaffold\Core\Contracts\AssetInterface;
 
 use WpTheme\Scaffold\Core\Abstracts\AssetBuilder;
 
@@ -12,7 +12,7 @@ final class Script extends AssetBuilder {
 
   protected $asset;
 
-  public function __construct ( \WP_Scripts $scripts, Asset $asset ) {
+  public function __construct ( \WP_Scripts $scripts, AssetInterface $asset ) {
 
     $this->queue = $scripts;
 
