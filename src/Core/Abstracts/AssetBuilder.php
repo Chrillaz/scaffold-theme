@@ -5,6 +5,13 @@ namespace WpTheme\Scaffold\Core\Abstracts;
 use WpTheme\Scaffold\Core\Contracts\AssetBuilderInterface;
 
 abstract class AssetBuilder implements AssetBuilderInterface {
+
+  public function external ( string $path ) {
+
+    $this->asset->append( 'external', trim( $path ) );
+
+    return $this;
+  }
   
   public function dependencies ( ...$dependencies ) {
 
