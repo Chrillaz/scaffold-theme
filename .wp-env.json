@@ -3,6 +3,9 @@
   "themes": [
     "."
   ],
+  "plugins": [
+    "../essentials"
+  ],
   "env": {
     "tests": {
       "mappings": {
