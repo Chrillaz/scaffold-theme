@@ -14,12 +14,15 @@
     {
       "type": "composer",
       "url": "https://wpackagist.org"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/Chrillaz/essentials.git"
     }
   ],
   "autoload": {
     "psr-4": {
-      "WpTheme\\Scaffold\\": "src/",
-      "Essentials\\": "../../plugins/essentials/src/"
+      "WpTheme\\Scaffold\\": "src/"
     }
   },
   "require-dev": {
@@ -28,5 +31,8 @@
   },
   "scripts": {
     "test": "phpunit"
+  },
+  "require": {
+    "chrillaz/wordpress-essentials": "dev-package"
   }
 }
