@@ -18,7 +18,8 @@
   ],
   "autoload": {
     "psr-4": {
-      "WpTheme\\Scaffold\\": "src/"
+      "WpTheme\\Scaffold\\": "src/",
+      "Essentials\\": "../../plugins/essentials/src/"
     }
   },
   "require-dev": {
