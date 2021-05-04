@@ -4,7 +4,7 @@
     "."
   ],
   "plugins": [
-    "../../plugins/essentials"
+
   ],
   "env": {
     "tests": {

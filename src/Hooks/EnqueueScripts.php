@@ -30,5 +30,7 @@ final class EnqueueScripts extends Hooks {
   public function register (): void {
 
     $this->hooks->addAction( 'wp_enqueue_scripts', 'publicAssets', $this );
+
+    $this->hooks->load();
   }
 }

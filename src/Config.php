@@ -7,6 +7,6 @@ return [
    * Theme bindings
    */
   'bindings' => [
-    '\\WP_Theme'::class => function () { return \wp_get_theme( \get_template() ); },
+    \WP_Theme::class => function () { return \wp_get_theme( \get_template() ); },
   ],
 ];
