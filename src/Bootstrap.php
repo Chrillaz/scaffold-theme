@@ -2,6 +2,8 @@
 
 namespace WpTheme\Scaffold;
 
+use \Essentials\Utilities as Util;
+
 require __DIR__ . '/../vendor/autoload.php';
 
 $app = \Essentials\Essentials::create([
@@ -15,5 +17,7 @@ $theme = $app->make( \WpTheme\Scaffold\Theme::class, [
   'theme'     => \wp_get_theme( \get_Template() ),
   'container' => $app
 ]);
+
+
 
 return $theme;
