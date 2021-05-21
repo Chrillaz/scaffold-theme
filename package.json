@@ -23,6 +23,9 @@
   },
   "homepage": "https://github.com/Chrillaz/wordpress-theme-scaffold#readme",
   "devDependencies": {
+    "@types/react": "^17.0.6",
+    "@types/react-dom": "^17.0.5",
+    "@types/webpack": "^5.28.0",
     "@wordpress/browserslist-config": "^2.7.0",
     "@wordpress/env": "^4.0.0",
     "autoprefixer": "^10.2.5",

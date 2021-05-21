@@ -1,21 +1,13 @@
-const config = require( '../../../config/theme.json' );
+import { registerThemeBlocks } from './blocks/index'
+import { registerThemePlugins } from './plugins/index'
+import { blocksBlacklist } from './hooks/blocks-blacklist'
 
-if ( Array.isArray( config['block-types-exclude'] ) && config['block-types-exclude'].length > 0 ) {
+const prefix = 'scaffold';
 
-  // @ts-ignore
-  wp.hooks.addFilter(
-    'blocks.registerBlockType',
-    'hideBlocks',
-    (settings: {supports: {}}, name: string) => {
-      
-      if ( config['block-types-exclude'].indexOf( name ) !== -1 ) {
-  
-        return Object.assign({}, settings, {
-          supports: Object.assign({}, settings.supports, {inserter: false})
-        });
-      }
-  
-      return settings;
-    }
-  );
-}
+blocksBlacklist([
+  // Blacklist any editor block by defining it's name, ex 'core/buttons'
+]);
+
+registerThemeBlocks( prefix );
+
+registerThemePlugins( prefix );

@@ -18,6 +18,4 @@ $theme = $app->make( \WpTheme\Scaffold\Theme::class, [
   'container' => $app
 ]);
 
-
-
 return $theme;
