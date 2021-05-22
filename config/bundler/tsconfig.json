@@ -63,5 +63,8 @@
   },
   "exclude": [
     "node_modules"
+  ],
+  "include": [
+    "../../assets/js/src/**/*"
   ]
 }
