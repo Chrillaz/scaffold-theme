@@ -1,6 +1,6 @@
 <?php
 
-namespace WpTheme\Scaffold\Hooks;
+namespace Scaffold\Theme\Hooks;
 
 use \Scaffold\Essentials\Abstracts\Hooks;
 

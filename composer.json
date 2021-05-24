@@ -26,7 +26,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "WpTheme\\Scaffold\\": "src/"
+      "Scaffold\\Theme\\": "src/"
     }
   },
   "require-dev": {

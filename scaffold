@@ -9,7 +9,7 @@ if ( php_sapi_name() !== 'cli' ) {
   exit;
 }
 
-$cli = new \Scaffold\Cli\Console( 'WpTheme\\Scaffold', __DIR__ . '/src' );
+$cli = new \Scaffold\Cli\Console( 'Scaffold\\Theme', __DIR__ . '/src' );
 
 $cli->runCommand( $argv );
 
