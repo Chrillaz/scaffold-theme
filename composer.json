@@ -17,7 +17,11 @@
     },
     {
       "type": "vcs",
-      "url": "https://github.com/Chrillaz/essentials.git"
+      "url": "https://github.com/Chrillaz/scaffold-essentials"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/Chrillaz/scaffold-cli"
     }
   ],
   "autoload": {
