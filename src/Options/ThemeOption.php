@@ -1,6 +1,6 @@
 <?php
 
-namespace WpTheme\Scaffold\Options;
+namespace Scaffold\Theme\Options;
 
 use \Scaffold\Essentials\Essentials;
 

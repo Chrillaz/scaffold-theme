@@ -1,6 +1,6 @@
 <?php
 
-namespace WpTheme\Scaffold;
+namespace Scaffold\Theme;
 
 return [
   /**

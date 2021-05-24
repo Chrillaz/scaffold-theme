@@ -1,6 +1,6 @@
 <?php
 
-namespace WpTheme\Scaffold;
+namespace Scaffold\Theme;
 
 use \Scaffold\Essentials\Utilities as Util;
 
@@ -11,9 +11,9 @@ $app = \Scaffold\Essentials\Essentials::create([
   'publicpath' => \get_template_directory_uri() 
 ]);
 
-$app->singleton( \WpTheme\Scaffold\Theme::class );
+$app->singleton( \Scaffold\Theme\Theme::class );
 
-$theme = $app->make( \WpTheme\Scaffold\Theme::class, [
+$theme = $app->make( \Scaffold\Theme\Theme::class, [
   'theme'     => \wp_get_theme( \get_Template() ),
   'container' => $app
 ]);
