@@ -25,7 +25,10 @@
       "WpTheme\\Scaffold\\": "src/"
     }
   },
+  "require-dev": {
+    "chrillaz/scaffold-cli": "dev-main"
+  },
   "require": {
-    "chrillaz/wordpress-essentials": "dev-package"
+    "chrillaz/scaffold-essentials": "dev-main"
   }
 }
