@@ -3,6 +3,9 @@
   "themes": [
     "."
   ],
+  "plugins": [
+
+  ],
   "env": {
     "tests": {
       "mappings": {

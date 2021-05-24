@@ -1,7 +1,7 @@
 <?php list( $theme, $options ) = $args; ?>
 
 <div class="wrap">
-  <h2><?php _e( 'THEME OPTIONS', $theme->getHeader( 'TextDomain' ) ); ?></h2>
+  <h2><?php _e( 'THEME OPTIONS', $theme->get( 'TextDomain' ) ); ?></h2>
   <form method="post" action="options.php">
     <?php 
       settings_fields( $options->getName() ); 
@@ -10,14 +10,14 @@
     <section class="flex-container">
       <div class="flex-column-30">
         <table class="form-table" role="presentation">
-          <p><?php _e( 'Enable gutenberg features.', $theme->getHeader( 'TextDomain' ) ); ?></p>
+          <p><?php _e( 'Enable gutenberg features.', $theme->get( 'TextDomain' ) ); ?></p>
           <tr valign="top">
             <td>
               <label class="switch">
                 <input id="theme-block-styles" name="<?php echo $options->getName(); ?>[block-styles]" type="checkbox" value="1" <?php checked( '1', $options->get( 'block-styles' ) ); ?> />
                 <span class="slider round"></span>
               </label>
-              <?php _e( 'Enable block styles.', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Enable block styles.', $theme->get( 'TextDomain' ) ); ?>
             </td>
           </tr>
           <tr valign="top">
@@ -26,7 +26,7 @@
                 <input id="theme-editor-styles" name="<?php echo $options->getName(); ?>[editor-styles]" type="checkbox" value="1" <?php checked( '1', $options->get( 'editor-styles' ) ); ?> />
                 <span class="slider round"></span>
               </label>
-              <?php _e( 'Enable editor styles.', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Enable editor styles.', $theme->get( 'TextDomain' ) ); ?>
             </td>
           </tr>
           <tr valign="top">
@@ -35,7 +35,7 @@
                 <input id="theme-align-wide" name="<?php echo $options->getName(); ?>[align-wide]" type="checkbox" value="1" <?php checked( '1', $options->get( 'align-wide' ) ); ?> />
                 <span class="slider round"></span>
               </label>
-              <?php _e( 'Enable wide and full alignments.', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Enable wide and full alignments.', $theme->get( 'TextDomain' ) ); ?>
             </td>
           </tr>
           <tr valign="top">
@@ -44,7 +44,7 @@
                 <input id="theme-responsive-embeds" name="<?php echo $options->getName(); ?>[responsive-embeds]" type="checkbox" value="1" <?php checked( '1', $options->get( 'responsive-embeds' ) ); ?> />
                 <span class="slider round"></span>
               </label>
-              <?php _e( 'Enable responsive embeds.', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Enable responsive embeds.', $theme->get( 'TextDomain' ) ); ?>
             </td>
           </tr>
           <tr valign="top">
@@ -53,7 +53,7 @@
                 <input id="theme-custom-colors" name="<?php echo $options->getName(); ?>[disable-custom-colors]" type="checkbox" value="1" <?php checked( '1', $options->get( 'disable-custom-colors' ) ); ?> />
                 <span class="slider round"></span>
               </label>
-              <?php _e( 'Enable custom colors.', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Enable custom colors.', $theme->get( 'TextDomain' ) ); ?>
             </td>
           </tr>
           <tr valign="top">
@@ -62,7 +62,7 @@
                 <input id="theme-disable-custom-gradients" name="<?php echo $options->getName(); ?>[disable-custom-gradients]" type="checkbox" value="1" <?php checked( '1', $options->get( 'disable-custom-gradients' ) ); ?> />
                 <span class="slider round"></span>
               </label>
-              <?php _e( 'Enable custom gradients.', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Enable custom gradients.', $theme->get( 'TextDomain' ) ); ?>
             </td>
           </tr>
           <tr valign="top">
@@ -71,17 +71,17 @@
                 <input id="theme-disable-custom-font-sizes" name="<?php echo $options->getName(); ?>[disable-custom-font-sizes]" type="checkbox" value="1" <?php checked( '1', $options->get( 'disable-custom-font-sizes' ) ); ?> />
                 <span class="slider round"></span>
               </label>
-              <?php _e( 'Enable custom font sizes.', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Enable custom font sizes.', $theme->get( 'TextDomain' ) ); ?>
             </td>
           </tr>
         </table>
       </div>
       <div class="flex-column-70 pl border-left">
         <table class="form-table colors" role="presentation">
-          <tr><th><h2><?php _e( 'Color Palette', $theme->getHeader( 'TextDomain' ) ); ?></h2></th></tr>
+          <tr><th><h2><?php _e( 'Color Palette', $theme->get( 'TextDomain' ) ); ?></h2></th></tr>
           <tr>
             <th>
-              <?php _e( 'Dark', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Dark', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <input type="text" class="color-picker" name="<?php echo $options->getName(); ?>[color.dark]" id='color-picker' value="<?php echo $options->get( 'color.dark' ); ?>" />
@@ -89,7 +89,7 @@
           </tr>
           <tr>
             <th>
-              <?php _e( 'Primary Dark', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Primary Dark', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <input type="text" class="color-picker" name="<?php echo $options->getName(); ?>[color.primary-dark]" id='color-picker' value="<?php echo $options->get( 'color.primary-dark' ); ?>" />
@@ -97,7 +97,7 @@
           </tr>
           <tr>
             <th>
-              <?php _e( 'Primary', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Primary', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <input type="text" class="color-picker" name="<?php echo $options->getName(); ?>[color.primary]" id='color-picker' value="<?php echo $options->get( 'color.primary' ); ?>" />
@@ -105,7 +105,7 @@
           </tr>
           <tr>
             <th>
-              <?php _e( 'Primary Light', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Primary Light', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <input type="text" class="color-picker" name="<?php echo $options->getName(); ?>[color.primary-light]" id='color-picker' value="<?php echo $options->get( 'color.primary-light' ); ?>" />
@@ -113,7 +113,7 @@
           </tr>
           <tr>
             <th>
-              <?php _e( 'Secondary Dark', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Secondary Dark', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <input type="text" class="color-picker" name="<?php echo $options->getName(); ?>[color.secondary-dark]" id='color-picker' value="<?php echo $options->get( 'color.secondary-dark' ); ?>" />
@@ -121,7 +121,7 @@
           </tr>
           <tr>
             <th>
-              <?php _e( 'Secondary', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Secondary', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <input type="text" class="color-picker" name="<?php echo $options->getName(); ?>[color.secondary]" id='color-picker' value="<?php echo $options->get( 'color.secondary' ); ?>" />
@@ -129,7 +129,7 @@
           </tr>
           <tr>
             <th>
-              <?php _e( 'Secondary Light', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Secondary Light', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <input type="text" class="color-picker" name="<?php echo $options->getName(); ?>[color.secondary-light]" id='color-picker' value="<?php echo $options->get( 'color.secondary-light' ); ?>" />
@@ -137,17 +137,17 @@
           </tr>
           <tr>
             <th>
-              <?php _e( 'Light', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Light', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <input type="text" class="color-picker" name="<?php echo $options->getName(); ?>[color.light]" id='color-picker' value="<?php echo $options->get( 'color.light' ); ?>" />
             </td>
           </tr><!-- end colors -->
 
-          <tr><th><h2><?php _e( 'Media Breakpoints', $theme->getHeader( 'TextDomain' ) ); ?></h2></th></tr>
+          <tr><th><h2><?php _e( 'Media Breakpoints', $theme->get( 'TextDomain' ) ); ?></h2></th></tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Media Breakpoint SM', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Media Breakpoint SM', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -157,7 +157,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Media Breakpoint MD', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Media Breakpoint MD', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -167,7 +167,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Media Breakpoint LG', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Media Breakpoint LG', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -177,7 +177,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Media Breakpoint XL', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Media Breakpoint XL', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -186,22 +186,22 @@
             </td>
           </tr><!-- end breakpoints -->
           
-          <tr><th><h2><?php _e( 'Font sizes', $theme->getHeader( 'TextDomain' ) ); ?></h2></th></tr>
+          <tr><th><h2><?php _e( 'Font sizes', $theme->get( 'TextDomain' ) ); ?></h2></th></tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Enable REM units.', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Enable REM units.', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label class="switch">
                 <input id="theme-px-or-rem-unit" name="<?php echo $options->getName(); ?>[px-or-rem-unit]" type="checkbox" value="1" <?php checked( '1', $options->get( 'px-or-rem-unit' ) ); ?> />
                 <span class="slider round"></span>
               </label>
-              <?php _e( 'Defaults to px unit.', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Defaults to px unit.', $theme->get( 'TextDomain' ) ); ?>
             </td>
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Font size H1', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Font size H1', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -211,7 +211,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Font size H2', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Font size H2', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -221,7 +221,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Font size H3', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Font size H3', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -231,7 +231,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Font size H4', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Font size H4', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -241,7 +241,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Font size H5', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Font size H5', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -251,7 +251,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Font size H6', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Font size H6', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -261,7 +261,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Font size Paragraph', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Font size Paragraph', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
@@ -271,7 +271,7 @@
           </tr>
           <tr valign="top">
             <th>
-              <?php _e( 'Font size Anchor', $theme->getHeader( 'TextDomain' ) ); ?>
+              <?php _e( 'Font size Anchor', $theme->get( 'TextDomain' ) ); ?>
             </th>
             <td>
               <label>
