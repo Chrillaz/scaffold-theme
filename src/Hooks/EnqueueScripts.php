@@ -36,9 +36,11 @@ final class EnqueueScripts extends Hooks {
 
   public function publicAssets () {
 
-    $this->assets->addStyle( 'main', '/css/style.css' )->inline( $this->styles->getCustomProperties() )->enqueue();
+    $this->assets->addStyle( 'theme-styles', '/css/style.css' )->inline( $this->styles->getCustomProperties() )->enqueue();
 
-    $this->assets->addScript( 'main', '/js/main.min.js' )->load( 'defer' )->enqueue();
+    $this->assets->addScript( 'theme-main-scripts', '/js/main.min.js' )->load( 'defer' )->enqueue();
+
+    $this->assets->load();
   }
 
   public function adminAssets ( string $suffix ) {
@@ -51,6 +53,8 @@ final class EnqueueScripts extends Hooks {
       
       $this->assets->addStyle( 'wp-color-picker' )->enqueue();
     }
+
+    $this->assets->load();
   }
 
   public function editorAssets () {

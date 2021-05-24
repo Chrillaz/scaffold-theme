@@ -4,8 +4,6 @@ namespace Scaffold\Theme;
 
 use \Scaffold\Essentials\Utilities as Util;
 
-use \Scaffold\Essentials\Services\HookLoader;
-
 require __DIR__ . '/../vendor/autoload.php';
 
 $app = \Scaffold\Essentials\Essentials::create([
@@ -41,5 +39,3 @@ array_map( function ( $directory ) use ( $app ) {
   // $app->getBasepath( '/src/Integrations' ),
   $app->getBasepath( '/src/Hooks' )
 ]);
-
-return $app;
