@@ -9,22 +9,48 @@ use \Scaffold\Essentials\Services\{
   AssetLoader
 };
 
+use Scaffold\Theme\Options\ThemeOption;
+
+use Scaffold\Theme\Services\GlobalStyles;
+
 final class EnqueueScripts extends Hooks {
 
   protected $hooks;
 
   protected $assets;
 
-  public function __construct ( HookLoader $hooks, AssetLoader $assets ) {
+  protected $styles;
+
+  protected $options;
+
+  public function __construct ( HookLoader $hooks, AssetLoader $assets, ThemeOption $options, GlobalStyles $styles ) {
 
     $this->hooks = $hooks;
 
     $this->assets = $assets;
+
+    $this->styles = $styles;
+    
+    $this->options = $options;
   }
 
   public function publicAssets () {
 
+    $this->assets->addStyle( 'main', '/css/style.css' )->inline( $this->styles->getCustomProperties() )->enqueue();
+
     $this->assets->addScript( 'main', '/js/main.min.js' )->load( 'defer' )->enqueue();
+  }
+
+  public function adminAssets ( string $suffix ) {
+
+    if ( 'appearance_page_theme_option' === $suffix ) {
+
+      $this->assets->addScript( 'scaffold-options', '/js/admin-scripts.min.js' )->dependencies( 'jquery', 'wp-color-picker' )->enqueue();
+
+      $this->assets->addStyle( 'scaffold-options', '/css/admin-styles.css' )->enqueue();
+      
+      $this->assets->addStyle( 'wp-color-picker' )->enqueue();
+    }
   }
 
   public function editorAssets () {
@@ -44,7 +70,9 @@ final class EnqueueScripts extends Hooks {
 
     $this->hooks->addAction( 'wp_enqueue_scripts', 'publicAssets', $this );
 
-    $this->hooks->addAction( 'enqueue_block_editor_assets', 'editorAssets', $this );
+    $this->hooks->addAction( 'admin_enqueue_scripts', 'adminAssets', $this );
+
+    // $this->hooks->addAction( 'enqueue_block_editor_assets', 'editorAssets', $this );
 
     $this->hooks->load();
   }
