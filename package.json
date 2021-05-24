@@ -1,27 +1,27 @@
 {
-  "name": "wp-scaffold-theme",
-  "themeName": "Wp Scaffold Theme",
+  "name": "scaffold-theme",
+  "themeName": "Scaffold Theme",
   "version": "1.0.0",
   "description": "wordpress starter theme",
   "main": "assets/js/src/main.ts",
   "scripts": {
     "wp-env": "wp-env",
-    "test": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/themes/wordpress-theme-scaffold/phpunit.xml.dist --verbose'",
+    "test": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/themes/scaffold-theme/phpunit.xml.dist --verbose'",
     "build": "webpack --mode production --config config/bundler/webpack.config.js",
     "start": "webpack --mode development --config config/bundler/webpack.config.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Chrillaz/wordpress-theme-scaffold.git"
+    "url": "git+https://github.com/Chrillaz/scaffold-theme.git"
   },
   "author": "Christoffer Öhman",
   "authorUri": "https://github.com/Chrillaz",
   "license": "ISC",
   "licenseUri": "",
   "bugs": {
-    "url": "https://github.com/Chrillaz/wordpress-theme-scaffold/issues"
+    "url": "https://github.com/Chrillaz/scaffold-theme/issues"
   },
-  "homepage": "https://github.com/Chrillaz/wordpress-theme-scaffold#readme",
+  "homepage": "https://github.com/Chrillaz/scaffold-theme#readme",
   "devDependencies": {
     "@types/react": "^17.0.6",
     "@types/react-dom": "^17.0.5",

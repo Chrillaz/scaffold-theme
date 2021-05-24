@@ -1,9 +1,9 @@
 {
-  "name": "chrillaz/wordpress-theme-scaffold",
+  "name": "chrillaz/scaffold-theme",
   "description": "wordpress starter theme",
   "type": "wordpress-theme",
   "license": "MIT",
-  "homepage": "https://github.com/Chrillaz/wordpress-theme-scaffold",
+  "homepage": "https://github.com/Chrillaz/scaffold-theme",
   "authors": [
     {
       "name": "Christoffer Öhman",
