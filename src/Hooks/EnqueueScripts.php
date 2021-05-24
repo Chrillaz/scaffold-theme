@@ -2,9 +2,9 @@
 
 namespace WpTheme\Scaffold\Hooks;
 
-use \Essentials\Abstracts\Hooks;
+use \Scaffold\Essentials\Abstracts\Hooks;
 
-use \Essentials\Services\{
+use \Scaffold\Essentials\Services\{
   HookLoader,
   AssetLoader
 };

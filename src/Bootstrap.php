@@ -2,11 +2,11 @@
 
 namespace WpTheme\Scaffold;
 
-use \Essentials\Utilities as Util;
+use \Scaffold\Essentials\Utilities as Util;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$app = \Essentials\Essentials::create([
+$app = \Scaffold\Essentials\Essentials::create([
   'basepath'   => \get_template_directory(),
   'publicpath' => \get_template_directory_uri() 
 ]);

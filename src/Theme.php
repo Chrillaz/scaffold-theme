@@ -2,7 +2,7 @@
 
 namespace WpTheme\Scaffold;
 
-use \Essentials\Essentials;
+use \Scaffold\Essentials\Essentials;
 
 class Theme {
 
