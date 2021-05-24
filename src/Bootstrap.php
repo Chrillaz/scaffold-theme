@@ -4,6 +4,8 @@ namespace Scaffold\Theme;
 
 use \Scaffold\Essentials\Utilities as Util;
 
+use \Scaffold\Essentials\Services\HookLoader;
+
 require __DIR__ . '/../vendor/autoload.php';
 
 $app = \Scaffold\Essentials\Essentials::create([
@@ -13,9 +15,31 @@ $app = \Scaffold\Essentials\Essentials::create([
 
 $app->singleton( \Scaffold\Theme\Theme::class );
 
-$theme = $app->make( \Scaffold\Theme\Theme::class, [
-  'theme'     => \wp_get_theme( \get_Template() ),
-  'container' => $app
+/**
+ * Theme Options
+ */
+Util::directoryIterator( $app->getBasepath( '/src/Options' ), function ( $option ) use ( $app ) {
+
+  $app->singleton( $option->qualifiedname, function ( $container ) use ( $option ) {
+    
+    return $option->qualifiedname::register( $container );
+  });
+});
+
+/**
+ * Run Core, App Hooks and Integrations
+ */
+array_map( function ( $directory ) use ( $app ) {
+
+  Util::directoryIterator( $directory, function ( $hook ) use ( $app ) {
+
+    $hook = $app->make( $hook->qualifiedname );
+  
+    $hook->register();
+  });
+}, [
+  // $app->getBasepath( '/src/Integrations' ),
+  $app->getBasepath( '/src/Hooks' )
 ]);
 
-return $theme;
+return $app;
