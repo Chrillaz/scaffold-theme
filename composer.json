@@ -14,21 +14,25 @@
     {
       "type": "composer",
       "url": "https://wpackagist.org"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/Chrillaz/scaffold-essentials"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/Chrillaz/scaffold-cli"
     }
   ],
   "autoload": {
     "psr-4": {
-      "WpTheme\\Scaffold\\": "src/"
+      "Scaffold\\Theme\\": "src/"
     }
   },
   "require-dev": {
-    "phpunit/phpunit": "^7.3",
-    "wp-phpunit/wp-phpunit": "^5.0"
-  },
-  "scripts": {
-    "test": "phpunit"
+    "chrillaz/scaffold-cli": "dev-main"
   },
   "require": {
-    "illuminate/container": "^8.37"
+    "chrillaz/scaffold-essentials": "dev-main"
   }
 }

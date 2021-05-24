@@ -1,10 +1,10 @@
 <?php
 
-namespace WpTheme\Scaffold\App\Hooks;
+namespace Scaffold\Theme\Hooks;
 
-use WpTheme\Scaffold\Core\Abstracts\Hooks;
+use \Scaffold\Essentials\Abstracts\Hooks;
 
-use WpTheme\Scaffold\App\Services\HookLoader;
+use \Scaffold\Essentials\Services\HookLoader;
 
 final class ScriptLoader extends Hooks {
 

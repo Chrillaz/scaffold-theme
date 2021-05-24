@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+if ( php_sapi_name() !== 'cli' ) {
+
+  exit;
+}
+
+$cli = new \Scaffold\Cli\Console( 'Scaffold\\Theme', __DIR__ . '/src' );
+
+$cli->runCommand( $argv );
+
+exit;
