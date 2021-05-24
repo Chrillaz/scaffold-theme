@@ -4,6 +4,8 @@ node_modules
 style.css
 wordpress
 vendor
+composer.lock
+package-lock.json
 /assets/css
 /assets/js/*
 !/assets/js/src
