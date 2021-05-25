@@ -8,7 +8,7 @@ use \Scaffold\Essentials\Abstracts\Hooks;
 
 use \Scaffold\Essentials\Services\HookLoader;
 
-final class CookiePage extends Hooks {
+final class CookieBar extends Hooks {
 
   protected $hooks;
 
@@ -43,11 +43,29 @@ final class CookiePage extends Hooks {
     );
   }
 
+  public function output () {
+
+    echo sprintf('
+      <div class="cookie-notice">
+        <div>
+          <small>%s</small>
+          <div>
+            <a class="cookie-accept" href="" rel="nofollow">%s</a>
+          </div>
+        </div>
+      </div>',
+      $this->options->get( 'content' ),
+      $this->options->get( 'buttonText' )
+    );
+  }
+
   public function register (): void {
 
     $this->hooks->addAction( 'admin_menu', 'adminMenu', $this );
     
     $this->hooks->addAction( 'admin_init', 'adminInit', $this );
+
+    $this->hooks->addAction( 'wp_footer', 'output', $this );
 
     $this->hooks->load();
   }
