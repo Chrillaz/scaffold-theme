@@ -1,39 +1,39 @@
 function dismiss ( event: Event ) {
 
   event.preventDefault();
+  
+  return new Promise(( resolve ) => {
 
     if ( window.localStorage ) {
-
+  
       localStorage.setItem( 'cookieAccepted', 'true' );
     }
 
-    const bar = document.querySelector( '.cookie-notice' ) as HTMLElement;
-
-    bar.setAttribute( 'data-visible', 'false' );
+    resolve( localStorage.getItem( 'cookieAccepted' ) != null ? true : false );
+  })
 }
 
 export const runCookieNotice = () => {
 
-  if ( window.localStorage ) {
+  if ( window.localStorage && localStorage.getItem( 'cookieAccepted' ) != null ) {
 
-    const hasAccepted = localStorage.getItem( 'cookieAccepted' );
-
-    if ( hasAccepted ) {
-
-      return;
-    }
+    return;
   }
 
   const bar = document.querySelector('.cookie-notice') as HTMLElement,
-        button = document.querySelector( '.cookie-accept' ) as HTMLAnchorElement;
+        button = document.querySelector( '.cookie-accept' ) as HTMLAnchorElement,
+        timeout = bar.getAttribute( 'data-delay' );
 
-  if ( bar.dataset.visible === 'false' ) {
+  if ( bar.dataset.visible === 'false' && timeout ) {
     
-    setTimeout(() => bar.setAttribute( 'data-visible', 'true'), 4000);
+    setTimeout(() => bar.setAttribute( 'data-visible', 'true'), parseInt( timeout ) );
   }
 
   if ( button ) {
 
-    button.addEventListener( 'click', dismiss );
+    button.addEventListener( 'click', event => dismiss( event ).then( accepted => {
+
+      accepted ? bar.setAttribute( 'data-visible', 'false' ) : false;
+    }));
   }
 }

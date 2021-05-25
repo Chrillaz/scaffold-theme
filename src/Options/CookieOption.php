@@ -16,8 +16,10 @@ final class CookieOption extends Option implements OptionInterface {
       $container['option.cookie.name'],
       $container['option.cookie.capability'],
       [
-        'content'    => '<p>...Example text</p>',
-        'buttonText' => 'OK'
+        'activate'   => true,
+        'timeout'    => 5000,
+        'accept_content' => 'OK',
+        'content'    => '...Example text',
       ]
     );
   }
