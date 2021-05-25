@@ -11,8 +11,11 @@ function Theme () {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> cache test
+=======
+>>>>>>> fix
 =======
 
 $cache = Theme()->container()->make(\Scaffold\Essentials\Contracts\CacheInterface::class);
@@ -22,7 +25,12 @@ $cache->set( 'test', 'hej', 'testgroup' );
 var_dump('<pre>', $cache, '</pre>');
 >>>>>>> cache test
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> fix
 =======
 >>>>>>> cache test
+=======
+=======
+>>>>>>> fix
+>>>>>>> fix
