@@ -40,6 +40,7 @@ final class EnqueueScripts extends Hooks {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> cache test
     $this->assets->addStyle( 'theme-main-styles', '/css/style.css' )->inline( $this->styles->getCustomProperties() )->enqueue();
@@ -49,21 +50,22 @@ final class EnqueueScripts extends Hooks {
 =======
 =======
 >>>>>>> fix
+=======
+>>>>>>> fix
     $this->assets->addStyle( 'theme-main-styles', '/css/style.css' )->inline( $this->styles->getCustomProperties() )->enqueue();
 >>>>>>> fix
-
-    $this->assets->addScript( 'theme-main-scripts', '/js/main.min.js' )->load( 'defer' )->enqueue();
-=======
-    $this->assets->addStyle( 'theme-styles', '/css/style.css' )->inline( $this->styles->getCustomProperties() )->enqueue();
 
     $this->assets->addScript( 'theme-main-scripts', '/js/main.min.js' )->load( 'defer' )->enqueue();
 
     $this->assets->load();
+<<<<<<< HEAD
 >>>>>>> cache test
 =======
     $this->assets->addStyle( 'theme-main-styles', '/css/style.css' )->inline( $this->styles->getCustomProperties() )->enqueue();
 
     $this->assets->addScript( 'theme-main-scripts', '/js/main.min.js' )->load( 'defer' )->enqueue();
+>>>>>>> fix
+=======
 >>>>>>> fix
   }
 

@@ -12,6 +12,7 @@ function Theme () {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> cache test
 =======
@@ -33,4 +34,6 @@ var_dump('<pre>', $cache, '</pre>');
 =======
 =======
 >>>>>>> fix
+>>>>>>> fix
+=======
 >>>>>>> fix
