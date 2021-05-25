@@ -77,10 +77,13 @@ final class EnqueueScripts extends Hooks {
 
       $this->assets->addScript( 'scaffold-option-scripts', '/js/admin-scripts.min.js' )->dependencies( 'jquery', 'wp-color-picker' )->enqueue();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
       $this->assets->addStyle( 'scaffold-option-styles', '/css/admin-styles.css' )->enqueue();
 >>>>>>> fix
+=======
+>>>>>>> cookies
       
       $this->assets->addStyle( 'wp-color-picker' )->enqueue();
     }
