@@ -37,14 +37,16 @@ final class EnqueueScripts extends Hooks {
   public function publicAssets () {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     $this->assets->addStyle( 'theme-main-styles', '/css/style.css' )->inline( $this->styles->getCustomProperties() )->enqueue();
 =======
     $this->assets->addStyle( 'theme-styles', '/css/style.css' )->inline( $this->styles->getCustomProperties() )->enqueue();
 >>>>>>> cache test
+=======
+    $this->assets->addStyle( 'theme-main-styles', '/css/style.css' )->inline( $this->styles->getCustomProperties() )->enqueue();
+>>>>>>> fix
 
     $this->assets->addScript( 'theme-main-scripts', '/js/main.min.js' )->load( 'defer' )->enqueue();
-
-    $this->assets->load();
   }
 
   public function adminAssets ( string $suffix ) {
@@ -54,11 +56,14 @@ final class EnqueueScripts extends Hooks {
     if ( 'appearance_page_theme_option' === $suffix ) {
 
       $this->assets->addScript( 'scaffold-option-scripts', '/js/admin-scripts.min.js' )->dependencies( 'jquery', 'wp-color-picker' )->enqueue();
+<<<<<<< HEAD
+=======
+
+      $this->assets->addStyle( 'scaffold-option-styles', '/css/admin-styles.css' )->enqueue();
+>>>>>>> fix
       
       $this->assets->addStyle( 'wp-color-picker' )->enqueue();
     }
-
-    $this->assets->load();
   }
 
   public function editorAssets () {
