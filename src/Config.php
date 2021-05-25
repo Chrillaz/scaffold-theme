@@ -10,10 +10,12 @@ return [
     \WP_Theme::class => function () { return \wp_get_theme( \get_template() ); },
   ],
    /**
-   * Theme Option config
+   * Option config
    */
-  'option.theme.name'       => 'theme_option',
-  'option.theme.capability' => 'edit_themes',
+  'option.theme.name'        => 'theme_option',
+  'option.theme.capability'  => 'edit_themes',
+  'option.cookie.name'       => 'scaffold_cookie',
+  'option.cookie.capability' => 'edit_posts',
   /**
    * Theme Global Styles
    */
