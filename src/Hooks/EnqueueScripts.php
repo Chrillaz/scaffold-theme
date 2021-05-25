@@ -39,6 +39,8 @@ final class EnqueueScripts extends Hooks {
     $this->assets->addStyle( 'theme-main-styles', '/css/style.css' )->inline( $this->styles->getCustomProperties() )->enqueue();
 
     $this->assets->addScript( 'theme-main-scripts', '/js/main.min.js' )->load( 'defer' )->enqueue();
+
+    $this->assets->load();
   }
 
   public function adminAssets ( string $suffix ) {
