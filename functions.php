@@ -10,6 +10,7 @@ function Theme () {
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 $cache = Theme()->container()->make(\Scaffold\Essentials\Contracts\CacheInterface::class);
@@ -20,3 +21,5 @@ var_dump('<pre>', $cache, '</pre>');
 >>>>>>> cache test
 =======
 >>>>>>> fix
+=======
+>>>>>>> 0b6ffc1fa05f26849c818cd8c60b3ab0d54d8b15

@@ -38,6 +38,7 @@ final class EnqueueScripts extends Hooks {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     $this->assets->addStyle( 'theme-main-styles', '/css/style.css' )->inline( $this->styles->getCustomProperties() )->enqueue();
 
     $this->assets->addScript( 'theme-main-scripts', '/js/main.min.js' )->load( 'defer' )->enqueue();
@@ -53,6 +54,11 @@ final class EnqueueScripts extends Hooks {
 
     $this->assets->addScript( 'theme-main-scripts', '/js/main.min.js' )->load( 'defer' )->enqueue();
 >>>>>>> fix
+=======
+    $this->assets->addStyle( 'theme-main-styles', '/css/style.css' )->inline( $this->styles->getCustomProperties() )->enqueue();
+
+    $this->assets->addScript( 'theme-main-scripts', '/js/main.min.js' )->load( 'defer' )->enqueue();
+>>>>>>> 0b6ffc1fa05f26849c818cd8c60b3ab0d54d8b15
   }
 
   public function adminAssets ( string $suffix ) {
