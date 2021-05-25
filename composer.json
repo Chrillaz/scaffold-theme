@@ -33,6 +33,6 @@
     "chrillaz/scaffold-cli": "dev-main"
   },
   "require": {
-    "chrillaz/scaffold-essentials": "dev-main"
+    "chrillaz/scaffold-essentials": "dev-development"
   }
 }
