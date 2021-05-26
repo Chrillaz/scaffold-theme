@@ -22,15 +22,19 @@ export const runCookieNotice = () => {
 
 <<<<<<< HEAD
   const bar = document.querySelector('.cookie') as HTMLElement,
+<<<<<<< HEAD
 =======
   const bar = document.querySelector('.cookie-notice') as HTMLElement,
 >>>>>>> cookies
         button = document.querySelector( '.cookie-accept' ) as HTMLAnchorElement,
         timeout = bar.getAttribute( 'data-delay' );
+=======
+        button = document.querySelector( '.cookie-accept' ) as HTMLAnchorElement;
+>>>>>>> script fix
 
-  if ( bar.dataset.visible === 'false' && timeout ) {
+  if ( bar && bar.dataset.visible === 'false' ) {
     
-    setTimeout(() => bar.setAttribute( 'data-visible', 'true'), parseInt( timeout ) );
+    setTimeout(() => bar.setAttribute( 'data-visible', 'true'), parseInt( bar.getAttribute( 'data-delay' ) as string ) );
   }
 
   if ( button ) {
