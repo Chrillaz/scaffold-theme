@@ -50,6 +50,8 @@ final class EnqueueScripts extends Hooks {
     if ( 'appearance_page_theme_option' === $suffix ) {
 
       $this->assets->addScript( 'scaffold-option-scripts', '/js/admin-scripts.min.js' )->dependencies( 'jquery', 'wp-color-picker' )->enqueue();
+
+      $this->assets->addStyle( 'scaffold-option-styles', '/css/admin-styles.css' )->enqueue();
       
       $this->assets->addStyle( 'wp-color-picker' )->enqueue();
     }
