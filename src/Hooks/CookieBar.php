@@ -148,11 +148,11 @@ final class CookieBar extends Hooks {
     }
 
     echo sprintf('
-      <div class="cookie-notice" data-visible="false" data-delay="%s">
-        <div>
-          <small>%s</small>
-          <div>
-            <a class="cookie-accept" href="" rel="nofollow">%s</a>
+      <div class="cookie" data-visible="false" data-delay="%s">
+        <div class="cookie-wrapper">
+          <small class="cookie-text">%s</small>
+          <div class="wp-block-button">
+            <a class="wp-block-button__link cookie-accept" rel="nofollow">%s</a>
           </div>
         </div>
       </div>',

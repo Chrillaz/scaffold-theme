@@ -1,5 +1,5 @@
 const webpack = require( 'webpack' ),
-      { helper } = require( './config/bundler/webpack-helper' );
+      { helper } = require( './config/webpack-helper' );
 
 helper.addExternal({ 
   React: 'react',

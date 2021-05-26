@@ -65,6 +65,6 @@
     "node_modules"
   ],
   "include": [
-    "../../assets/js/src/**/*"
+    "../assets/js/src/**/*"
   ]
 }

@@ -20,7 +20,7 @@ export const runCookieNotice = () => {
     return;
   }
 
-  const bar = document.querySelector('.cookie-notice') as HTMLElement,
+  const bar = document.querySelector('.cookie') as HTMLElement,
         button = document.querySelector( '.cookie-accept' ) as HTMLAnchorElement,
         timeout = bar.getAttribute( 'data-delay' );
 
