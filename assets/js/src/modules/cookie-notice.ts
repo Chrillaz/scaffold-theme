@@ -20,22 +20,9 @@ export const runCookieNotice = () => {
     return;
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  const bar = document.querySelector('.cookie') as HTMLElement,
-<<<<<<< HEAD
-=======
-  const bar = document.querySelector('.cookie-notice') as HTMLElement,
->>>>>>> cookies
-        button = document.querySelector( '.cookie-accept' ) as HTMLAnchorElement,
-        timeout = bar.getAttribute( 'data-delay' );
-=======
-        button = document.querySelector( '.cookie-accept' ) as HTMLAnchorElement;
->>>>>>> script fix
-=======
   const bar = document.querySelector('.cookie') as HTMLElement,
         button = document.querySelector( '.cookie-accept' ) as HTMLAnchorElement;
->>>>>>> 02df48760ec49b9172c1a2906f090008f686dba4
+
 
   if ( bar && bar.dataset.visible === 'false' ) {
     
