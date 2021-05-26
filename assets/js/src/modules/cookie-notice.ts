@@ -21,12 +21,11 @@ export const runCookieNotice = () => {
   }
 
   const bar = document.querySelector('.cookie') as HTMLElement,
-        button = document.querySelector( '.cookie-accept' ) as HTMLAnchorElement,
-        timeout = bar.getAttribute( 'data-delay' );
+        button = document.querySelector( '.cookie-accept' ) as HTMLAnchorElement;
 
-  if ( bar.dataset.visible === 'false' && timeout ) {
+  if ( bar && bar.dataset.visible === 'false' ) {
     
-    setTimeout(() => bar.setAttribute( 'data-visible', 'true'), parseInt( timeout ) );
+    setTimeout(() => bar.setAttribute( 'data-visible', 'true'), parseInt( bar.getAttribute( 'data-delay' ) as string ) );
   }
 
   if ( button ) {
