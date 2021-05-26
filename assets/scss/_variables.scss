@@ -1,0 +1,31 @@
+$gb-dark:            var(--theme-dark-color);
+$gb-primary-dark:    var(--theme-primary-dark-color);
+$gb-primary:         var(--theme-primary-color);
+$gb-primary-light:   var(--theme-primary-light-color);
+$gb-secondary-dark:  var(--theme-secondary-dark-color);
+$gb-secondary:       var(--theme-secondary-color);
+$gb-secondary-light: var(--theme-secondary-light-color);
+$gb-light:           var(--theme-light-color);
+
+$gutenberg-colors: (
+  "dark":            $gb-dark,
+  "primary-dark":    $gb-primary-dark,
+  "primary":         $gb-primary,
+  "primary-light":   $gb-primary-light,
+  "secondary-dark":  $gb-secondary-dark,
+  "secondary":       $gb-secondary,
+  "secondary-light": $gb-secondary-light,
+  "light":           $gb-light
+);
+
+$gutenberg-dim-values: (
+  10: 9,
+  20: 8,
+  30: 7,
+  40: 6,
+  50: 5,
+  60: 4,
+  70: 3,
+  80: 2,
+  90: 1 
+);

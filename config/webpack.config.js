@@ -1,5 +1,5 @@
 const path = require( 'path' ),
-      helper = require( '../../webpack.helper' ),
+      helper = require( '../webpack.helper' ),
       { CleanWebpackPlugin } = require( 'clean-webpack-plugin' ),
       MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' ),
       RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
@@ -20,7 +20,7 @@ module.exports = (env, argv) => {
   
   const development = argv.mode === 'development';
 
-  const context = path.resolve(__dirname, '../../assets');
+  const context = path.resolve(__dirname, '../assets');
 
   helper.doThemeHeaders();
 
@@ -87,7 +87,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new CleanWebpackPlugin({
-        verbose: true,
+        dry: true,
         cleanOnceBeforeBuildPatterns: ['**/*', ...cleanExcludes]
       }),
       new RemoveEmptyScriptsPlugin({ extensions:['css', 'scss', 'sass'] }),

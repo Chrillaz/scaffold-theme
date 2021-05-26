@@ -13,3 +13,8 @@
 </head>
 <body <?php body_class() ?>>
 <?php wp_body_open(); ?>
+  <header>
+    <?php do_action( 'scaffold/navigation' ); ?>
+  </header>
+    <main class="site-main" role="main">
+      <div class="site-wrapper">

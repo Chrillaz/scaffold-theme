@@ -1,5 +1,5 @@
 const fs = require( 'fs' ),
-      package = require( '../../package.json' );
+      package = require( '../package.json' );
 
 const themeHeaders = () => {
 
