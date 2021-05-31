@@ -1,3 +1,5 @@
+import { gallery } from './featured-gallery'
+
 const { registerPlugin } = window.wp.plugins;
 
 const register = ( prefix: string, plugin: any ) => {
@@ -8,5 +10,5 @@ const register = ( prefix: string, plugin: any ) => {
 }
 
 export const registerThemePlugins = ( prefix: string ) => [
-  // Import plugins at the top and put inside this list
+  gallery
 ].forEach( plugin => register( prefix, plugin ) );

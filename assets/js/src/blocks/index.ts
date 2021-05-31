@@ -1,7 +1,5 @@
 const { registerBlockType } = window.wp.blocks;
 
-import { test } from './test'
-
 const prefix = 'scaffold/';
 
 const register = ( prefix: string, block: any ) => {
@@ -13,5 +11,4 @@ const register = ( prefix: string, block: any ) => {
 
 export const registerThemeBlocks = ( prefix: string ) => [
   // Import blocks at the top and include in this list
-  test
 ].forEach( block => register( prefix, block ) );

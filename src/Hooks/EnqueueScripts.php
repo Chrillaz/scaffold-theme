@@ -59,7 +59,8 @@ final class EnqueueScripts extends Hooks {
 
   public function editorAssets () {
 
-    $this->assets->addScript( 'theme-blocks', '/js/theme-blocks.min.js' )->dependencies(
+    $this->assets->addScript( 'theme-blocks', '/js/editor-scripts.min.js' )->dependencies(
+      'wp-editor',
       'wp-components', 
       'wp-compose', 
       'wp-data', 
@@ -76,7 +77,7 @@ final class EnqueueScripts extends Hooks {
 
     $this->hooks->addAction( 'admin_enqueue_scripts', 'adminAssets', $this );
 
-    // $this->hooks->addAction( 'enqueue_block_editor_assets', 'editorAssets', $this );
+    $this->hooks->addAction( 'enqueue_block_editor_assets', 'editorAssets', $this );
 
     $this->hooks->load();
   }
