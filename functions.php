@@ -35,10 +35,3 @@ register_post_meta(
     ]
   ]
 );
-
-add_action( 'wp_footer', function () {
-  // delete_post_meta( 1, '_featured_gallery' );
-  $meta = get_post_meta( 1, '_featured_gallery' );
-
-  var_dump('<pre>', $meta, '</pre>');
-});
