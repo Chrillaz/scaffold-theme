@@ -1,0 +1,34 @@
+.cookie {
+
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 9999;
+  background-color: var(--theme-primary-dark-color);
+  transition: opacity .5 ease-in-out, visibility .5s ease-in-out;
+  
+  &[data-visible="true"] {
+
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  &-text {
+    margin-bottom: 0;
+    color: var(--theme-light-color) !important;
+    font-size: var(--theme-paragraph-font);
+    font-weight: 300;
+  }
+
+  &-accept {
+    word-break: normal;
+  }
+}

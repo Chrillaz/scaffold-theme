@@ -23,10 +23,10 @@ return [
     /**
      * Theme Breakpoints
      */
-    'media.sm' => '414px',
-    'media.md' => '768px',
-    'media.lg' => '992px',
-    'media.xl' => '1200px',
+    'media.sm' => '414',
+    'media.md' => '768',
+    'media.lg' => '992',
+    'media.xl' => '1200',
     /**
      * Theme Color Palette
      */
@@ -41,14 +41,14 @@ return [
     /**
      * Theme Font Sizes
      */
-    'font.anchor'    => '12px',
-    'font.paragraph' => '16px',
-    'font.h6'        => '20px',
-    'font.h5'        => '24px',
-    'font.h4'        => '28px',
-    'font.h3'        => '32px',
-    'font.h2'        => '36px',
-    'font.h1'        => '40px'
+    'font.anchor'    => '12',
+    'font.paragraph' => '16',
+    'font.h6'        => '20',
+    'font.h5'        => '24',
+    'font.h4'        => '28',
+    'font.h3'        => '32',
+    'font.h2'        => '36',
+    'font.h1'        => '40'
   ],
   /**
    * Theme Supports
@@ -61,6 +61,6 @@ return [
     'disable-custom-colors'     => true,
     'disable-custom-gradients'  => true,
     'disable-custom-font-sizes' => false,
-    'px-or-rem-unit'            => true
+    'px-or-rem-unit'            => false
   ]
 ];

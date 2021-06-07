@@ -1,0 +1,47 @@
+%heading {
+  margin-bottom: .5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  word-break: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @extend %heading;
+  &:not(.has-text-color) {
+    color: var(--theme-primary-dark-color);
+  }
+}
+
+@each $level, $size in $gutenberg-headings {
+
+  #{$level} {
+    font-size: calc( #{$size} * .8 );
+    line-height: $size;
+    @media ( min-width: 500px ) {
+      font-size: $size;
+      line-height: calc( #{$size} * 1.2 );
+    }
+  }
+}
+
+h1 {
+  margin-bottom: .75rem;
+}
+
+p {
+  font-size: var(--theme-paragraph-font);
+  line-height: calc( var(--theme-paragraph-font) * 1.2 );
+  font-weight: 400;
+  &:not(.has-text-color) {
+    color: var(--theme-dark-color);
+  }
+}
+
+a {
+  font-size: var(--theme-anchor-font);
+}

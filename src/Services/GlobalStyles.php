@@ -34,6 +34,15 @@ class GlobalStyles {
               : $styles[$curr] . 'px';
           } else {
 
+            // Find color hex
+            if ( strpos( $styles[$curr], '#' ) !== false ) {
+
+              // make rgb value
+              list( $r, $g, $b ) = sscanf( $styles[$curr], "#%02x%02x%02x" );
+              
+              $acc .= "--theme-$path[1]-rgb: $r,$g,$b; \n";
+            }
+            
             $value = $styles[$curr];
           }
 
