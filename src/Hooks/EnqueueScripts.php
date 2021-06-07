@@ -47,15 +47,9 @@ final class EnqueueScripts extends Hooks {
     
     if ( 'appearance_page_theme_option' === $suffix ) {
 
-<<<<<<< HEAD
       $this->assets->addScript( 'admin-scripts', '/js/admin.min.js' )->dependencies( 'jquery', 'wp-color-picker' )->enqueue();
 
       $this->assets->addStyle( 'admin-styles', '/css/admin-styles.css' )->enqueue();
-=======
-      $this->assets->addScript( 'scaffold-option-scripts', '/js/admin-scripts.min.js' )->dependencies( 'jquery', 'wp-color-picker' )->enqueue();
-
-      $this->assets->addStyle( 'scaffold-option-styles', '/css/admin-styles.css' )->enqueue();
->>>>>>> main
       
       $this->assets->addStyle( 'wp-color-picker' )->enqueue();
     }
@@ -63,11 +57,7 @@ final class EnqueueScripts extends Hooks {
 
   public function editorAssets () {
 
-<<<<<<< HEAD
     $this->assets->addScript( 'editor-scripts', '/js/editor.min.js' )->dependencies(
-=======
-    $this->assets->addScript( 'theme-blocks', '/js/editor-scripts.min.js' )->dependencies(
->>>>>>> main
       'wp-editor',
       'wp-components', 
       'wp-compose', 

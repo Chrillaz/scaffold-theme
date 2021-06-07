@@ -9,8 +9,4 @@ export default interface Wp {
   editPost: any;
   hooks: any;
   plugins: any;
-<<<<<<< HEAD:resources/scripts/contracts/wp.ts
 };
-=======
-};
->>>>>>> main:assets/js/src/contracts/wp.ts
