@@ -1,7 +1,9 @@
 .DS_Store
 node_modules
 .env
+.npmrc
 style.css
+public
 wordpress
 vendor
 composer.lock

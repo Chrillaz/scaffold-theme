@@ -1,6 +1,0 @@
-@each $level, $value in $gutenberg-dim-values {
-  .has-background-dim-#{$level} {
-
-    opacity: $value/10;
-  }
-}

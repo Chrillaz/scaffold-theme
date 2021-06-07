@@ -1,5 +1,5 @@
-import { registerThemeBlocks } from './blocks/index'
-import { registerThemePlugins } from './plugins/index'
+import { registerThemeBlocks } from './blocks/blocks'
+import { registerThemePlugins } from './plugins/plugins'
 import { blocksBlacklist } from './hooks/blocks-blacklist'
 
 const prefix = 'scaffold';

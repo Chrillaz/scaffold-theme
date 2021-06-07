@@ -1,7 +1,5 @@
 const { registerBlockType } = window.wp.blocks;
 
-const prefix = 'scaffold/';
-
 const register = ( prefix: string, block: any ) => {
 
   const { name, config } = block;

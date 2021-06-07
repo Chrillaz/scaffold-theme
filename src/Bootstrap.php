@@ -8,7 +8,8 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $app = \Scaffold\Essentials\Essentials::create([
   'basepath'   => \get_template_directory(),
-  'publicpath' => \get_template_directory_uri() 
+  'publicpath' => \get_template_directory_uri(),
+  'publicdir'  => '/public'
 ]);
 
 $app->singleton( \Scaffold\Theme\Theme::class );

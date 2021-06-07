@@ -1,3 +1,4 @@
+// Todo: declare types...
 export default interface Wp {  
   blockEditor: any;
   blocks: any;

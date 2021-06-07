@@ -26,4 +26,14 @@ class Theme {
 
     return $this->theme->get( $head );
   }
+
+  public function publicPath ( string $relpath = null ): string {
+
+    return $this->container->getPublicpath( $relpath );
+  }
+
+  public function basePath ( string $relpath = null ): string {
+
+    return $this->container->getBasepath( $relpath );
+  }
 }

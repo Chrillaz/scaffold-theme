@@ -36,22 +36,20 @@ final class EnqueueScripts extends Hooks {
 
   public function publicAssets () {
 
-    $this->assets->addStyle( 'theme-main-styles', '/css/style.css' )->inline( $this->styles->getCustomProperties() )->enqueue();
+    $this->assets->addStyle( 'public-styles', '/css/public-styles.css' )->inline( $this->styles->getCustomProperties() )->enqueue();
 
-    $this->assets->addScript( 'theme-main-scripts', '/js/main.min.js' )->load( 'defer' )->enqueue();
+    $this->assets->addScript( 'public-scripts', '/js/public.min.js' )->load( 'defer' )->enqueue();
 
     $this->assets->load();
   }
 
   public function adminAssets ( string $suffix ) {
-
-    $this->assets->addStyle( 'scaffold-option-styles', '/css/admin-styles.css' )->enqueue();
     
     if ( 'appearance_page_theme_option' === $suffix ) {
 
-      $this->assets->addScript( 'scaffold-option-scripts', '/js/admin-scripts.min.js' )->dependencies( 'jquery', 'wp-color-picker' )->enqueue();
+      $this->assets->addScript( 'admin-scripts', '/js/admin.min.js' )->dependencies( 'jquery', 'wp-color-picker' )->enqueue();
 
-      $this->assets->addStyle( 'scaffold-option-styles', '/css/admin-styles.css' )->enqueue();
+      $this->assets->addStyle( 'admin-styles', '/css/admin-styles.css' )->enqueue();
       
       $this->assets->addStyle( 'wp-color-picker' )->enqueue();
     }
@@ -59,7 +57,7 @@ final class EnqueueScripts extends Hooks {
 
   public function editorAssets () {
 
-    $this->assets->addScript( 'theme-blocks', '/js/editor-scripts.min.js' )->dependencies(
+    $this->assets->addScript( 'editor-scripts', '/js/editor.min.js' )->dependencies(
       'wp-editor',
       'wp-components', 
       'wp-compose', 
