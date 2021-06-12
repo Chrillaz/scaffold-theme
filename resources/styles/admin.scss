@@ -1,4 +1,4 @@
-@import 'modules/switch.scss';
+@import "modules/switch";
 
 @for $i from 1 through 10 {
 
@@ -10,8 +10,8 @@
 .flex {
   &-container {
     display: flex;
-    flex-wrap: wrap;
     flex: 1;
+    flex-wrap: wrap;
   }
 }
 

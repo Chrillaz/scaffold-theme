@@ -27,7 +27,7 @@ $gutenberg-dim-values: (
   60: 4,
   70: 3,
   80: 2,
-  90: 1 
+  90: 1
 );
 
 //***Fonts
@@ -41,10 +41,10 @@ $gb-h5: var(--theme-h5-font);
 $gb-h6: var(--theme-h6-font);
 
 $gutenberg-headings: (
-  'h1': $gb-h1,
-  'h2': $gb-h2,
-  'h3': $gb-h3,
-  'h4': $gb-h4,
-  'h5': $gb-h5,
-  'h6': $gb-h6
+  "h1": $gb-h1,
+  "h2": $gb-h2,
+  "h3": $gb-h3,
+  "h4": $gb-h4,
+  "h5": $gb-h5,
+  "h6": $gb-h6
 );

@@ -1,19 +1,19 @@
 .cookie {
 
   position: fixed;
-  width: 100%;
-  left: 0;
   bottom: 0;
-  opacity: 0;
-  visibility: hidden;
+  left: 0;
   z-index: 9999;
+  width: 100%;
+  visibility: hidden;
   background-color: var(--theme-primary-dark-color);
+  opacity: 0;
   transition: opacity .5 ease-in-out, visibility .5s ease-in-out;
-  
+
   &[data-visible="true"] {
+    visibility: visible;
 
     opacity: 1;
-    visibility: visible;
   }
 
   &-wrapper {
@@ -23,9 +23,9 @@
 
   &-text {
     margin-bottom: 0;
-    color: var(--theme-light-color) !important;
     font-size: var(--theme-paragraph-font);
     font-weight: 300;
+    color: var(--theme-light-color);
   }
 
   &-accept {
