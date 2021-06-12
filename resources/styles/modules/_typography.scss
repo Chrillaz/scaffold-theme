@@ -20,11 +20,11 @@ h6 {
 @each $level, $size in $gutenberg-headings {
 
   #{$level} {
-    font-size: calc( #{$size} * .8 );
+    font-size: calc(#{$size} * .8);
     line-height: $size;
-    @media ( min-width: 500px ) {
+    @media (min-width: 500px) {
       font-size: $size;
-      line-height: calc( #{$size} * 1.2 );
+      line-height: calc(#{$size} * 1.2);
     }
   }
 }
@@ -35,8 +35,8 @@ h1 {
 
 p {
   font-size: var(--theme-paragraph-font);
-  line-height: calc( var(--theme-paragraph-font) * 1.2 );
   font-weight: 400;
+  line-height: calc(var(--theme-paragraph-font) * 1.2);
   &:not(.has-text-color) {
     color: var(--theme-dark-color);
   }
