@@ -2,28 +2,33 @@
 
 namespace Scaffold\Theme\Options;
 
-use \Scaffold\Essentials\Essentials;
+use Scaffold\Essentials\Essentials;
+use Scaffold\Essentials\Abstracts\Option;
+use Scaffold\Essentials\Contracts\OptionInterface;
 
-use \Scaffold\Essentials\Abstracts\Option;
+final class ThemeOption extends Option implements OptionInterface
+{
 
-use \Scaffold\Essentials\Contracts\OptionInterface;
+    public function getGroup(string $group): array
+    {
 
-final class ThemeOption extends Option implements OptionInterface {
+        return array_filter(
+            $this->getOption(),
+            function ($key) use ($group) {
 
-  public function getGroup ( string $group ): array {
+                return false !== strpos($key, "$group.");
+            },
+            ARRAY_FILTER_USE_KEY
+        );
+    }
 
-    return array_filter( $this->getOption(), function ( $key ) use ( $group ) {
+    public static function register(Essentials $container): OptionInterface
+    {
 
-      return false !== strpos( $key, "$group." );
-    }, ARRAY_FILTER_USE_KEY );
-  }
-
-  public static function register ( Essentials $container ): OptionInterface {
-
-    return new Self( 
-      $container['option.theme.name'],
-      $container['option.theme.capability'],
-      array_merge( $container['theme.styles'], $container['theme.supports'] )
-    );
-  }
+        return new self(
+            $container['option.theme.name'],
+            $container['option.theme.capability'],
+            array_merge($container['theme.styles'], $container['theme.supports'])
+        );
+    }
 }

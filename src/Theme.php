@@ -2,38 +2,44 @@
 
 namespace Scaffold\Theme;
 
-use \Scaffold\Essentials\Essentials;
+use Scaffold\Essentials\Essentials;
 
-class Theme {
+class Theme
+{
 
-  protected $theme;
+    protected $theme;
 
-  protected $container;
+    protected $container;
 
-  public function __construct( \WP_Theme $theme, Essentials $container ) {
+    public function __construct(\WP_Theme $theme, Essentials $container)
+    {
 
-    $this->theme = $theme;
+        $this->theme = $theme;
 
-    $this->container = $container;
-  }
+        $this->container = $container;
+    }
 
-  public function container () {
+    public function container()
+    {
 
-    return $this->container;
-  }
+        return $this->container;
+    }
 
-  public function get ( string $head ) {
+    public function get(string $head)
+    {
 
-    return $this->theme->get( $head );
-  }
+        return $this->theme->get($head);
+    }
 
-  public function publicPath ( string $relpath = null ): string {
+    public function publicPath(string $relpath = null): string
+    {
 
-    return $this->container->getPublicpath( $relpath );
-  }
+        return $this->container->getPublicpath($relpath);
+    }
 
-  public function basePath ( string $relpath = null ): string {
+    public function basePath(string $relpath = null): string
+    {
 
-    return $this->container->getBasepath( $relpath );
-  }
+        return $this->container->getBasepath($relpath);
+    }
 }

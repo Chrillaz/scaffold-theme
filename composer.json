@@ -30,9 +30,14 @@
     }
   },
   "require-dev": {
+    "squizlabs/php_codesniffer": "3.*",
     "chrillaz/scaffold-cli": "dev-main"
   },
   "require": {
     "chrillaz/scaffold-essentials": "dev-development"
+  },
+  "scripts": {
+    "format": "phpcbf --standard=PSR12 --extensions=php --report-summary --report-source ./src",
+    "lint": "phpcs --standard=PSR12 --extensions=php --colors ./src"
   }
 }

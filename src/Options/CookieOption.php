@@ -2,25 +2,25 @@
 
 namespace Scaffold\Theme\Options;
 
-use \Scaffold\Essentials\Essentials;
+use Scaffold\Essentials\Essentials;
+use Scaffold\Essentials\Abstracts\Option;
+use Scaffold\Essentials\Contracts\OptionInterface;
 
-use \Scaffold\Essentials\Abstracts\Option;
+final class CookieOption extends Option implements OptionInterface
+{
 
-use \Scaffold\Essentials\Contracts\OptionInterface;
+    public static function register(Essentials $container): OptionInterface
+    {
 
-final class CookieOption extends Option implements OptionInterface {
-
-  public static function register ( Essentials $container ): OptionInterface {
-
-    return new Self( 
-      $container['option.cookie.name'],
-      $container['option.cookie.capability'],
-      [
-        'activate'   => true,
-        'timeout'    => 5000,
-        'accept_content' => 'OK',
-        'content'    => '...Example text',
-      ]
-    );
-  }
+        return new self(
+            $container['option.cookie.name'],
+            $container['option.cookie.capability'],
+            [
+            'activate'   => true,
+            'timeout'    => 5000,
+            'accept_content' => 'OK',
+            'content'    => '...Example text',
+            ]
+        );
+    }
 }
