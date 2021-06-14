@@ -2,53 +2,60 @@
 
 namespace Scaffold\Theme\Hooks;
 
-use \Scaffold\Essentials\Abstracts\Hooks;
-
+use Scaffold\Essentials\Abstracts\Hooks;
 use Scaffold\Theme\Options\ThemeOption;
+use Scaffold\Essentials\Services\HookLoader;
 
-use \Scaffold\Essentials\Services\HookLoader;
+final class OptionPage extends Hooks
+{
 
-final class OptionPage extends Hooks {
+    protected $hooks;
 
-  protected $hooks;
+    protected $options;
 
-  protected $options;
+    public function __construct(HookLoader $hooks, ThemeOption $options)
+    {
 
-  public function __construct ( HookLoader $hooks, ThemeOption $options ) {
+        $this->hooks = $hooks;
 
-    $this->hooks = $hooks;
+        $this->options = $options;
+    }
 
-    $this->options = $options;
-  }
+    public function adminInit()
+    {
 
-  public function adminInit () {
-  
-    \register_setting( $this->options->getName(), $this->options->getName() );
-  }
+        \register_setting($this->options->getName(), $this->options->getName());
+    }
 
-  public function adminMenu () {
+    public function adminMenu()
+    {
 
-    \add_theme_page( 
-      __( 'Theme Options', Theme()->get( 'TextDomain' ) ),
-      __( 'Theme Options', Theme()->get( 'TextDomain' ) ),
-      $this->options->getCapability(), 
-      $this->options->getName(), 
-      function () {
-        \get_template_part( 'templates/admin/options', 'page', [
-          Theme(),
-          $this->options
-        ]);
-      },
-      null  
-    );
-  }
+        \add_theme_page(
+            __('Theme Options', Theme()->get('TextDomain')),
+            __('Theme Options', Theme()->get('TextDomain')),
+            $this->options->getCapability(),
+            $this->options->getName(),
+            function () {
+                \get_template_part(
+                    'templates/admin/options',
+                    'page',
+                    [
+                    Theme(),
+                    $this->options
+                    ]
+                );
+            },
+            null
+        );
+    }
 
-  public function register (): void {
+    public function register(): void
+    {
 
-    $this->hooks->addAction( 'admin_menu', 'adminMenu', $this );
-    
-    $this->hooks->addAction( 'admin_init', 'adminInit', $this );
+        $this->hooks->addAction('admin_menu', 'adminMenu', $this);
 
-    $this->hooks->load();
-  }
+        $this->hooks->addAction('admin_init', 'adminInit', $this);
+
+        $this->hooks->load();
+    }
 }
