@@ -2,93 +2,77 @@
 
 namespace Scaffold\Theme\Hooks;
 
-use Scaffold\Essentials\Abstracts\Hooks;
-use Scaffold\Essentials\Services\{
+use Scaffold\Theme\Options\ThemeOption;
+
+use \Scaffold\Essentials\Abstracts\Hooks;
+
+use \Scaffold\Essentials\Services\{
   HookLoader,
   AssetLoader
 };
-use Scaffold\Theme\Options\ThemeOption;
-use Scaffold\Theme\Services\GlobalStyles;
 
-final class EnqueueScripts extends Hooks
+final class EnqueueScripts extends Hooks 
 {
 
-    protected $hooks;
+  protected $assets;
 
-    protected $assets;
+  protected $options;
 
-    protected $styles;
+  public function __construct( AssetLoader $assets, ThemeOption $options ) 
+  {
 
-    protected $options;
+    $this->assets = $assets;
+    
+    $this->options = $options;
+  }
 
-    public function __construct(HookLoader $hooks, AssetLoader $assets, ThemeOption $options, GlobalStyles $styles)
-    {
+  public function publicAssets() 
+  {
 
-        $this->hooks = $hooks;
+    $this->assets->addStyle( 'dashicons' )->enqueue();
 
-        $this->assets = $assets;
+    $this->assets->addStyle( 'theme-main-styles', '/css/public-styles.css' )->enqueue();
 
-        $this->styles = $styles;
+    $this->assets->addScript( 'theme-public-scripts', '/js/public.min.js' )->load( 'defer' )->enqueue();
 
-        $this->options = $options;
-    }
+    $this->assets->load();
+  }
 
-    public function publicAssets()
-    {
+  public function adminAssets( string $suffix ) 
+  {
 
-        $this->assets->addStyle('public-styles', '/css/public-styles.css')
-            ->inline($this->styles->getCustomProperties())
-            ->enqueue();
+    $this->assets->addStyle( 'scaffold-option-styles', '/css/admin-styles.css' )->enqueue();
+  }
 
-        $this->assets->addScript('public-scripts', '/js/public.min.js')
-            ->load('defer')
-            ->enqueue();
+  public function editorAssets() 
+  {
+    
+    $this->assets->addScript( 'theme-blocks', '/js/editor-scripts.min.js' )
+      ->dependencies(
+        'wp-components', 
+        'wp-compose', 
+        'wp-data', 
+        'wp-editor',
+        'wp-edit-post', 
+        'wp-element', 
+        'wp-hooks',
+        'wp-plugins',
+        'wp-polyfill'
+      )
+      ->enqueue();      
 
-        $this->assets->load();
-    }
+      $this->assets->addStyle( 'editor-styles', '/css/editor-styles.css' )->enqueue();
+  }
 
-    public function adminAssets(string $suffix)
-    {
+  public function register( HookLoader $hooks ): void 
+  {
 
-        if ('appearance_page_theme_option' === $suffix) {
-            $this->assets->addScript('admin-scripts', '/js/admin.min.js')
-                ->dependencies('jquery', 'wp-color-picker')
-                ->enqueue();
+    $hooks->addAction( 'wp_enqueue_scripts', 'publicAssets', $this );
 
-            $this->assets->addStyle('admin-styles', '/css/admin-styles.css')
-                ->enqueue();
+    $hooks->addAction( 'admin_enqueue_scripts', 'adminAssets', $this );
 
-            $this->assets->addStyle('wp-color-picker')
-                ->enqueue();
-        }
-    }
+    $hooks->addAction( 'enqueue_block_editor_assets', 'editorAssets', $this );
 
-    public function editorAssets()
-    {
-
-        $this->assets->addScript('editor-scripts', '/js/editor.min.js')
-            ->dependencies(
-                'wp-editor',
-                'wp-components',
-                'wp-compose',
-                'wp-data',
-                'wp-edit-post',
-                'wp-element',
-                'wp-plugins',
-                'wp-polyfill'
-            )
-            ->enqueue();
-    }
-
-    public function register(): void
-    {
-
-        $this->hooks->addAction('wp_enqueue_scripts', 'publicAssets', $this);
-
-        $this->hooks->addAction('admin_enqueue_scripts', 'adminAssets', $this);
-
-        $this->hooks->addAction('enqueue_block_editor_assets', 'editorAssets', $this);
-
-        $this->hooks->load();
-    }
+    $hooks->load();
+  }
 }

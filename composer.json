@@ -1,43 +1,53 @@
 {
-  "name": "chrillaz/scaffold-theme",
-  "description": "wordpress starter theme",
-  "type": "wordpress-theme",
-  "license": "MIT",
-  "homepage": "https://github.com/Chrillaz/scaffold-theme",
-  "authors": [
-    {
-      "name": "Christoffer Öhman",
-      "email": "totalchriz@gmail.com"
-    }
-  ],
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://wpackagist.org"
+    "name": "chrillaz/scaffold-theme",
+    "description": "wordpress starter theme",
+    "type": "project",
+    "license": "ISC",
+    "homepage": "https://github.com/Chrillaz/scaffold-theme",
+    "authors": [
+        {
+            "name": "Christoffer Öhman",
+            "email": "totalchriz@gmail.com"
+        }
+    ],
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        }
     },
-    {
-      "type": "vcs",
-      "url": "https://github.com/Chrillaz/scaffold-essentials"
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Chrillaz/scaffold-essentials"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Chrillaz/scaffold-cli"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Scaffold\\Theme\\": "src/"
+        }
     },
-    {
-      "type": "vcs",
-      "url": "https://github.com/Chrillaz/scaffold-cli"
+    "require-dev": {
+        "squizlabs/php_codesniffer": "3.*",
+        "chrillaz/scaffold-cli": "dev-main"
+    },
+    "require": {
+        "chrillaz/scaffold-essentials": "dev-main"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "rm -rf .git",
+            "npm install",
+            "npm run build"
+        ],
+        "format": "phpcbf --standard=PSR12 --extensions=php --report-summary --report-source ./src",
+        "lint": "phpcs --standard=PSR12 --extensions=php --colors ./src"
     }
-  ],
-  "autoload": {
-    "psr-4": {
-      "Scaffold\\Theme\\": "src/"
-    }
-  },
-  "require-dev": {
-    "squizlabs/php_codesniffer": "3.*",
-    "chrillaz/scaffold-cli": "dev-main"
-  },
-  "require": {
-    "chrillaz/scaffold-essentials": "dev-development"
-  },
-  "scripts": {
-    "format": "phpcbf --standard=PSR12 --extensions=php --report-summary --report-source ./src",
-    "lint": "phpcs --standard=PSR12 --extensions=php --colors ./src"
-  }
 }

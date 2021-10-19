@@ -1,7 +1,9 @@
 {
-  "extends": "@chrillaz/scaffold-pipe/config/tsconfig",
-  "compilerOptions": {
-    "typeRoots": [ "scripts/typings" ],
-  },
-  "include": ["scripts/**/*"]
-}
+    "extends": "@chrillaz/scaffold-scripts/config/tsconfig.json",
+    "compilerOptions": {
+        "typeRoots": [ "scripts/typings", "../node_modules/@types/" ]
+    },
+    "include": [
+        "scripts/**/*"
+    ]
+  }
