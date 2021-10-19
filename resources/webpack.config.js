@@ -1,7 +1,12 @@
-const config = require( '@chrillaz/scaffold-pipe/config/webpack.config' );
+const config = require( '@chrillaz/scaffold-scripts/config/webpack.config' );
 
 module.exports = {
   ...config,
+  externals: {
+    React: 'react',
+    $: 'jquery',
+    JQuery: 'jquery'
+  },
   entry: {
     public: './scripts/public.ts',
     editor: './scripts/editor.ts',

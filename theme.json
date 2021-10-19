@@ -1,0 +1,114 @@
+{
+    "version": 1,
+    "settings": {
+      "color": {
+        "custom": false,
+        "palette": [
+          {
+            "slug": "black",
+            "color": "#000000",
+            "name": "Black"
+          },
+          {
+            "slug": "dark",
+            "color": "#232323",
+            "name": "Dark"
+          },
+          {
+            "slug": "primary-dark",
+            "color": "#31505E",
+            "name": "Primary Dark"
+          },
+          {
+            "slug": "primary",
+            "color": "#446B7E",
+            "name": "Primary"
+          },
+          {
+            "slug": "primary-light",
+            "color": "#D2DCE0",
+            "name": "Primary Light"
+          },
+          {
+            "slug": "secondary-dark",
+            "color": "#ECE0D1",
+            "name": "Secondary Dark"
+          },
+          {
+            "slug": "secondary",
+            "color": "#F5EFE8",
+            "name": "Secondary"
+          },
+          {
+            "slug": "secondary-light",
+            "color": "#EEEEEE",
+            "name": "Secondary Light"
+          },
+          {
+            "slug": "light",
+            "color": "#F9F9F9",
+            "name": "Light"
+          },
+          {
+            "slug": "white",
+            "color": "#FFFFFF",
+            "name": "White"
+          }
+        ]
+      },
+      "layout": {
+        "contentSize": "800px",
+        "wideSize": "1000px"
+      },
+      "spacing": {
+        
+      },
+      "typography": {
+        "customFontSize": false,
+        "customLineHeight": false,
+        "dropCap": false,
+        "fontSizes": [
+          {
+            "slug": "anchor",
+            "size": "14px",
+            "name": "Anchor"
+          },
+          {
+            "slug": "paragraph",
+            "size": "16px",
+            "name": "Paragraph"
+          },
+          {
+            "slug": "h6",
+            "size": "20px",
+            "name": "H6"
+          },
+          {
+            "slug": "h5",
+            "size": "25px",
+            "name": "H5"
+          },
+          {
+            "slug": "h4",
+            "size": "30px",
+            "name": "H4"
+          },
+          {
+            "slug": "h3",
+            "size": "35px",
+            "name": "H3"
+          },
+          {
+            "slug": "h2",
+            "size": "40px",
+            "name": "H2"
+          },
+          {
+            "slug": "h1",
+            "size": "45px",
+            "name": "H1"
+          }
+        ]
+      }
+    }
+  }
