@@ -1,5 +1,7 @@
 <?php
 
+require __DIR__ . '/src/utilities.php';
+
 $theme = require __DIR__ . '/src/Bootstrap.php';
 
 function Theme () {
