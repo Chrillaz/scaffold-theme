@@ -1,6 +1,7 @@
-import { registerThemeBlocks } from './blocks/blocks'
+import { registerThemeBlocks } from './blocks/register'
 import { registerThemePlugins } from './plugins/register'
 import { blocksBlacklist } from './hooks/blocks-blacklist'
+const { select, subscribe } = window.wp.data;
 
 const prefix = 'scaffold';
 
@@ -10,4 +11,16 @@ blocksBlacklist([
 
 registerThemeBlocks( prefix );
 
-registerThemePlugins( prefix );
+const { getCurrentPostType } = select( 'core/editor' );
+
+let postType = getCurrentPostType(); 
+
+subscribe(() => {
+
+    if ( postType !== getCurrentPostType() ) {
+  
+      registerThemePlugins( prefix, getCurrentPostType() );
+    }
+  
+    postType = getCurrentPostType()
+  })
